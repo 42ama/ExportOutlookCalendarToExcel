@@ -3,6 +3,7 @@ using CalendarDataToAxData.Model;
 using IronXL;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -13,9 +14,20 @@ namespace CalendarDataToAxData.Logic
         const char subjectLetter = 'A';
         const char durationLetter = 'B';
         const char durationToCalculateLetter = 'C';
+        const int SUBJECT_COLUMN_LENGTH = 25500;
 
-        public static void Execute(IEnumerable<IGrouping<string, Activity>> activitiesGroupedByDate)
+        public static void Execute(IEnumerable<IGrouping<string, Activity>> activitiesGroupedByDate, string resultFilePath)
         {
+            if (activitiesGroupedByDate is null)
+            {
+                throw new ArgumentNullException(nameof(activitiesGroupedByDate));
+            }
+
+            if (string.IsNullOrEmpty(resultFilePath))
+            {
+                throw new ArgumentException($"'{nameof(resultFilePath)}' cannot be null or empty.", nameof(resultFilePath));
+            }
+
             var xlsxWorkbook = WorkBook.Create(ExcelFileFormat.XLSX);
             xlsxWorkbook.Metadata.Author = "CalendarDataToAxData";
             var dates = activitiesGroupedByDate.Select(i => i.Key);
@@ -35,18 +47,22 @@ namespace CalendarDataToAxData.Logic
                 AddAggregationColumns(xlsSheet, indexAfterLastRow);
             }
 
-            var fileName = CreateFileName(dates);
+            var fileName = CreateFileName(dates, resultFilePath);
             xlsxWorkbook.SaveAs(fileName);
         }
 
-        public static string CreateFileName(IEnumerable<string> dates)
+        public static string CreateFileName(IEnumerable<string> dates, string resultFilePath)
         {
             var sortedDates = dates.OrderBy(i => i).ToList();
 
             var firstDate = sortedDates.First();
             var lastDate = sortedDates.Last();
 
-            return $"{firstDate}_{lastDate}.xlsx";
+            var fileName = $"{firstDate}_{lastDate}.xlsx";
+
+            var filePath = Path.Combine(resultFilePath, fileName);
+
+            return filePath;
         }
 
         public static void SetHeaderColumns(WorkSheet sheet)
@@ -58,15 +74,16 @@ namespace CalendarDataToAxData.Logic
 
         public static void SetColumnStyles(WorkSheet sheet)
         {
+            sheet.Columns[0].Width = SUBJECT_COLUMN_LENGTH;
             sheet.Columns[0].Style.WrapText = true;
-            sheet.Columns[0].Style.ShrinkToFit = true;
         }
 
         public static void AddAggregationColumns(WorkSheet sheet, int indexAfterLastRow)
         {
             var rangeString = $"{durationToCalculateLetter}2:{durationToCalculateLetter}{(indexAfterLastRow -1).ToString()}";
             var durationRange = sheet[rangeString];
-            sheet.SetValue(durationToCalculateLetter, indexAfterLastRow, durationRange.Sum());
+            var sum = durationRange.Sum();
+            sheet.SetValue(durationToCalculateLetter, indexAfterLastRow, sum);
         }
 
         /// <summary>
