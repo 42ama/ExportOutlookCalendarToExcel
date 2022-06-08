@@ -9,14 +9,17 @@ using System.Text;
 
 namespace CalendarDataToAxData.Logic
 {
-    public static class ExcelWriter
+    public static class IronXLExcelWriter
     {
-        const char subjectLetter = 'A';
-        const char durationLetter = 'B';
-        const char durationToCalculateLetter = 'C';
+        const char projectLetter = 'A';
+        const char subjectLetter = 'B';
+        const int subjectColumnNumer = 1;
+        const char durationLetter = 'C';
+        const char durationToCalculateLetter = 'D';
+        const int headerRowNumber = 1;
         const int SUBJECT_COLUMN_LENGTH = 25500;
 
-        public static void Execute(IEnumerable<IGrouping<string, Activity>> activitiesGroupedByDate, string resultFilePath)
+        public static string Execute(IEnumerable<IGrouping<string, Activity>> activitiesGroupedByDate, string resultFilePath)
         {
             if (activitiesGroupedByDate is null)
             {
@@ -49,6 +52,7 @@ namespace CalendarDataToAxData.Logic
 
             var fileName = CreateFileName(dates, resultFilePath);
             xlsxWorkbook.SaveAs(fileName);
+            return fileName;
         }
 
         public static string CreateFileName(IEnumerable<string> dates, string resultFilePath)
@@ -67,15 +71,16 @@ namespace CalendarDataToAxData.Logic
 
         public static void SetHeaderColumns(WorkSheet sheet)
         {
-            sheet.SetValue(subjectLetter, 1, "Тема");
-            sheet.SetValue(durationLetter, 1, "Длительность");
-            sheet.SetValue(durationToCalculateLetter, 1, "Длительность для рассчетов");
+            sheet.SetValue(projectLetter, headerRowNumber, "Проект");
+            sheet.SetValue(subjectLetter, headerRowNumber, "Тема");
+            sheet.SetValue(durationLetter, headerRowNumber, "Длительность");
+            sheet.SetValue(durationToCalculateLetter, headerRowNumber, "Длительность для рассчетов");
         }
 
         public static void SetColumnStyles(WorkSheet sheet)
         {
-            sheet.Columns[0].Width = SUBJECT_COLUMN_LENGTH;
-            sheet.Columns[0].Style.WrapText = true;
+            sheet.Columns[subjectColumnNumer].Width = SUBJECT_COLUMN_LENGTH;
+            sheet.Columns[subjectColumnNumer].Style.WrapText = true;
         }
 
         public static void AddAggregationColumns(WorkSheet sheet, int indexAfterLastRow)
@@ -99,6 +104,7 @@ namespace CalendarDataToAxData.Logic
 
             foreach (var activity in activities)
             {
+                sheet.SetValue(projectLetter, index, activity.Project);
                 sheet.SetValue(subjectLetter, index, activity.Subject);
                 sheet.SetValue(durationLetter, index, activity.DurationFormated);
                 sheet.SetValue(durationToCalculateLetter, index, activity.Duration);

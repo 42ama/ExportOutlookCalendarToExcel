@@ -14,18 +14,35 @@ namespace CalendarDataToAxData
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Введите путь до файла:");
-            var filePath = Console.ReadLine();// I:\calendula.csv
-            Console.WriteLine("Куда сохрнаить файл? (по умолчанию - Рабочий стол");
-            var resultFilePath = Console.ReadLine(); 
-            if (string.IsNullOrWhiteSpace(resultFilePath))
+            try
             {
-                resultFilePath = Environment.GetFolderPath(
-                         System.Environment.SpecialFolder.DesktopDirectory);
-            }
+                Console.WriteLine(@"Введите путь до файла: (по умолчанию I:\calendula.csv)");
+                var filePath = Console.ReadLine();// I:\calendula.csv
+                if (string.IsNullOrWhiteSpace(filePath))
+                {
+                    filePath = @"I:\calendula.csv";
+                }
+                Console.WriteLine("Куда сохрнаить файл? (по умолчанию - Рабочий стол)");
+                var resultFilePath = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(resultFilePath))
+                {
+                    resultFilePath = Environment.GetFolderPath(
+                             System.Environment.SpecialFolder.DesktopDirectory);
+                }
 
-            var activitiesGroupedByDate = CalendarReader.ReadActivities(filePath);
-            ExcelWriter.Execute(activitiesGroupedByDate, resultFilePath);
+                var activitiesGroupedByDate = CalendarReader.ReadActivities(filePath);
+                var fileName = EPPlusExcelWriter.Execute(activitiesGroupedByDate, resultFilePath);
+                Console.WriteLine($"Готово! Создан файл: {fileName}");
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+            finally
+            {
+                Console.ReadKey();
+            }
+            
         }
     }
 }

@@ -12,6 +12,13 @@ namespace CalendarDataToAxData.Logic
 {
     public static class CalendarReader
     {
+        private static ISet<string> _subjectToIgnore = new HashSet<string>
+        {
+            "Обед",
+            "Блок",
+            "Встреча. Блок"
+        };
+
         public static IEnumerable<IGrouping<string, Activity>> ReadActivities(string filePath)
         {
             if (string.IsNullOrEmpty(filePath))
@@ -31,6 +38,9 @@ namespace CalendarDataToAxData.Logic
             var calendars = csv.GetRecords<CalendarCSV>();
             var activitiesGroupedByDate = calendars
                 .Select(calendar => new Activity(calendar))
+                .Where(activity => !_subjectToIgnore.Contains(activity.Subject))
+                .Where(activity => activity.Duration > 0)
+                .OrderByDescending(activity => activity.Project)
                 .GroupBy(a => a.Date)
                 .ToList();
 
