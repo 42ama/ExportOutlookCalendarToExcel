@@ -1,19 +1,38 @@
-﻿using System;
+﻿using CalendarDataToAxData.Common;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace CalendarDataToAxData.Model
 {
+    /// <summary>
+    /// Активность
+    /// </summary>
     public class Activity
     {
-        const string MEETING_PREFIX = "Встреча. ";
-
+        /// <summary>
+        /// Проект.
+        /// </summary>
         public string Project { get; set; }
 
+        /// <summary>
+        /// Тема.
+        /// </summary>
         public string Subject { get; private set; }
 
+        /// <summary>
+        /// Дата.
+        /// </summary>
+        public DateTime Date { get; }
+
+        /// <summary>
+        /// Длительность.
+        /// </summary>
         private TimeSpan _duration;
-        public string Date { get; }
+
+        /// <summary>
+        /// Длительность.
+        /// </summary>
         public double Duration
         {
             get
@@ -21,42 +40,42 @@ namespace CalendarDataToAxData.Model
                 return _duration.TotalMinutes / 60f;
             }
         }
-        public string DurationFormated { get
-            {
-                var minutesInHours = Duration;
-                return String.Format("{0:n}", minutesInHours);
-            }
-        }
 
-        public Activity() { }
-
+        /// <summary>
+        /// Конструктор.
+        /// </summary>
+        /// <param name="calendar">Календарь.</param>
         public Activity(CalendarCSV calendar)
         {
-            if (calendar is null)
-            {
-                throw new ArgumentNullException(nameof(calendar));
-            }
+            Argument.NotNull(calendar, nameof(calendar));
 
             _duration = calendar.EndTime - calendar.StartTime;
-            Date = calendar.StartDate;
+            Date = DateTime.Parse(calendar.StartDate);
             SetSubjectAndProject(calendar);
         }   
         
+        /// <summary>
+        /// Заполнить Тему и Проект.
+        /// </summary>
+        /// <param name="calendar">Календарь.</param>
         private void SetSubjectAndProject(CalendarCSV calendar)
         {
-            const int substringLenght = 15;
+            Argument.NotNull(calendar, nameof(calendar));
+
             var canSeparateSubjectAndProject = false;
 
-            if (calendar.Subject.Length >= substringLenght)
+            if (calendar.Subject.Length >= Constants.ActivitySettings.SubstringSeparatorSearchLenght)
             {
-                canSeparateSubjectAndProject = calendar.Subject.Substring(0, substringLenght).Contains('.');
+                canSeparateSubjectAndProject = calendar.Subject
+                                    .Substring(0, Constants.ActivitySettings.SubstringSeparatorSearchLenght)
+                                    .Contains(Constants.ActivitySettings.Separator);
             }
 
             var project = String.Empty;
             var subject = String.Empty;
             if (canSeparateSubjectAndProject)
             {
-                var subjectAndProjectSplit = calendar.Subject.Split('.', 2);
+                var subjectAndProjectSplit = calendar.Subject.Split(Constants.ActivitySettings.Separator, 2);
                 project = subjectAndProjectSplit[0];
                 subject = subjectAndProjectSplit[1];
             }
@@ -67,7 +86,7 @@ namespace CalendarDataToAxData.Model
 
             Project = project;
             Subject = (calendar.IsMeeting
-                ? MEETING_PREFIX
+                ? Constants.ActivitySettings.MeetingPrefix
                 : string.Empty) + subject.Trim();
         }
     }

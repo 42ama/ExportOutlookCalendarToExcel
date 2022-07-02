@@ -7,6 +7,8 @@ using CalendarDataToAxData.Model;
 using CalendarDataToAxData.Logic;
 using System.Linq;
 using IronXL;
+using Microsoft.Extensions.Configuration;
+using CalendarDataToAxData.Extension;
 
 namespace CalendarDataToAxData
 {
@@ -22,6 +24,7 @@ namespace CalendarDataToAxData
                 {
                     filePath = @"I:\calendula.csv";
                 }
+
                 Console.WriteLine("Куда сохрнаить файл? (по умолчанию - Рабочий стол)");
                 var resultFilePath = Console.ReadLine();
                 if (string.IsNullOrWhiteSpace(resultFilePath))
@@ -30,8 +33,8 @@ namespace CalendarDataToAxData
                              System.Environment.SpecialFolder.DesktopDirectory);
                 }
 
-                var activitiesGroupedByDate = CalendarReader.ReadActivities(filePath);
-                var fileName = EPPlusExcelWriter.Execute(activitiesGroupedByDate, resultFilePath);
+                var activitiesGroupedByDate = CalendarCSVReader.ReadActivities(filePath);
+                var fileName = EPPlusExcelWriter.WriteToFile(activitiesGroupedByDate, resultFilePath);
                 Console.WriteLine($"Готово! Создан файл: {fileName}");
             }
             catch(Exception ex)

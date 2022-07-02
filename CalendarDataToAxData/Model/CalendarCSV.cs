@@ -6,6 +6,9 @@ using System.Text;
 
 namespace CalendarDataToAxData.Model
 {
+    /// <summary>
+    /// Календарь полученный из csv.
+    /// </summary>
     public class CalendarCSV
     {
         public string Subject { get; set; }
@@ -31,26 +34,19 @@ namespace CalendarDataToAxData.Model
         public string PaymentMethod { get; set; }
         public string IsPrivate { get; set; }
 
-
+        /// <summary>
+        /// Является ли данная Активность Встречей.
+        /// </summary>
         public bool IsMeeting
         {
             get
             {
+                // Считаем, что Активность - Встреча, если есть Место или Участники.
                 var isAnyParticipants = !string.IsNullOrEmpty(ParticipantObligatory);
                 var isPlaceSet = !string.IsNullOrEmpty(Place);
 
                 return isAnyParticipants || isPlaceSet;
             }
-        }
-
-        public override string ToString()
-        {
-            return this.GetType().GetProperties()
-                .Select(info => (info.Name, Value: info.GetValue(this, null) ?? "(null)"))
-                .Aggregate(
-                    new StringBuilder(),
-                    (sb, pair) => sb.AppendLine($"{pair.Name}: {pair.Value}"),
-                    sb => sb.ToString());
         }
     }
 }

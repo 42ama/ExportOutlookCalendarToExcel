@@ -5,69 +5,70 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using CalendarDataToAxData.Common;
+using CalendarDataToAxData.Extension;
 
 namespace CalendarDataToAxData.Logic
 {
-    internal class EPPlusExcelWriter
+    /// <summary>
+    /// Запись в Excel файл, библиотекка EPPlus.
+    /// </summary>
+    internal static class EPPlusExcelWriter
     {
+        /// <summary>
+        /// Выполнить запись коллекции Активностей в Файл
+        /// </summary>
+        /// <param name="activitiesDateCollection">Актинвости сгруппированные по дате.</param>
+        /// <param name="resultFilePath">Папка для конечного местоположения.</param>
+        /// <returns>Путь до файла.</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentException"></exception>
+        public static string WriteToFile(ActivitiesDateCollection activitiesDateCollection, string resultFilePath)
+         {
+            Argument.NotNull(activitiesDateCollection, nameof(activitiesDateCollection));
+            Argument.NotNullOrEmpty(resultFilePath, nameof(resultFilePath));
 
-        const char projectLetter = 'A';
-        const char subjectLetter = 'B';
-        const int subjectColumnNumer = 2;
-        const char durationLetter = 'C';
-        const char durationToCalculateLetter = 'D';
-        const int headerRowNumber = 1;
-        const int SUBJECT_COLUMN_LENGTH = 122;
-
-        public static string Execute(IEnumerable<IGrouping<string, Activity>> activitiesGroupedByDate, string resultFilePath)
-        {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-            if (activitiesGroupedByDate is null)
-            {
-                throw new ArgumentNullException(nameof(activitiesGroupedByDate));
-            }
 
-            if (string.IsNullOrEmpty(resultFilePath))
-            {
-                throw new ArgumentException($"'{nameof(resultFilePath)}' cannot be null or empty.", nameof(resultFilePath));
-            }
+            var sortedDates = activitiesDateCollection.GetSortedDates();
+            var fileName = CreateFileDestination(sortedDates, resultFilePath);
+            using var package = new ExcelPackage(fileName);
             
-
-            var dates = activitiesGroupedByDate.Select(i => i.Key);
-            var fileName = CreateFileName(dates, resultFilePath);
-            using (var package = new ExcelPackage(fileName))
+            foreach (var activitiesWithDate in activitiesDateCollection)
             {
-                foreach (var activityGroupedByDate in activitiesGroupedByDate)
+                var sheetName = activitiesWithDate.Date.ToShortDateString();
+
+                if (package.Workbook.Worksheets.Any(sheet => sheet.Name == sheetName))
                 {
-                    var date = activityGroupedByDate.Key;
-
-                    if (package.Workbook.Worksheets.Any(sheet => sheet.Name == date))
-                    {
-                        package.Workbook.Worksheets.Delete(date);
-                    }
-
-                    var xlsSheet = package.Workbook.Worksheets.Add(date);
-
-                    SetHeaderColumns(xlsSheet);
-
-                    var indexAfterLastRow = ProcessActivities(xlsSheet, activityGroupedByDate);
-
-                    SetColumnStyles(xlsSheet);
-                    AddAggregationColumns(xlsSheet, indexAfterLastRow);
+                    package.Workbook.Worksheets.Delete(sheetName);
                 }
 
+                var currentDateSheet = package.Workbook.Worksheets.Add(sheetName);
 
-                package.Save();
+                SetHeaderColumns(currentDateSheet);
+                var lastRowIndex = ProcessActivities(currentDateSheet, activitiesWithDate.Activities);
+                SetColumnStyles(currentDateSheet);
+                AddAggregationColumns(currentDateSheet, lastRowIndex);
             }
+
+            package.Save();
+            
             return fileName;
         }
 
-        public static string CreateFileName(IEnumerable<string> dates, string resultFilePath)
+        /// <summary>
+        /// Создает путь до файла.
+        /// </summary>
+        /// <param name="activitiesDateCollection">Коллекция активностей и дат</param>
+        /// <param name="resultFilePath">Путь до папки с новым файлом</param>
+        /// <returns>Путь до файла</returns>
+        private static string CreateFileDestination(IOrderedEnumerable<DateTime> sortedDates, string resultFilePath)
         {
-            var sortedDates = dates.OrderBy(i => i).ToList();
+            Argument.NotNull(sortedDates, nameof(sortedDates));
+            Argument.NotNullOrEmpty(resultFilePath, nameof(resultFilePath));
 
-            var firstDate = sortedDates.First();
-            var lastDate = sortedDates.Last();
+            var firstDate = sortedDates.First().ToShortDateString();
+            var lastDate = sortedDates.Last().ToShortDateString();
 
             var fileName = $"{firstDate}_{lastDate}.xlsx";
 
@@ -76,48 +77,88 @@ namespace CalendarDataToAxData.Logic
             return filePath;
         }
 
-        public static void SetHeaderColumns(ExcelWorksheet sheet)
+        /// <summary>
+        /// Установить колонки-заголовки.
+        /// </summary>
+        /// <param name="sheet">Лист excel.</param>
+        private static void SetHeaderColumns(ExcelWorksheet sheet)
         {
-            sheet.SetValue($"{projectLetter}{headerRowNumber}", "Проект");
-            sheet.SetValue($"{subjectLetter}{headerRowNumber}", "Тема");
-            sheet.SetValue($"{durationLetter}{headerRowNumber}", "Длительность");
-            sheet.SetValue($"{durationToCalculateLetter}{headerRowNumber}", "Длительность для рассчетов");
-        }
+            Argument.NotNull(sheet, nameof(sheet));
 
-        public static void SetColumnStyles(ExcelWorksheet sheet)
-        {
-            sheet.Columns[subjectColumnNumer].Width = SUBJECT_COLUMN_LENGTH;
-            sheet.Columns[subjectColumnNumer].Style.WrapText = true;
-        }
+            sheet.SetCellValue(Constants.Excel.Project.Letter,
+                                Constants.Excel.Header.RowNumber,
+                                Constants.Excel.Project.Name);
 
-        public static void AddAggregationColumns(ExcelWorksheet sheet, int indexAfterLastRow)
-        {
-            var rangeString = $"{durationToCalculateLetter}2:{durationToCalculateLetter}{(indexAfterLastRow - 1).ToString()}";
-            sheet.SetValue($"{durationToCalculateLetter}{indexAfterLastRow}", $"=СУММ({rangeString})");
+            sheet.SetCellValue(Constants.Excel.Subject.Letter,
+                                Constants.Excel.Header.RowNumber,
+                                Constants.Excel.Subject.Name);
+
+            sheet.SetCellValue(Constants.Excel.Duration.Letter,
+                                Constants.Excel.Header.RowNumber,
+                                Constants.Excel.Duration.Name);
         }
 
         /// <summary>
-        /// 
+        /// Установить стили колонок.
         /// </summary>
-        /// <param name="sheet"></param>
-        /// <param name="activities"></param>
-        /// <param name="indexAfterLastRow"></param>
-        /// <returns>indexAfterLastRow</returns>
-        public static int ProcessActivities(ExcelWorksheet sheet, IEnumerable<Activity> activities)
+        /// <param name="sheet">Лист excel.</param>
+        private static void SetColumnStyles(ExcelWorksheet sheet)
         {
-            var index = 2;
+            Argument.NotNull(sheet, nameof(sheet));
+
+            sheet.Columns[Constants.Excel.Subject.ColumnNumber].Width = Constants.Excel.Subject.ColumnLength;
+            sheet.Columns[Constants.Excel.Subject.ColumnNumber].Style.WrapText = true;
+        }
+
+        /// <summary>
+        /// Добавить агрегирующую колонку с суммой по длительности.
+        /// </summary>
+        /// <param name="sheet">Лист excel.</param>
+        private static void AddAggregationColumns(ExcelWorksheet sheet, int lastRowIndex)
+        {
+            Argument.NotNull(sheet, nameof(sheet));
+            Argument.Require(lastRowIndex > 0, $"Для индекса {nameof(lastRowIndex)} ожидается значение больше 0.");
+
+            var sumDurationFormula = new BasicFormula
+            {
+                Range = new Range(Constants.Excel.FirstValueRowNumber, lastRowIndex),
+                Letter = Constants.Excel.Duration.Letter,
+                FormulaOperation = Constants.FormulaOperations.Sum
+            };
+            var formula = sumDurationFormula.GetFormula();
+
+            sheet.SetFormula(Constants.Excel.Duration.Letter, lastRowIndex + 1, formula);
+        }
+
+        /// <summary>
+        /// Записать активности в лист excel.
+        /// </summary>
+        /// <param name="sheet">Лист excel.</param>
+        /// <param name="activities">Коллекция активностей</param>
+        /// <returns>Номер крайней использованной строчки.</returns>
+        private static int ProcessActivities(ExcelWorksheet sheet, IEnumerable<Activity> activities)
+        {
+            Argument.NotNull(sheet, nameof(sheet));
+            Argument.NotNull(activities, nameof(activities));
+
+            var indexToRecord = Constants.Excel.Header.RowNumber;
 
             foreach (var activity in activities)
             {
-                sheet.SetValue($"{projectLetter}{index}", activity.Project);
-                sheet.SetValue($"{subjectLetter}{index}", activity.Subject);
-                sheet.SetValue($"{durationLetter}{index}", activity.DurationFormated);
-                sheet.SetValue($"{durationToCalculateLetter}{index}", activity.Duration);
-
-                index++;
+                indexToRecord++;
+                
+                sheet.SetCellValue(Constants.Excel.Project.Letter,
+                                indexToRecord,
+                                activity.Project);
+                sheet.SetCellValue(Constants.Excel.Subject.Letter,
+                                indexToRecord,
+                                activity.Subject);
+                sheet.SetCellValue(Constants.Excel.Duration.Letter,
+                                indexToRecord,
+                                activity.Duration);
             }
 
-            return index;
+            return indexToRecord;
         }
     }
 }

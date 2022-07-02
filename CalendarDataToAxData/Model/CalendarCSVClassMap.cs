@@ -5,8 +5,14 @@ using System.Text;
 
 namespace CalendarDataToAxData.Model
 {
+    /// <summary>
+    /// Мапиинг CSV к классу <c>CalendarCSV</c>.
+    /// </summary>
     public class CalendarCSVClassMap : ClassMap<CalendarCSV>
     {
+        /// <summary>
+        /// Конструктор.
+        /// </summary>
         public CalendarCSVClassMap()
         {
             Map(m => m.Subject).Name("Тема");
