@@ -36,6 +36,29 @@ namespace CalendarDataToAxData.Model
             return _activities.Select(i => i.Date).OrderBy(i => i.Date);
         }
 
+        public void TryFillEmptyProject()
+        {
+            var allProjects = _activities
+                    .SelectMany(activityWithDate => activityWithDate.Activities)
+                    .Where(activity => !string.IsNullOrEmpty(activity.Project))
+                    .GroupBy(activity => activity.Project)
+                    .Select(activityGroup => activityGroup.Key);
+
+            foreach (var activityWithDate in _activities)
+            {
+                foreach (var activity in activityWithDate.Activities)
+                {
+                    if (!string.IsNullOrEmpty(activity.Project))
+                    {
+                        continue;
+                    }
+
+                    var newProject = allProjects.Where(project => activity.Subject.ToUpper().Contains(project.ToUpper())).FirstOrDefault();
+                    activity.Project = newProject;
+                }
+            }
+        }
+
         /// <summary>
         /// Отфильтровать Активности.
         /// </summary>

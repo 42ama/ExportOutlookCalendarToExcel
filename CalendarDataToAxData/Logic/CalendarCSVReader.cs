@@ -38,7 +38,7 @@ namespace CalendarDataToAxData.Logic
             var calendars = csv.GetRecords<CalendarCSV>();
             var activities = calendars.Select(calendar => new Activity(calendar)).ToList();
             var activitiesDateCollection = new ActivitiesDateCollection(activities);
-
+            activitiesDateCollection.TryFillEmptyProject();
             return activitiesDateCollection;
         }
     }
