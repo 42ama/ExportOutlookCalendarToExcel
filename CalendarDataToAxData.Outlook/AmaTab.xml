@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<customUI xmlns="http://schemas.microsoft.com/office/2009/07/customui" onLoad="Ribbon_Load">
+  <ribbon>
+    <tabs>
+      <tab idMso="TabAddIns">
+        <group id="AmaGroup" label="AmaGroup">
+          <button id="ConvertForAX" label="Convert for AX"
+             screentip="Text" onAction="OnConvertForAXButton"
+             supertip="Inserts text at the cursor location."/>
+        </group>
+      </tab>
+    </tabs>
+  </ribbon>
+</customUI>
+

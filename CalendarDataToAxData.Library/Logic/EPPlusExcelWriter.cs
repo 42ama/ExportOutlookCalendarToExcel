@@ -30,28 +30,29 @@ namespace CalendarDataToAxData.Logic
 
             var sortedDates = activitiesDateCollection.GetSortedDates();
             var fileName = CreateFileDestination(sortedDates, resultFilePath);
-            using var package = new ExcelPackage(fileName);
-            
-            foreach (var activitiesWithDate in activitiesDateCollection)
+            using (var package = new ExcelPackage(fileName))
             {
-                var sheetName = activitiesWithDate.Date.ToShortDateString();
-
-                if (package.Workbook.Worksheets.Any(sheet => sheet.Name == sheetName))
+                foreach (var activitiesWithDate in activitiesDateCollection)
                 {
-                    package.Workbook.Worksheets.Delete(sheetName);
+                    var sheetName = activitiesWithDate.Date.ToShortDateString();
+
+                    if (package.Workbook.Worksheets.Any(sheet => sheet.Name == sheetName))
+                    {
+                        package.Workbook.Worksheets.Delete(sheetName);
+                    }
+
+                    var currentDateSheet = package.Workbook.Worksheets.Add(sheetName);
+
+                    SetHeaderColumns(currentDateSheet);
+                    var lastRowIndex = ProcessActivities(currentDateSheet, activitiesWithDate.Activities);
+                    SetColumnStyles(currentDateSheet);
+                    AddAggregationColumns(currentDateSheet, lastRowIndex);
                 }
 
-                var currentDateSheet = package.Workbook.Worksheets.Add(sheetName);
+                package.Save();
 
-                SetHeaderColumns(currentDateSheet);
-                var lastRowIndex = ProcessActivities(currentDateSheet, activitiesWithDate.Activities);
-                SetColumnStyles(currentDateSheet);
-                AddAggregationColumns(currentDateSheet, lastRowIndex);
-            }
-
-            package.Save();
-            
-            return fileName;
+                return fileName;
+            }                
         }
 
         /// <summary>
@@ -119,7 +120,8 @@ namespace CalendarDataToAxData.Logic
 
             var sumDurationFormula = new BasicFormula
             {
-                Range = new Range(Constants.Excel.FirstValueRowNumber, lastRowIndex),
+                RangeStart = Constants.Excel.FirstValueRowNumber,
+                RangeEnd = lastRowIndex,
                 Letter = Constants.Excel.Duration.Letter,
                 FormulaOperation = Constants.FormulaOperations.Sum
             };

@@ -9,30 +9,27 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace CalendarDataToAxData.Logic
+namespace CalendarDataToAxData.Logic.CalendarReader
 {
     /// <summary>
     /// Чтение данных календаря из CSV файла
     /// </summary>
-    public static class CalendarCSVReader
+#pragma warning disable S101 // Types should be named in PascalCase
+    public class CalendarCSVReader : ICalendarReader
+#pragma warning restore S101 // Types should be named in PascalCase
     {
         /// <summary>
         /// Прочитать Активности из csv-файла.
         /// </summary>
         /// <param name="filePath">Путь к файлу</param>
         /// <returns>Коллекция активностей</returns>
-        public static ActivitiesDateCollection ReadActivities(string filePath)
+        public ActivitiesDateCollection ReadActivities(TextReader reader)
         {
-            Argument.NotNullOrEmpty(filePath, nameof(filePath));
-
             var config = new CsvConfiguration(CultureInfo.InvariantCulture)
             {
-                NewLine = Environment.NewLine,
+                Encoding = Constants.FileInfo.TargetEncoding
             };
-
-            using var reader = new StreamReader(filePath);
-
-            using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
+            using var csv = new CsvReader(reader, config);
             csv.Context.RegisterClassMap<CalendarCSVClassMap>();
 
             var calendars = csv.GetRecords<CalendarCSV>();

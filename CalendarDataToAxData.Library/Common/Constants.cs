@@ -82,7 +82,7 @@ namespace CalendarDataToAxData.Common
             /// <summary>
             /// Разделитель для массивов в конфигурации.
             /// </summary>
-            public static string ArraySeparator { get; } = ",";
+            public static char ArraySeparator { get; } = ',';
 
             /// <summary>
             /// Значения ключей файла конфигурации.

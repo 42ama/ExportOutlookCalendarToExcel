@@ -1,5 +1,4 @@
 ﻿using CalendarDataToAxData.Extension;
-using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -60,7 +59,7 @@ namespace CalendarDataToAxData.Model
                         continue;
                     }
 
-                    var newProject = allProjects.FirstOrDefault(project => activity.Subject.Contains(project, StringComparison.OrdinalIgnoreCase));
+                    var newProject = allProjects.FirstOrDefault(project => activity.Subject.Contains(project)); // !!! Тут в Contains Должен быть StringComparison.OrdinalIgnoreCase
                     activity.Project = newProject;
                 }
             }
@@ -73,8 +72,9 @@ namespace CalendarDataToAxData.Model
         /// <returns>Отфильтрованная коллекция Активностей.</returns>
         private IEnumerable<Activity> FilterActivtities(IEnumerable<Activity> activities)
         {
-            var subjectsToIgnore = AppConfigProvider.GetStringArray(Constants.AppConfig.KeyNames.SubjectToIgnore);
-            
+            var subjectsToIgnore = new string[] { "Обед", "Встреча", "Блок", "Встреча. Блок" };// !!! AppConfigProvider.GetStringArray(Constants.AppConfig.KeyNames.SubjectToIgnore);
+
+
             return activities
                 .Where(activity => !subjectsToIgnore.Contains(activity.Subject))
                 .Where(activity => activity.Duration > 0)

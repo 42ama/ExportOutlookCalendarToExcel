@@ -98,7 +98,7 @@ namespace CalendarDataToAxData.Model
         {
             SetDefaultSubjectAndProject(isMeeting, subject);
 
-            var searchPattern = AppConfigProvider.Get(Constants.AppConfig.KeyNames.ProjectSearchPattern);
+            var searchPattern = "%(.*?)%(.*)";// !!! AppConfigProvider.Get(Constants.AppConfig.KeyNames.ProjectSearchPattern);
             var regex = new Regex(searchPattern);
             var regexMatch = regex.Match(subject);
 

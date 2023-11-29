@@ -6,23 +6,50 @@ using System.IO;
 using CalendarDataToAxData.Model;
 using CalendarDataToAxData.Logic;
 using System.Linq;
-using IronXL;
 using Microsoft.Extensions.Configuration;
 using CalendarDataToAxData.Extension;
+using System.Text;
+using OfficeOpenXml;
+using System.Diagnostics;
+using CalendarDataToAxData.Common;
+using CalendarDataToAxData.Logic.CalendarReader;
 
 namespace CalendarDataToAxData
 {
-    internal class Program
+    internal static class Program
     {
+        static Program()
+        {
+            // Поддержка windows-1251
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
+            // Включаем EPPlus
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+        }
+
         static void Main(string[] args)
         {
             try
             {
-                Console.WriteLine(@"Введите путь до файла: (по умолчанию I:\calendula.csv)");
-                var filePath = Console.ReadLine();// I:\calendula.csv
+                // Валидируем App.Config
+                if (!AppConfigProvider.IsSettingExists(Constants.AppConfig.KeyNames.SubjectToIgnore))
+                {
+                    Console.WriteLine($"В App.config должен быть ключ {Constants.AppConfig.KeyNames.SubjectToIgnore}");
+                    return;
+                }
+
+                if (!AppConfigProvider.IsSettingExists(Constants.AppConfig.KeyNames.ProjectSearchPattern))
+                {
+                    Console.WriteLine($"В App.config должен быть ключ {Constants.AppConfig.KeyNames.ProjectSearchPattern}");
+                    return;
+                }
+
+
+                Console.WriteLine(@"Введите путь до файла: (по умолчанию E:\outlook-export.csv)");
+                var filePath = Console.ReadLine();
                 if (string.IsNullOrWhiteSpace(filePath))
                 {
-                    filePath = @"I:\calendula.csv";
+                    filePath = @"E:\outlook-export.csv";
                 }
 
                 Console.WriteLine("Куда сохрнаить файл? (по умолчанию - Рабочий стол)");
@@ -33,9 +60,14 @@ namespace CalendarDataToAxData
                              System.Environment.SpecialFolder.DesktopDirectory);
                 }
 
-                var activitiesGroupedByDate = CalendarCSVReader.ReadActivities(filePath);
+                using var file = new FileWithEncoding(filePath, Constants.FileInfo.TargetEncoding);
+                var reader = new CalendarCSVReader();
+                var activitiesGroupedByDate = reader.ReadActivities(file.StreamReader);
+
                 var fileName = EPPlusExcelWriter.WriteToFile(activitiesGroupedByDate, resultFilePath);
                 Console.WriteLine($"Готово! Создан файл: {fileName}");
+
+                new Process { StartInfo = new ProcessStartInfo(fileName) { UseShellExecute = true } }.Start();
             }
             catch(Exception ex)
             {
@@ -45,7 +77,6 @@ namespace CalendarDataToAxData
             {
                 Console.ReadKey();
             }
-            
         }
     }
 }
