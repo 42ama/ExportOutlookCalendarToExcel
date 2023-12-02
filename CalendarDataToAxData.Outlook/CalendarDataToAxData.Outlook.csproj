@@ -160,17 +160,25 @@
     can be found.
   -->
   <ItemGroup>
-    <Compile Include="AXCommandExportCSV.cs" />
-    <Compile Include="AXTab.cs" />
-    <Compile Include="AXCommandUserPrompt.cs" />
-    <Compile Include="InputDialog.cs">
+    <Compile Include="ChooseDate\ChooseDateStrategy\ChooseDateStrategy_Week.cs" />
+    <Compile Include="ChooseDate\ChooseDateStrategy\ChooseDateStrategy_MonthToToday.cs" />
+    <Compile Include="ChooseDate\ChooseDateStrategy\ChooseDateStrategy_Month.cs" />
+    <Compile Include="ChooseDate\ChooseDateStrategy\ChooseDateStrategy_Today.cs" />
+    <Compile Include="ChooseDate\ChooseDateStrategy\ChooseDateStrategy_WeekToToday.cs" />
+    <Compile Include="ChooseDate\DateTimeWeekBoundariesExtension.cs" />
+    <Compile Include="ChooseDate\ChooseDateStrategy\IChooseDateStrategy.cs" />
+    <Compile Include="ChooseDate\StartOfWeek.cs" />
+    <Compile Include="ExportICal\ExportICalCommand.cs" />
+    <Compile Include="CalendarToExcelTab\CalendarToExcelTab.cs" />
+    <Compile Include="ProcessedUserPrompt\ProcessedUserPrompt.cs" />
+    <Compile Include="ChooseDate\ChooseDateDialog.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <EmbeddedResource Include="InputDialog.resx">
-      <DependentUpon>InputDialog.cs</DependentUpon>
+    <EmbeddedResource Include="ChooseDate\ChooseDateDialog.resx">
+      <DependentUpon>ChooseDateDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -203,7 +211,7 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="AmaTab.xml" />
+    <EmbeddedResource Include="CalendarToExcelTab\CalendarToExcelTab.xml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CalendarDataToAxData.Library\CalendarDataToAxData.Library.csproj">

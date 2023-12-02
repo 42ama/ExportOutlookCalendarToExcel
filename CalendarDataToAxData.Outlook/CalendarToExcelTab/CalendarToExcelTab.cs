@@ -31,23 +31,55 @@ using CalendarDataToAxData.Logic.ResultBuilder;
 namespace CalendarDataToAxData.Outlook
 {
     [ComVisible(true)]
-    public class AXTab : Office.IRibbonExtensibility
+    public class CalendarToExcelTab : Office.IRibbonExtensibility
     {
         private Office.IRibbonUI ribbon;
 
-        public AXTab()
+        public void OnChooseDateRangeButtonClick(Office.IRibbonControl control)
         {
-        }
-
-        public void OnConvertForAXButton(Office.IRibbonControl control)
-        {
-            var prompt = new AXCommandUserPrompt();
+            var currentWeekStrategy = new ChooseDateStrategy_WeekToToday();
+            var prompt = new ProcessedUserPrompt(currentWeekStrategy);
             if (!prompt.ShouldContinue)
             {
                 return;
             }
 
-            var exported = new AXCommandExportCSV(prompt.From, prompt.To);
+            ExportAndConvertCalendar(prompt.From, prompt.To);
+        }
+
+        public void OnTodayButtonClick(Office.IRibbonControl control)
+        {
+            var todayStrategy = new ChooseDateStrategy_Today();
+            ExportAndConvertCalendar(todayStrategy.From, todayStrategy.To);
+        }
+
+        public void OnWeekToTodayButtonClick(Office.IRibbonControl control)
+        {
+            var weekToTodayStartegy = new ChooseDateStrategy_WeekToToday();
+            ExportAndConvertCalendar(weekToTodayStartegy.From, weekToTodayStartegy.To);
+        }
+
+        public void OnWeekButtonClick(Office.IRibbonControl control)
+        {
+            var weekStrategy = new ChooseDateStrategy_Week();
+            ExportAndConvertCalendar(weekStrategy.From, weekStrategy.To);
+        }
+
+        public void OnMonthToTodayClick(Office.IRibbonControl control)
+        {
+            var monthToTodayStrategy = new ChooseDateStrategy_MonthToToday();
+            ExportAndConvertCalendar(monthToTodayStrategy.From, monthToTodayStrategy.To);
+        }
+
+        public void OnMonthClick(Office.IRibbonControl control)
+        {
+            var monthStrategy = new ChooseDateStrategy_Month();
+            ExportAndConvertCalendar(monthStrategy.From, monthStrategy.To);
+        }      
+
+        public void ExportAndConvertCalendar(DateTime from, DateTime to)
+        {
+            var exported = new ExportICalCommand(from, to);
             var icsResultBuilder = new ICSResultBuilder();
             icsResultBuilder.Build();
         }
@@ -56,7 +88,7 @@ namespace CalendarDataToAxData.Outlook
 
         public string GetCustomUI(string ribbonID)
         {
-            return GetResourceText("CalendarDataToAxData.Outlook.AmaTab.xml");
+            return GetResourceText("CalendarDataToAxData.Outlook.CalendarToExcelTab.CalendarToExcelTab.xml");
         }
 
         #endregion

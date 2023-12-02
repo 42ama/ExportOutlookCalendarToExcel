@@ -1,7 +1,7 @@
 using System.Windows.Forms;
 using System;
 
-public partial class InputDialog : Form
+public partial class ChooseDateDialog : Form
 {
     private DateTimePicker FromDatePicker;
     private DateTimePicker ToDatePicker;
@@ -13,18 +13,32 @@ public partial class InputDialog : Form
     public DateTime From { get; private set; }
     public DateTime To { get; private set; }
 
-    public InputDialog()
+    public ChooseDateDialog(DateTime from, DateTime to)
     {
         InitializeComponent();
 
-        // Ориентируемся на использование в пятницу
-        FromDatePicker.Value = DateTime.Today.AddDays(-4); // Понедельник
-        ToDatePicker.Value = DateTime.Today; // Пятница
+        FromDatePicker.Value = from;
+        ToDatePicker.Value = to;
     }
+    private void ContinueButton_Click(object sender, EventArgs e)
+    {
+        From = FromDatePicker.Value;
+        To = ToDatePicker.Value;
+        this.DialogResult = DialogResult.OK;
+        this.Close();
+    }
+
+    private void CancelButton_Click(object sender, EventArgs e)
+    {
+        this.DialogResult = DialogResult.Cancel;
+        this.Close();
+    }
+
+    #region Not used
 
     private void InitializeComponent()
     {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InputDialog));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChooseDateDialog));
             this.ToDatePicker = new System.Windows.Forms.DateTimePicker();
             this.FromDatePicker = new System.Windows.Forms.DateTimePicker();
             this.ToLabel = new System.Windows.Forms.Label();
@@ -54,6 +68,7 @@ public partial class InputDialog : Form
             // 
             resources.ApplyResources(this.FromLabel, "FromLabel");
             this.FromLabel.Name = "FromLabel";
+            this.FromLabel.Click += new System.EventHandler(this.FromLabel_Click);
             // 
             // ContinueButton
             // 
@@ -67,8 +82,9 @@ public partial class InputDialog : Form
             resources.ApplyResources(this.CancelButton, "CancelButton");
             this.CancelButton.Name = "CancelButton";
             this.CancelButton.UseVisualStyleBackColor = true;
+            this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
-            // InputDialog
+            // ChooseDateDialog
             // 
             resources.ApplyResources(this, "$this");
             this.Controls.Add(this.CancelButton);
@@ -78,7 +94,7 @@ public partial class InputDialog : Form
             this.Controls.Add(this.FromDatePicker);
             this.Controls.Add(this.FromLabel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "InputDialog";
+            this.Name = "ChooseDateDialog";
             this.ShowIcon = false;
             this.Load += new System.EventHandler(this.InputDialog_Load);
             this.ResumeLayout(false);
@@ -106,11 +122,11 @@ public partial class InputDialog : Form
 
     }
 
-    private void ContinueButton_Click(object sender, EventArgs e)
+
+    private void FromLabel_Click(object sender, EventArgs e)
     {
-        From = FromDatePicker.Value;
-        To = ToDatePicker.Value;
-        this.DialogResult = DialogResult.OK;
-        this.Close();
+
     }
+
+    #endregion Not used
 }

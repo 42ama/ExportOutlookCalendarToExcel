@@ -2,11 +2,11 @@ using System.Windows.Forms;
 using System;
 using System.Diagnostics;
 
-public class AXCommandUserPrompt
+public class ProcessedUserPrompt
 {
-    public AXCommandUserPrompt()
+    public ProcessedUserPrompt(IChooseDateStrategy chooseDateStrategy)
     {
-        var dialog = new InputDialog();
+        var dialog = new ChooseDateDialog(chooseDateStrategy.From, chooseDateStrategy.To);
         var result = dialog.ShowDialog();
 
         ShouldContinue = result == DialogResult.OK;

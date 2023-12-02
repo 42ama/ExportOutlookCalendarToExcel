@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<customUI xmlns="http://schemas.microsoft.com/office/2009/07/customui" onLoad="Ribbon_Load">
+  <ribbon>
+    <tabs>
+      <tab idMso="TabAddIns">
+        <group id="CalendarToExcelGroup" label="Calendar to Excel">
+          <button id="WeekToTodayButton" label="Week to today"
+                  onAction="OnWeekToTodayButtonClick"
+                  screentip="Week to today"
+                  supertip="Export data from start of the week to today."/>
+          <separator/>
+          <button id="TodayButton" label="Today"
+                  onAction="OnTodayButtonClick"
+                  screentip="Today"
+                  supertip="Export data from today."/>
+          <button id="WeekButton" label="Week"
+                  onAction="OnWeekButtonClick"
+                  screentip="Week"
+                  supertip="Export data from start of the week to end of week."/>
+          <button id="MonthButton" label="Month"
+                  onAction="OnMonthClick"
+                  screentip="Month"
+                  supertip="Export data from start of the month to end of moth."/>
+          <button id="MonthToTodayButton" label="Month to today"
+                  onAction="OnMonthToTodayClick"
+                  screentip="Month"
+                  supertip="Export data from start of the month to today."/>
+          <separator/>
+          <button id="ChooseDateRangeButton" label="Choose date range"
+                  onAction="OnChooseDateRangeButtonClick"
+                  screentip="Choose date range"
+                  supertip="Choose date range in which calendar data will be exported."/>
+        </group>
+      </tab>
+    </tabs>
+  </ribbon>
+</customUI>
+

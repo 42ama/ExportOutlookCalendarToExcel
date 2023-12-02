@@ -3,10 +3,17 @@ using CalendarDataToAxData.Outlook;
 using Microsoft.Office.Interop.Outlook;
 using System;
 
-public class AXCommandExportCSV
+/// <summary>
+/// Export calendar as ICal. 
+/// </summary>
+public class ExportICalCommand
 {
-    public string FilePath { get; private set; }    
-    public AXCommandExportCSV(DateTime from, DateTime to)
+    /// <summary>
+    /// Export calendar as ICal. After class construction you can access ICal file at <c>FilePath</c> property location.
+    /// </summary>
+    /// <param name="from">From date</param>
+    /// <param name="to">To date</param>
+    public ExportICalCommand(DateTime from, DateTime to)
     {
         var outlookNamespace = Globals.ThisAddIn.Application.GetNamespace("MAPI");
         var folder = outlookNamespace.GetDefaultFolder(OlDefaultFolders.olFolderCalendar);
@@ -18,4 +25,9 @@ public class AXCommandExportCSV
         FilePath = Constants.FileInfo.ICS.FilePath;
         calendarExporter.SaveAsICal(FilePath);
     }
+
+    /// <summary>
+    /// Location of ICal file.
+    /// </summary>
+    public string FilePath { get; private set; }
 }

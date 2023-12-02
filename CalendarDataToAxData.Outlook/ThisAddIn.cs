@@ -24,7 +24,7 @@ namespace CalendarDataToAxData.Outlook
 
         protected override Microsoft.Office.Core.IRibbonExtensibility CreateRibbonExtensibilityObject()
         {
-            return new AXTab();
+            return new CalendarToExcelTab();
         }
 
         #region VSTO generated code
