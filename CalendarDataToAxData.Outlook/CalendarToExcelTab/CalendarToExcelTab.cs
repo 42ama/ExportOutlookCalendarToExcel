@@ -8,24 +8,26 @@ using System.Runtime.InteropServices;
 using System.Text;
 using Office = Microsoft.Office.Core;
 using CalendarDataToAxData.Logic.ResultBuilder;
+using CalendarDataToAxData.Library.Logic;
+using CalendarDataToAxData.Common;
 
 // TODO:  Follow these steps to enable the Ribbon (XML) item:
 
-    // 1: Copy the following code block into the ThisAddin, ThisWorkbook, or ThisDocument class.
+// 1: Copy the following code block into the ThisAddin, ThisWorkbook, or ThisDocument class.
 
-    //  protected override Microsoft.Office.Core.IRibbonExtensibility CreateRibbonExtensibilityObject()
-    //  {
-    //      return new AmaTab();
-    //  }
+//  protected override Microsoft.Office.Core.IRibbonExtensibility CreateRibbonExtensibilityObject()
+//  {
+//      return new AmaTab();
+//  }
 
-    // 2. Create callback methods in the "Ribbon Callbacks" region of this class to handle user
-    //    actions, such as clicking a button. Note: if you have exported this Ribbon from the Ribbon designer,
-    //    move your code from the event handlers to the callback methods and modify the code to work with the
-    //    Ribbon extensibility (RibbonX) programming model.
+// 2. Create callback methods in the "Ribbon Callbacks" region of this class to handle user
+//    actions, such as clicking a button. Note: if you have exported this Ribbon from the Ribbon designer,
+//    move your code from the event handlers to the callback methods and modify the code to work with the
+//    Ribbon extensibility (RibbonX) programming model.
 
-    // 3. Assign attributes to the control tags in the Ribbon XML file to identify the appropriate callback methods in your code.  
+// 3. Assign attributes to the control tags in the Ribbon XML file to identify the appropriate callback methods in your code.  
 
-    // For more information, see the Ribbon XML documentation in the Visual Studio Tools for Office Help.
+// For more information, see the Ribbon XML documentation in the Visual Studio Tools for Office Help.
 
 
 namespace CalendarDataToAxData.Outlook
@@ -79,6 +81,17 @@ namespace CalendarDataToAxData.Outlook
 
         public void ExportAndConvertCalendar(DateTime from, DateTime to)
         {
+            try
+            {
+                var deleteExcelFiles = new DeleteExcelFiles(Constants.FileInfo.ICS.DirPath);
+                deleteExcelFiles.Delete();
+            }
+            catch (IOException ex)
+            {
+                // Can't delete file because one of them is open.
+            }
+            
+
             var exported = new ExportICalCommand(from, to);
             var icsResultBuilder = new ICSResultBuilder();
             icsResultBuilder.Build();

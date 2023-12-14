@@ -106,6 +106,7 @@
     <Compile Include="Logic\CalendarReader\CalendarCSVReader.cs" />
     <Compile Include="Logic\CalendarReader\CalendarICSReader.cs" />
     <Compile Include="Logic\CalendarReader\ICalendarReader.cs" />
+    <Compile Include="Logic\DeleteExcelFiles.cs" />
     <Compile Include="Logic\EPPlusExcelWriter.cs" />
     <Compile Include="Logic\ResultBuilder\AbstractResultBuilder.cs" />
     <Compile Include="Logic\ResultBuilder\CSVResultBuilder.cs" />
