@@ -103,6 +103,7 @@
     <Compile Include="Common\Argument.cs" />
     <Compile Include="Common\Constants.cs" />
     <Compile Include="Common\DateTimeWeekBoundariesExtension.cs" />
+    <Compile Include="Common\DateTimePeriodProcesser.cs" />
     <Compile Include="Common\StartOfWeek.cs" />
     <Compile Include="Extension\WorkSheetExtension.cs" />
     <Compile Include="Logic\CalendarReader\CalendarCSVReader.cs" />
@@ -133,6 +134,7 @@
     <Compile Include="Model\CalendarCSV.cs" />
     <Compile Include="Model\CalendarCSVClassMap.cs" />
     <Compile Include="Model\FileWithEncoding.cs" />
+    <Compile Include="Model\ICSActivityFromRecurrence.cs" />
     <Compile Include="Model\ICSActivity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -26,12 +26,6 @@ namespace ExportOutlookCalendarToExcel.Model
         /// </summary>
         public DateTime Date { get; private set; }
 
-
-        /// <summary>
-        /// Дата напоминания
-        /// </summary>
-        public DateTime DateOfNotification { get; }
-
         /// <summary>
         /// Длительность.
         /// </summary>

@@ -16,7 +16,10 @@ namespace ExportOutlookCalendarToExcel.Model
         /// <summary>
         /// Коллекция активностей и дат
         /// </summary>
-        private readonly IEnumerable<ActivitiesWithDate> _activities;
+        private readonly IList<ActivitiesWithDate> _activities;
+
+        public DateTime First { get; private set; }
+        public DateTime Last { get; private set; }
 
         /// <summary>
         /// Конструктор.
@@ -28,6 +31,12 @@ namespace ExportOutlookCalendarToExcel.Model
 
             var filteredActivieis = FilterActivtities(activities);
             _activities = SelectActivitiesDateCollection(filteredActivieis);
+
+            if (_activities.Count > 0)
+            {
+                First = _activities.First().Date;
+                Last = _activities.Last().Date;
+            }
         }
 
         /// <summary>
@@ -87,7 +96,7 @@ namespace ExportOutlookCalendarToExcel.Model
         /// </summary>
         /// <param name="activities">Активности.</param>
         /// <returns>Коллекция Активностей и дат.</returns>
-        private IEnumerable<ActivitiesWithDate> SelectActivitiesDateCollection(IEnumerable<Activity> activities)
+        private List<ActivitiesWithDate> SelectActivitiesDateCollection(IEnumerable<Activity> activities)
         {
             return activities
                 .GroupBy(activity => activity.Date)
@@ -96,7 +105,8 @@ namespace ExportOutlookCalendarToExcel.Model
                     Date = grouping.Key,
                     Activities = grouping
                 })
-                .OrderBy(activityGroup => activityGroup.Date);
+                .OrderBy(activityGroup => activityGroup.Date)
+                .ToList();
         }
 
         /// <summary>

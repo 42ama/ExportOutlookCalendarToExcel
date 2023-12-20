@@ -20,8 +20,15 @@ namespace ExportOutlookCalendarToExcel.Tests
         [TestMethod]
         public void ReaderCalendarFromPersonalAndConvert()
         {
-            var a = new DirectoryInfo(Environment.GetFolderPath(Environment.SpecialFolder.Personal));
-            ;
+            var readFromPath = @"C:\Users\Maxim.Alonov\Documents\outlook-export\outlook-export.ics";
+
+            using (var textReader = new StreamReader(readFromPath))
+            {
+                var calendarICSReader = new CalendarICSReader();
+                var activities = calendarICSReader.ReadActivities(textReader);
+
+                ; // breakpoint here
+            }
         }
 
         
