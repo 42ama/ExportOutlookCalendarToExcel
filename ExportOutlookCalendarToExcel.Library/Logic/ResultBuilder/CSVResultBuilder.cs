@@ -12,7 +12,9 @@ namespace ExportOutlookCalendarToExcel.Logic.ResultBuilder
 {
     internal class CSVResultBuilder : AbstractResultBuilder
     {
-        public override string GetFilePathToReadFrom()
+        public CSVResultBuilder(string filePath) :base(filePath) { }
+
+        protected override string GetFilePathToReadFrom()
         {
             Console.WriteLine(@"Введите путь до файла: (по умолчанию E:\outlook-export.csv)");
             var filePath = Console.ReadLine();
@@ -24,18 +26,18 @@ namespace ExportOutlookCalendarToExcel.Logic.ResultBuilder
             return filePath;
         }
 
-        public override TextReader GetTextReader(string readFromPath)
+        protected override TextReader GetTextReader(string readFromPath)
         {
-            var file = new FileWithEncoding(readFromPath, Constants.FileInfo.TargetEncoding);
+            var file = new FileWithEncoding(readFromPath, Constants.FileInfo.CSV.TargetEncoding);
             return file.StreamReader;
         }
 
-        public override ActivitiesDateCollection ReadActivities(TextReader reader)
+        protected override ActivitiesDateCollection ReadActivities(TextReader reader)
         {
             var calendarReader = new CalendarCSVReader();
             return calendarReader.ReadActivities(reader);
         }
-        public override string GetResultFileDirPath()
+        protected override string GetResultFileDirPath()
         {
             Console.WriteLine("Куда сохрнаить файл? (по умолчанию - Рабочий стол)");
             var resultFilePath = Console.ReadLine();

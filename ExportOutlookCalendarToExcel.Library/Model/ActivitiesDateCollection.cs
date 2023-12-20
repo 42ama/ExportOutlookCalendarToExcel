@@ -72,7 +72,7 @@ namespace ExportOutlookCalendarToExcel.Model
         /// <returns>Отфильтрованная коллекция Активностей.</returns>
         private IEnumerable<Activity> FilterActivtities(IEnumerable<Activity> activities)
         {
-            var subjectsToIgnore = new string[] { "Обед", "Встреча", "Блок", "Встреча. Блок" };// !!! AppConfigProvider.GetStringArray(Constants.AppConfig.KeyNames.SubjectToIgnore);
+            var subjectsToIgnore = new string[] { "Обед", "Встреча", "Блок", "Встреча. Блок", "Перерыв" };// !!! AppConfigProvider.GetStringArray(Constants.AppConfig.KeyNames.SubjectToIgnore);
 
 
             return activities

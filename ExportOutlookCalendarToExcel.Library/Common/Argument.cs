@@ -5,7 +5,7 @@ using System.Text;
 namespace ExportOutlookCalendarToExcel.Common
 {
 	/// <summary>
-	/// Класс для проверки аргументов.
+	/// Argument validation methods.
 	/// </summary>
 	public class Argument
     {

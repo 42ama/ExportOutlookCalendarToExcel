@@ -4,47 +4,27 @@ using System.Text;
 
 namespace ExportOutlookCalendarToExcel.Common
 {
-    /// <summary>
-    /// Константы.
-    /// </summary>
     public static class Constants
     {
-        /// <summary>
-        /// Информация о файлах
-        /// </summary>
         public static class FileInfo
         {
-            /// <summary>
-            /// Расширение - csv.
-            /// </summary>
-            public static string CsvExtension { get; } = ".csv";
-
-            /// <summary>
-            /// Суффикс для временного файла с новой кодировкой.
-            /// </summary>
-            public static string TempFileSuffix { get; } = "_temp_encoded";
-
-            /// <summary>
-            /// Целевая кодировка с которой работает CSVReader
-            /// </summary>
-            public static Encoding TargetEncoding { get; } = Encoding.UTF8;
-
-            public static class ICS
+            public static class CSV
             {
-                public static string DirPath
-                {
-                    get
-                    {
-                        return $@"{Environment.GetFolderPath(Environment.SpecialFolder.Personal)}\ax-outlook";
-                    }
-                }
+                /// <summary>
+                /// Extension.
+                /// </summary>
+                public static string CsvExtension { get; } = ".csv";
 
-                public static string FilePath { get
-                    {
-                        return $@"{DirPath}\calendar.ics";
-                    }
-                }
-            }
+                /// <summary>
+                /// Suffix for encoded temp file.
+                /// </summary>
+                public static string TempFileSuffix { get; } = "_temp_encoded";
+
+                /// <summary>
+                /// Taget encoding for CSVReader.
+                /// </summary>
+                public static Encoding TargetEncoding { get; } = Encoding.UTF8;
+            }            
         }
         
 

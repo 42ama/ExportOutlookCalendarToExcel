@@ -27,7 +27,7 @@ namespace ExportOutlookCalendarToExcel.Logic.CalendarReader
         {
             var config = new CsvConfiguration(CultureInfo.InvariantCulture)
             {
-                Encoding = Constants.FileInfo.TargetEncoding
+                Encoding = Constants.FileInfo.CSV.TargetEncoding
             };
             using (var csv = new CsvReader(reader, config))
             {

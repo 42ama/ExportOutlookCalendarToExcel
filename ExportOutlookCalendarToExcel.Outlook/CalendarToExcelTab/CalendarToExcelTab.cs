@@ -35,7 +35,15 @@ namespace ExportOutlookCalendarToExcel.Outlook
     [ComVisible(true)]
     public class CalendarToExcelTab : Office.IRibbonExtensibility
     {
-        private Office.IRibbonUI ribbon;
+        private Office.IRibbonUI _ribbon;
+
+        private readonly ExportAndConvertCalendarProcess _exportAndConvertCalendarProcess;
+
+        public CalendarToExcelTab()
+        {
+            var preapareResultsDirCommand  = new PreapareResultsDirCommand();
+            _exportAndConvertCalendarProcess = new ExportAndConvertCalendarProcess(preapareResultsDirCommand.ResultsDirectoryInfo);
+        }
 
         public void OnChooseDateRangeButtonClick(Office.IRibbonControl control)
         {
@@ -48,6 +56,8 @@ namespace ExportOutlookCalendarToExcel.Outlook
 
             ExportAndConvertCalendar(prompt.From, prompt.To);
         }
+
+        #region OnButtonClick
 
         public void OnTodayButtonClick(Office.IRibbonControl control)
         {
@@ -77,24 +87,14 @@ namespace ExportOutlookCalendarToExcel.Outlook
         {
             var monthStrategy = new ChooseDateStrategy_Month();
             ExportAndConvertCalendar(monthStrategy.From, monthStrategy.To);
-        }      
+        }
+
+        #endregion OnButtonClick
 
         public void ExportAndConvertCalendar(DateTime from, DateTime to)
         {
-            try
-            {
-                var deleteExcelFiles = new DeleteExcelFiles(Constants.FileInfo.ICS.DirPath);
-                deleteExcelFiles.Delete();
-            }
-            catch (IOException ex)
-            {
-                // Can't delete file because one of them is open.
-            }
-            
-
-            var exported = new ExportICalCommand(from, to);
-            var icsResultBuilder = new ICSResultBuilder();
-            icsResultBuilder.Build();
+            var exportIcalCommand = new ExportICalFromOutlookCommand();
+            _exportAndConvertCalendarProcess.Process(exportIcalCommand, from, to);
         }
 
         #region IRibbonExtensibility Members
@@ -111,7 +111,7 @@ namespace ExportOutlookCalendarToExcel.Outlook
 
         public void Ribbon_Load(Office.IRibbonUI ribbonUI)
         {
-            this.ribbon = ribbonUI;
+            this._ribbon = ribbonUI;
         }
 
         #endregion

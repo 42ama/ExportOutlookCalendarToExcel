@@ -160,15 +160,7 @@
     can be found.
   -->
   <ItemGroup>
-    <Compile Include="ChooseDate\ChooseDateStrategy\ChooseDateStrategy_Week.cs" />
-    <Compile Include="ChooseDate\ChooseDateStrategy\ChooseDateStrategy_MonthToToday.cs" />
-    <Compile Include="ChooseDate\ChooseDateStrategy\ChooseDateStrategy_Month.cs" />
-    <Compile Include="ChooseDate\ChooseDateStrategy\ChooseDateStrategy_Today.cs" />
-    <Compile Include="ChooseDate\ChooseDateStrategy\ChooseDateStrategy_WeekToToday.cs" />
-    <Compile Include="ChooseDate\DateTimeWeekBoundariesExtension.cs" />
-    <Compile Include="ChooseDate\ChooseDateStrategy\IChooseDateStrategy.cs" />
-    <Compile Include="ChooseDate\StartOfWeek.cs" />
-    <Compile Include="ExportICal\ExportICalCommand.cs" />
+    <Compile Include="ExportICal\ExportICalFromOutlookCommand.cs" />
     <Compile Include="CalendarToExcelTab\CalendarToExcelTab.cs" />
     <Compile Include="ProcessedUserPrompt\ProcessedUserPrompt.cs" />
     <Compile Include="ChooseDate\ChooseDateDialog.cs">

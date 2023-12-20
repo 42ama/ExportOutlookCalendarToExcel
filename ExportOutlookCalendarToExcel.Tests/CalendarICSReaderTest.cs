@@ -20,15 +20,10 @@ namespace ExportOutlookCalendarToExcel.Tests
         [TestMethod]
         public void ReaderCalendarFromPersonalAndConvert()
         {
-            var calendarICSReader = new CalendarICSReader();
-            var filePath = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\calender.ics";
-            using var reader = new StreamReader(filePath);
-            var activities = calendarICSReader.ReadActivities(reader);
-            var fileName = EPPlusExcelWriter.WriteToFile(activities, Environment.GetFolderPath(
-                            System.Environment.SpecialFolder.DesktopDirectory)); 
-            Console.WriteLine($"������! ������ ����: {fileName}");
-
-            new Process { StartInfo = new ProcessStartInfo(fileName) { UseShellExecute = true } }.Start();
+            var a = new DirectoryInfo(Environment.GetFolderPath(Environment.SpecialFolder.Personal));
+            ;
         }
+
+        
     }
 }

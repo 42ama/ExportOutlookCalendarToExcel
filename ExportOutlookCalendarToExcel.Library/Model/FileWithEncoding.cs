@@ -27,7 +27,7 @@ namespace ExportOutlookCalendarToExcel.Model
         {
             // Outlook эксопртирует файл в 1251, однако почему-то CSVReader не может прочитать 1251, даже если её явно указать. Поэтому конвертируем в UTF-8
             var text = File.ReadAllText(filePath, Encoding.GetEncoding("windows-1251"));
-            _tempFilePath = filePath.Insert(filePath.IndexOf(Constants.FileInfo.CsvExtension), Constants.FileInfo.TempFileSuffix);
+            _tempFilePath = filePath.Insert(filePath.IndexOf(Constants.FileInfo.CSV.CsvExtension), Constants.FileInfo.CSV.TempFileSuffix);
             File.WriteAllText(_tempFilePath, text, encoding);
             StreamReader = new StreamReader(_tempFilePath);
         }
