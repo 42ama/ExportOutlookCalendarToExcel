@@ -7,7 +7,7 @@ using OfficeOpenXml;
 namespace ExportOutlookCalendarToExcel.Extension
 {
     /// <summary>
-    /// Расширения для <c>WorkSheet</c>.
+    /// Extensions for worksheet
     /// </summary>
     internal static class WorkSheetExtension
     {

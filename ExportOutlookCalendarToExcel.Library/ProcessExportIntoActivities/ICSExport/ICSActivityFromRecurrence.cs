@@ -24,7 +24,7 @@ namespace ExportOutlookCalendarToExcel.Model
             var activity = new Activity(_parentEvent.Summary,
                                         _instanceEvent.Start.Value,
                                         _instanceEvent.End.Value,
-                                        _parentEvent.Attendees.Count > 1);
+                                        _parentEvent.Attendees.Count > 0);
             return activity;
         }
     }

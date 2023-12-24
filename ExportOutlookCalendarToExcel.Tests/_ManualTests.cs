@@ -8,15 +8,8 @@ using System;
 namespace ExportOutlookCalendarToExcel.Tests
 {
     [TestClass]
-    public class CalendarICSReaderTest
+    public class _ManualTests
     {
-        [TestInitialize]
-        public void Init()
-        {
-            ConfigurationManager.AppSettings[Constants.AppConfig.KeyNames.SubjectToIgnore] = "����,�������,����,�������. ����";
-            ConfigurationManager.AppSettings[Constants.AppConfig.KeyNames.ProjectSearchPattern] = "%(.*?)%(.*)";
-        }
-
         [TestMethod]
         public void ReaderCalendarFromPersonalAndConvert()
         {

@@ -19,17 +19,17 @@ namespace ExportOutlookCalendarToExcel.Logic
         /// Выполнить запись коллекции Активностей в Файл
         /// </summary>
         /// <param name="activitiesDateCollection">Актинвости сгруппированные по дате.</param>
-        /// <param name="resultFilePath">Папка для конечного местоположения.</param>
+        /// <param name="resultDirPath">Папка для конечного местоположения.</param>
         /// <returns>Путь до файла.</returns>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="ArgumentException"></exception>
-        public static string WriteToFile(ActivitiesDateCollection activitiesDateCollection, string resultFilePath)
+        public static string WriteToFile(ActivitiesDateCollection activitiesDateCollection, string resultDirPath)
          {
             Argument.NotNull(activitiesDateCollection, nameof(activitiesDateCollection));
-            Argument.NotNullOrEmpty(resultFilePath, nameof(resultFilePath));
+            Argument.NotNullOrEmpty(resultDirPath, nameof(resultDirPath));
 
             var sortedDates = activitiesDateCollection.GetSortedDates();
-            var fileName = CreateFileDestination(sortedDates, resultFilePath);
+            var fileName = CreateFileDestination(sortedDates, resultDirPath);
             using (var package = new ExcelPackage(fileName))
             {
                 foreach (var activitiesWithDate in activitiesDateCollection)
@@ -59,19 +59,19 @@ namespace ExportOutlookCalendarToExcel.Logic
         /// Создает путь до файла.
         /// </summary>
         /// <param name="activitiesDateCollection">Коллекция активностей и дат</param>
-        /// <param name="resultFilePath">Путь до папки с новым файлом</param>
+        /// <param name="resultDirPath">Путь до папки с новым файлом</param>
         /// <returns>Путь до файла</returns>
-        private static string CreateFileDestination(IOrderedEnumerable<DateTime> sortedDates, string resultFilePath)
+        private static string CreateFileDestination(IOrderedEnumerable<DateTime> sortedDates, string resultDirPath)
         {
             Argument.NotNull(sortedDates, nameof(sortedDates));
-            Argument.NotNullOrEmpty(resultFilePath, nameof(resultFilePath));
+            Argument.NotNullOrEmpty(resultDirPath, nameof(resultDirPath));
 
             var firstDate = sortedDates.First().ToShortDateString();
             var lastDate = sortedDates.Last().ToShortDateString();
 
             var fileName = $"{firstDate}_{lastDate}.xlsx";
 
-            var filePath = Path.Combine(resultFilePath, fileName);
+            var filePath = Path.Combine(resultDirPath, fileName);
 
             return filePath;
         }

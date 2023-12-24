@@ -1,0 +1,37 @@
+@startuml
+start
+
+if (Plugin run in outlook) then (Yes)
+    :**PromptUserAboutPeriod**
+
+    Provide user options to choose date period;
+else (No)
+endif
+
+
+:**CleanTempFolder**
+
+Clean temp folder from files from previous runs;
+
+
+:**ExportCalendarFromOutlook**
+
+Exports calendar from outlook into temp folder;
+
+
+:**ProcessExportIntoActivities**
+
+Convert exported data into //Activity// format;
+
+fork
+    :**BuildExcel**
+
+    Build and save Excel;
+fork again
+    :**WriteActivitiesIntoExcel**
+
+    Used in **BuildExcel**, converts //Activities// into cells values;
+end fork
+
+stop
+@enduml

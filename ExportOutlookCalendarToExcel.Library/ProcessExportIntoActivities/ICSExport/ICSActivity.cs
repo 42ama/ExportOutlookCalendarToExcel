@@ -20,7 +20,7 @@ namespace ExportOutlookCalendarToExcel.Model
 
         public override Activity AsActivity()
         {
-            var activity = new Activity(_calendarEvent.Summary, _calendarEvent.Start.Value, _calendarEvent.End.Value, _calendarEvent.Attendees.Count > 1);
+            var activity = new Activity(_calendarEvent.Summary, _calendarEvent.Start.Value, _calendarEvent.End.Value, _calendarEvent.Attendees.Count > 0);
             return activity;
         }
     }

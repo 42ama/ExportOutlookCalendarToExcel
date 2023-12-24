@@ -99,48 +99,50 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppConfigProvider.cs" />
-    <Compile Include="Common\Argument.cs" />
-    <Compile Include="Common\Constants.cs" />
-    <Compile Include="Common\DateTimeWeekBoundariesExtension.cs" />
-    <Compile Include="Common\DateTimePeriodProcesser.cs" />
-    <Compile Include="Common\StartOfWeek.cs" />
-    <Compile Include="Extension\WorkSheetExtension.cs" />
-    <Compile Include="Logic\CalendarReader\CalendarCSVReader.cs" />
-    <Compile Include="Logic\CalendarReader\CalendarICSReader.cs" />
-    <Compile Include="Logic\CalendarReader\ICalendarReader.cs" />
-    <Compile Include="Logic\ChooseDateStrategy\ChooseDateStrategy_Month.cs" />
-    <Compile Include="Logic\ChooseDateStrategy\ChooseDateStrategy_MonthToToday.cs" />
-    <Compile Include="Logic\ChooseDateStrategy\ChooseDateStrategy_Today.cs" />
-    <Compile Include="Logic\ChooseDateStrategy\ChooseDateStrategy_Week.cs" />
-    <Compile Include="Logic\ChooseDateStrategy\ChooseDateStrategy_WeekToToday.cs" />
-    <Compile Include="Logic\ChooseDateStrategy\IChooseDateStrategy.cs" />
-    <Compile Include="Logic\DeleteExcelFiles.cs" />
-    <Compile Include="Logic\EPPlusExcelWriter.cs" />
-    <Compile Include="Logic\ExportAndConvertCalendarProcess.cs" />
-    <Compile Include="Logic\FilepathLocationStrategy\IFilepathLocationStrategy.cs" />
-    <Compile Include="Logic\FilepathLocationStrategy\PersonalFilepathLocationStrategy.cs" />
-    <Compile Include="Logic\ExportedData.cs" />
-    <Compile Include="Logic\IResultsExporter.cs" />
-    <Compile Include="Logic\PreapareResultsDirCommand.cs" />
-    <Compile Include="Logic\ResultBuilder\AbstractResultBuilder.cs" />
-    <Compile Include="Logic\ResultBuilder\CSVResultBuilder.cs" />
-    <Compile Include="Logic\ResultBuilder\ICSResultBuilder.cs" />
-    <Compile Include="Model\AbstractActivity.cs" />
-    <Compile Include="Model\ActivitiesDateCollection.cs" />
-    <Compile Include="Model\ActivitiesWithDate.cs" />
-    <Compile Include="Model\Activity.cs" />
-    <Compile Include="Model\BasicFormula.cs" />
-    <Compile Include="Model\CalendarCSV.cs" />
-    <Compile Include="Model\CalendarCSVClassMap.cs" />
-    <Compile Include="Model\FileWithEncoding.cs" />
-    <Compile Include="Model\ICSActivityFromRecurrence.cs" />
-    <Compile Include="Model\ICSActivity.cs" />
+    <Compile Include="ProcessExportIntoActivities\AbstractActivitiesProcessor.cs" />
+    <Compile Include="_Common\Argument.cs" />
+    <Compile Include="_Common\Constants.cs" />
+    <Compile Include="_Common\DateTimeWeekBoundariesExtension.cs" />
+    <Compile Include="_Common\DateTimePeriodProcesser.cs" />
+    <Compile Include="_Common\StartOfWeek.cs" />
+    <Compile Include="WriteActivitiesIntoExcel\WorkSheetExtension.cs" />
+    <Compile Include="ProcessExportIntoActivities\CSVExport\CalendarCSVReader.cs" />
+    <Compile Include="ProcessExportIntoActivities\ICSExport\CalendarICSReader.cs" />
+    <Compile Include="ProcessExportIntoActivities\ICalendarReader.cs" />
+    <Compile Include="PromptUserAboutPeriod\ChooseDateStrategy\ChooseDateStrategy_Month.cs" />
+    <Compile Include="PromptUserAboutPeriod\ChooseDateStrategy\ChooseDateStrategy_MonthToToday.cs" />
+    <Compile Include="PromptUserAboutPeriod\ChooseDateStrategy\ChooseDateStrategy_Today.cs" />
+    <Compile Include="PromptUserAboutPeriod\ChooseDateStrategy\ChooseDateStrategy_Week.cs" />
+    <Compile Include="PromptUserAboutPeriod\ChooseDateStrategy\ChooseDateStrategy_WeekToToday.cs" />
+    <Compile Include="PromptUserAboutPeriod\ChooseDateStrategy\IChooseDateStrategy.cs" />
+    <Compile Include="CleanTempFolder\DeleteExcelFiles.cs" />
+    <Compile Include="WriteActivitiesIntoExcel\EPPlusExcelWriter.cs" />
+    <Compile Include="ExportAndConvertCalendarProcess.cs" />
+    <Compile Include="BuildExcel\FilepathLocationStrategy\IFilepathLocationStrategy.cs" />
+    <Compile Include="BuildExcel\FilepathLocationStrategy\PersonalFilepathLocationStrategy.cs" />
+    <Compile Include="ExportCalendarFromOutlook\ExportedData.cs" />
+    <Compile Include="ExportCalendarFromOutlook\IResultsExporter.cs" />
+    <Compile Include="BuildExcel\PreapareResultsDirCommand.cs" />
+    <Compile Include="BuildExcel\ExcelBuilder.cs" />
+    <Compile Include="ProcessExportIntoActivities\CSVExport\CSVActivitiesProcessor.cs" />
+    <Compile Include="ProcessExportIntoActivities\ICSExport\ICSActivitiesProcessor.cs" />
+    <Compile Include="ProcessExportIntoActivities\AbstractActivity.cs" />
+    <Compile Include="ProcessExportIntoActivities\ActivitiesDateCollection.cs" />
+    <Compile Include="ProcessExportIntoActivities\ActivitiesWithDate.cs" />
+    <Compile Include="ProcessExportIntoActivities\Activity.cs" />
+    <Compile Include="WriteActivitiesIntoExcel\BasicFormula.cs" />
+    <Compile Include="ProcessExportIntoActivities\CSVExport\CalendarCSV.cs" />
+    <Compile Include="ProcessExportIntoActivities\CSVExport\CalendarCSVClassMap.cs" />
+    <Compile Include="ProcessExportIntoActivities\CSVExport\FileWithEncoding.cs" />
+    <Compile Include="ProcessExportIntoActivities\ICSExport\ICSActivityFromRecurrence.cs" />
+    <Compile Include="ProcessExportIntoActivities\ICSExport\ICSActivity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Logic.puml" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

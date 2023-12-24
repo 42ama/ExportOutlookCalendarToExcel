@@ -36,8 +36,11 @@ namespace ExportOutlookCalendarToExcel.Library.Logic
                 return;
             }
 
-            var icsResultBuilder = new ICSResultBuilder(exported.FilePath);
-            icsResultBuilder.Build();
+            var icsActivitiesProcessor = new ICSActivitiesProcessor(exported.FilePath);
+            var activities = icsActivitiesProcessor.ReadActivities();
+
+            var excelBuilder = new ExcelBuilder(exported.ParentDirectoryFilePath);
+            excelBuilder.Build(activities);
         }
     }
 }

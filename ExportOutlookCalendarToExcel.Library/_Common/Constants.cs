@@ -21,7 +21,7 @@ namespace ExportOutlookCalendarToExcel.Common
                 public static string TempFileSuffix { get; } = "_temp_encoded";
 
                 /// <summary>
-                /// Taget encoding for CSVReader.
+                /// Target encoding for CSVReader.
                 /// </summary>
                 public static Encoding TargetEncoding { get; } = Encoding.UTF8;
             }            

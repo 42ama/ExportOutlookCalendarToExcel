@@ -29,22 +29,11 @@ namespace ExportOutlookCalendarToExcel.Model
         /// <summary>
         /// Длительность.
         /// </summary>
-        private TimeSpan _duration;
-
-        /// <summary>
-        /// Длительность.
-        /// </summary>
-        public double Duration
-        {
-            get
-            {
-                return _duration.TotalMinutes / 60f;
-            }
-        }
+        public double Duration { get; private set; }
 
         public Activity(string subject, DateTime from, DateTime to, bool isMeeting)
         {
-            _duration =  to - from;
+            Duration = CalculateDuration(to - from);
             Date = from.Date;
             SetSubjectAndProject(isMeeting, subject ?? Constants.ActivitySettings.SubjectFallback);
         }
@@ -57,7 +46,7 @@ namespace ExportOutlookCalendarToExcel.Model
         {
             Argument.NotNull(calendar, nameof(calendar));
 
-            _duration = calendar.EndTime - calendar.StartTime;
+            Duration = CalculateDuration(calendar.EndTime - calendar.StartTime);
             SetDate(calendar);
             SetSubjectAndProject(calendar.IsMeeting, calendar.Subject ?? Constants.ActivitySettings.SubjectFallback);
         }
@@ -65,6 +54,27 @@ namespace ExportOutlookCalendarToExcel.Model
         public override Activity AsActivity()
         {
             return this;
+        }
+
+        private double CalculateDuration(TimeSpan duration)
+        {
+            const double DIVISOR_IN_MINUTES = 15d;  // 15 minutes is minimal bracket.
+            const double HOUR_BRACKET = DIVISOR_IN_MINUTES / 60d; // Bracket as part of hour (0.25 for 15 minutes). 
+            const double PRESCISION = 0.001d;
+
+            var durationTimeInBracketsRaw = duration.TotalMinutes / DIVISOR_IN_MINUTES;
+            var durationTimeInBrackets = Math.Truncate(durationTimeInBracketsRaw);
+
+            // If there reminder, then we rounding up time.
+            var shouldTimeBeInNextBracket = (durationTimeInBracketsRaw - durationTimeInBrackets) > PRESCISION;
+            if (shouldTimeBeInNextBracket)
+            {
+                durationTimeInBrackets++;
+            }
+
+            var durationCalculated = durationTimeInBrackets * HOUR_BRACKET;
+
+            return durationCalculated;
         }
 
         /// <summary>

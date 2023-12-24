@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ExportOutlookCalendarToExcel.Library.Common;
+using Ical.Net.CalendarComponents;
 
 namespace ExportOutlookCalendarToExcel.Logic.CalendarReader
 {
@@ -39,14 +40,22 @@ namespace ExportOutlookCalendarToExcel.Logic.CalendarReader
 
             foreach (var recurranceParent in recurranceParentEvents)
             {
+                // In this branch system processes instances of recurring events.
                 if (recurranceInstanceEventsByUid.TryGetValue(recurranceParent.Uid, out var recurranceInstanceEvents))
                 {
+                    
                     foreach (var recurranceInstance in recurranceInstanceEvents)
                     {
                         var icsActivity = new ICSActivityFromRecurrence(recurranceParent, recurranceInstance);
                         var activity = icsActivity.AsActivity();
                         activities.Add(activity);
                     }
+                }
+                else // In this branch system processes parents records of recurring events.
+                {
+                    var icsActivity = new ICSActivity(recurranceParent);
+                    var activity = icsActivity.AsActivity();
+                    activities.Add(activity);
                 }
             }
 
