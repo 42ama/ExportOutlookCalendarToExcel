@@ -1,5 +1,6 @@
 using System.Windows.Forms;
 using System;
+using System.Linq;
 
 public partial class ChooseDateDialog : Form
 {
@@ -17,9 +18,22 @@ public partial class ChooseDateDialog : Form
     {
         InitializeComponent();
 
+        ChooseCorrectScreen();
+
         FromDatePicker.Value = from;
         ToDatePicker.Value = to;
     }
+
+    private void ChooseCorrectScreen()
+    {
+        var parentScreen = Screen.FromControl(ParentForm);
+        ; // breakpoint here
+        Left = parentScreen.WorkingArea.Left + 256;
+        Top = parentScreen.WorkingArea.Top + 128;
+
+        // I dislike this implementation with hardcoded values. Dialog already opens in right position, but sometimes on wrong screen.
+    }
+
     private void ContinueButton_Click(object sender, EventArgs e)
     {
         From = FromDatePicker.Value;
