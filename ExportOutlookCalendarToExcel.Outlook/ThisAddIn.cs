@@ -13,7 +13,6 @@ namespace ExportOutlookCalendarToExcel.Outlook
     {
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
-            Debug.Write("Test");
         }
 
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e)
