@@ -6,14 +6,14 @@ namespace ExportOutlookCalendarToExcel.Library._Common
     /// <summary>
     /// Represents day which counts as a start of a week.
     /// </summary>
-    public class StartOfWeek
+    internal class StartOfWeek
     {
         /// <summary>
         /// Day which counts as a start of a week.
         /// </summary>
-        public DayOfWeek Day { get; set; }
+        internal DayOfWeek Day { get; set; }
 
-        public StartOfWeek()
+        internal StartOfWeek()
         {
             Day = DayOfWeek.Monday;
         }

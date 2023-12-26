@@ -6,7 +6,7 @@ namespace ExportOutlookCalendarToExcel.Library._Common
     /// <summary>
     /// Find boundaries of a week.
     /// </summary>
-    public static class DateTimeWeekBoundariesExtension
+    internal static class DateTimeWeekBoundariesExtension
     {
         /// <summary>
         /// Count of days in a week.
@@ -19,7 +19,7 @@ namespace ExportOutlookCalendarToExcel.Library._Common
         /// <param name="dateTime">Date for which we are interested in the start of the week.</param>
         /// <param name="weekStart">Day at which week starts.</param>
         /// <returns>Date of the start of the week</returns>
-        public static DateTime StartOfWeek(this DateTime dateTime, DayOfWeek weekStart)
+        internal static DateTime StartOfWeek(this DateTime dateTime, DayOfWeek weekStart)
         {
             var daysFromStartOfWeekToDate = dateTime.DayOfWeek - weekStart;
             var normalizedDifferenceBetweenStartOfTheWeekAndDate = (DAYS_IN_WEEK + daysFromStartOfWeekToDate) % DAYS_IN_WEEK;
@@ -33,7 +33,7 @@ namespace ExportOutlookCalendarToExcel.Library._Common
         /// <param name="dateTime">Date for which we are interested in the end of the week.</param>
         /// <param name="weekStart">Day at which week starts.</param>
         /// <returns>Date of the end of the week</returns>
-        public static DateTime EndOfWeek(this DateTime dateTime, DayOfWeek weekStart)
+        internal static DateTime EndOfWeek(this DateTime dateTime, DayOfWeek weekStart)
         {
             var daysFromStartOfWeekToDate = dateTime.DayOfWeek - weekStart;
             var normalizedDifferenceBetweenStartOfTheWeekAndDate = (DAYS_IN_WEEK + daysFromStartOfWeekToDate) % DAYS_IN_WEEK;

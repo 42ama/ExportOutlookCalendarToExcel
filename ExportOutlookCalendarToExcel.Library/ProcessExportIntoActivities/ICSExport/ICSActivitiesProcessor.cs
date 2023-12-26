@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace ExportOutlookCalendarToExcel.Library.ProcessExportIntoActivities.ICSExport
 {
-    public class ICSActivitiesProcessor : AbstractActivitiesProcessor
+    internal class ICSActivitiesProcessor : AbstractActivitiesProcessor
     {
-        public ICSActivitiesProcessor(string filePath) : base(filePath) { }
+        internal ICSActivitiesProcessor(string filePath) : base(filePath) { }
 
-        public override ActivitiesDateCollection ReadActivities()
+        internal override ActivitiesDateCollection ReadActivities()
         {
             var readFromPath = GetFilePathToReadFrom();
 

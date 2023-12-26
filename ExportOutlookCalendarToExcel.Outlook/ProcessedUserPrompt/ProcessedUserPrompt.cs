@@ -3,9 +3,9 @@ using System;
 using System.Diagnostics;
 using ExportOutlookCalendarToExcel.Library.PromptUserAboutPeriod.ChooseDateStrategy;
 
-public class ProcessedUserPrompt
+internal class ProcessedUserPrompt
 {
-    public ProcessedUserPrompt(IChooseDateStrategy chooseDateStrategy)
+    internal ProcessedUserPrompt(IChooseDateStrategy chooseDateStrategy)
     {
         var dialog = new ChooseDateDialog(chooseDateStrategy.From, chooseDateStrategy.To);
         var result = dialog.ShowDialog();
@@ -18,7 +18,7 @@ public class ProcessedUserPrompt
         }
     }
     
-    public DateTime From { get; private set; }
-    public DateTime To { get; private set; }
-    public bool ShouldContinue {  get; private set; }
+    internal DateTime From { get; private set; }
+    internal DateTime To { get; private set; }
+    internal bool ShouldContinue {  get; private set; }
 }

@@ -12,11 +12,11 @@ using System.Threading.Tasks;
 
 namespace ExportOutlookCalendarToExcel.Library.BuildExcel
 {
-    public class ExcelBuilder
+    internal class ExcelBuilder
     {
         protected string _directoryPath;
 
-        public ExcelBuilder(string directoryPath)
+        internal ExcelBuilder(string directoryPath)
         {
             if (string.IsNullOrEmpty(directoryPath)
                 || !Directory.Exists(directoryPath))
@@ -27,7 +27,7 @@ namespace ExportOutlookCalendarToExcel.Library.BuildExcel
             _directoryPath = directoryPath;
         }
 
-        public void Build(ActivitiesDateCollection activities)
+        internal void Build(ActivitiesDateCollection activities)
         {
             Init();
 

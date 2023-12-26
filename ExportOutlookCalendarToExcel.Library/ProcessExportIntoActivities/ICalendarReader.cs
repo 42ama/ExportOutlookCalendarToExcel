@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ExportOutlookCalendarToExcel.Library.ProcessExportIntoActivities
 {
-    internal interface ICalendarReader
+    public interface ICalendarReader
     {
         ActivitiesDateCollection ReadActivities(TextReader reader);
     }

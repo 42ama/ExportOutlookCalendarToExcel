@@ -7,7 +7,7 @@ using System.IO;
 /// <summary>
 /// Export calendar as ICal. 
 /// </summary>
-public class ExportICalFromOutlookCommand : IResultsExporter
+internal class ExportICalFromOutlookCommand : IResultsExporter
 {
     /// <summary>
     /// Export calendar as ICal. 
@@ -15,7 +15,7 @@ public class ExportICalFromOutlookCommand : IResultsExporter
     /// <param name="resultsDirectory">Directory to which export is carried out.</param>
     /// <param name="from">Calendar left boundary.</param>
     /// <param name="to">Calendar right boundary.</param>
-    /// <returns>Information about expored file.</returns>
+    /// <returns>Information about exported file.</returns>
     public ExportedData Export(DirectoryInfo resultsDirectory, DateTime from, DateTime to)
     {
         var outlookNamespace = Globals.ThisAddIn.Application.GetNamespace("MAPI");

@@ -2,7 +2,7 @@ using System.Windows.Forms;
 using System;
 using System.Linq;
 
-public partial class ChooseDateDialog : Form
+internal partial class ChooseDateDialog : Form
 {
     private DateTimePicker FromDatePicker;
     private DateTimePicker ToDatePicker;
@@ -11,10 +11,10 @@ public partial class ChooseDateDialog : Form
     private Button CancelButton;
     private Button ContinueButton;
 
-    public DateTime From { get; private set; }
-    public DateTime To { get; private set; }
+    internal DateTime From { get; private set; }
+    internal DateTime To { get; private set; }
 
-    public ChooseDateDialog(DateTime from, DateTime to)
+    internal ChooseDateDialog(DateTime from, DateTime to)
     {
         StartPosition = FormStartPosition.Manual;
         Location = Cursor.Position;

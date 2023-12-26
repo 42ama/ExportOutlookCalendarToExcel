@@ -1,19 +1,17 @@
-using ExportOutlookCalendarToExcel.Logic.CalendarReader;
 using System.Diagnostics;
-using ExportOutlookCalendarToExcel.Logic;
 using System.Configuration;
-using ExportOutlookCalendarToExcel.Common;
 using System;
+using ExportOutlookCalendarToExcel.Library.ProcessExportIntoActivities.ICSExport;
 
 namespace ExportOutlookCalendarToExcel.Tests
 {
     [TestClass]
-    public class _ManualTests
+    internal class _ManualTests
     {
         [TestMethod]
-        public void ReaderCalendarFromPersonalAndConvert()
+        internal void ReaderCalendarFromPersonalAndConvert()
         {
-            var readFromPath = @"C:\Users\Maxim.Alonov\Documents\outlook-export\outlook-export.ics";
+            var readFromPath = @"C:\Users\Maxim.Alonov\AppData\Local\ExportOutlookCalendarToExcel\outlook-export.ics";
 
             using (var textReader = new StreamReader(readFromPath))
             {

@@ -1,4 +1,5 @@
-﻿using ExportOutlookCalendarToExcel.Library.BuildExcel;
+﻿using ExportOutlookCalendarToExcel.Library._Common.FilePathLocationStrategy;
+using ExportOutlookCalendarToExcel.Library.BuildExcel;
 using ExportOutlookCalendarToExcel.Library.CleanTempFolder;
 using ExportOutlookCalendarToExcel.Library.ExportCalendarFromOutlook;
 using ExportOutlookCalendarToExcel.Library.ProcessExportIntoActivities.ICSExport;
@@ -17,8 +18,10 @@ namespace ExportOutlookCalendarToExcel.Library
         private readonly DirectoryInfo _resultsDirectoryInfo;
         private readonly ILogger _logger;
 
-        public ExportAndConvertCalendarProcess(DirectoryInfo resultsDirectoryInfo)
+        public ExportAndConvertCalendarProcess(IFilePathLocationStrategy filePathLocationStrategy, DirectoryInfo resultsDirectoryInfo)
         {
+            InitializeLibrary.Initialize(filePathLocationStrategy);
+
             _resultsDirectoryInfo = resultsDirectoryInfo;
             _logger = LogManager.GetCurrentClassLogger();
         }

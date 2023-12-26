@@ -18,7 +18,7 @@ namespace ExportOutlookCalendarToExcel.Library.WriteActivitiesIntoExcel
         /// <param name="letter">Буква ячейки</param>
         /// <param name="index">Номер ячейки</param>
         /// <param name="value">Новое значение</param>
-        public static void SetCellValue(this ExcelWorksheet sheet, char letter, int index, object value)
+        internal static void SetCellValue(this ExcelWorksheet sheet, char letter, int index, object value)
         {
             Argument.Require(Char.IsLetter(letter), $"Для переменной {nameof(letter)} ожидается буква.");
             Argument.Require(index > 0, $"Для индекса {nameof(index)} ожидается значение больше 0.");
@@ -33,7 +33,7 @@ namespace ExportOutlookCalendarToExcel.Library.WriteActivitiesIntoExcel
         /// <param name="letter">Буква ячейки</param>
         /// <param name="index">Номер ячейки</param>
         /// <param name="formula">Формула</param>
-        public static void SetFormula(this ExcelWorksheet sheet, char letter, int index, string formula)
+        internal static void SetFormula(this ExcelWorksheet sheet, char letter, int index, string formula)
         {
             Argument.Require(Char.IsLetter(letter), $"Для переменной {nameof(letter)} ожидается буква.");
             Argument.Require(index > 0, $"Для переменной {nameof(index)} ожидается значение больше 0.");

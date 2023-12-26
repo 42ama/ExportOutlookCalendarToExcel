@@ -17,14 +17,14 @@ namespace ExportOutlookCalendarToExcel.Library.ProcessExportIntoActivities
         /// </summary>
         private readonly IList<ActivitiesWithDate> _activities;
 
-        public DateTime First { get; private set; }
-        public DateTime Last { get; private set; }
+        internal DateTime First { get; private set; }
+        internal DateTime Last { get; private set; }
 
         /// <summary>
         /// Конструктор.
         /// </summary>
         /// <param name="activities">Коллекция активностей.</param>
-        public ActivitiesDateCollection(IEnumerable<Activity> activities)
+        internal ActivitiesDateCollection(IEnumerable<Activity> activities)
         {
             Argument.NotNull(activities, nameof(activities));
 
@@ -42,7 +42,7 @@ namespace ExportOutlookCalendarToExcel.Library.ProcessExportIntoActivities
         /// Получает отсортированные по дате активности.
         /// </summary>
         /// <returns>Отсортированные по дате активности.</returns>
-        public IOrderedEnumerable<DateTime> GetSortedDates()
+        internal IOrderedEnumerable<DateTime> GetSortedDates()
         {
             return _activities.Select(i => i.Date).OrderBy(i => i.Date);
         }
@@ -50,7 +50,7 @@ namespace ExportOutlookCalendarToExcel.Library.ProcessExportIntoActivities
         /// <summary>
         /// Заполняет пустой проект найденным в текстовой строке.
         /// </summary>
-        public void TryFillEmptyProject()
+        internal void TryFillEmptyProject()
         {
             var allProjects = _activities
                     .SelectMany(activityWithDate => activityWithDate.Activities)

@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace ExportOutlookCalendarToExcel.Library.ProcessExportIntoActivities
 {
-    public abstract class AbstractActivitiesProcessor
+    internal abstract class AbstractActivitiesProcessor
     {
         protected string _filePath;
 
-        public AbstractActivitiesProcessor(string filePath)
+        internal AbstractActivitiesProcessor(string filePath)
         {
             if (string.IsNullOrEmpty(filePath)
                 || !File.Exists(filePath))
@@ -32,6 +32,6 @@ namespace ExportOutlookCalendarToExcel.Library.ProcessExportIntoActivities
             return new StreamReader(readFromPath);
         }
 
-        public abstract ActivitiesDateCollection ReadActivities();
+        internal abstract ActivitiesDateCollection ReadActivities();
     }
 }

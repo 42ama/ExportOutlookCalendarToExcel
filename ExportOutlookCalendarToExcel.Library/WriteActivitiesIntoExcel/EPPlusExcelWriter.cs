@@ -12,7 +12,7 @@ namespace ExportOutlookCalendarToExcel.Library.WriteActivitiesIntoExcel
     /// <summary>
     /// Запись в Excel файл, библиотекка EPPlus.
     /// </summary>
-    public static class EPPlusExcelWriter
+    internal static class EPPlusExcelWriter
     {
         /// <summary>
         /// Выполнить запись коллекции Активностей в Файл
@@ -22,7 +22,7 @@ namespace ExportOutlookCalendarToExcel.Library.WriteActivitiesIntoExcel
         /// <returns>Путь до файла.</returns>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="ArgumentException"></exception>
-        public static string WriteToFile(ActivitiesDateCollection activitiesDateCollection, string resultDirPath)
+        internal static string WriteToFile(ActivitiesDateCollection activitiesDateCollection, string resultDirPath)
          {
             Argument.NotNull(activitiesDateCollection, nameof(activitiesDateCollection));
             Argument.NotNullOrEmpty(resultDirPath, nameof(resultDirPath));

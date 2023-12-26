@@ -11,7 +11,7 @@ namespace ExportOutlookCalendarToExcel.Library
     /// <summary>
     /// Initializes addition behavior for library to work.
     /// </summary>
-    public static class InitializeLibrary
+    internal static class InitializeLibrary
     {
         /// <summary>
         /// Has library been already initialized?
@@ -22,7 +22,7 @@ namespace ExportOutlookCalendarToExcel.Library
         /// Initializes addition behavior for library to work.
         /// </summary>
         /// <param name="filepathLocationStrategy">Strategy to find folder for logs.</param>
-        public static void Initialize(IFilePathLocationStrategy filepathLocationStrategy)
+        internal static void Initialize(IFilePathLocationStrategy filepathLocationStrategy)
         {
             if (_initialized) { return; }
 

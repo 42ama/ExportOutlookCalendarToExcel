@@ -12,11 +12,11 @@ namespace ExportOutlookCalendarToExcel.Library.ProcessExportIntoActivities
         /// <summary>
         /// Активности.
         /// </summary>
-        public IEnumerable<Activity> Activities { get; set; }
+        internal IEnumerable<Activity> Activities { get; set; }
 
         /// <summary>
         /// Дата.
         /// </summary>
-        public DateTime Date { get; set; }
+        internal DateTime Date { get; set; }
     }
 }

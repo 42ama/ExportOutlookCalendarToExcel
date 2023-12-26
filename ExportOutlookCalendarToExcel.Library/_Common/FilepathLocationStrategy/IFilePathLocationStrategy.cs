@@ -18,9 +18,9 @@ namespace ExportOutlookCalendarToExcel.Library._Common.FilePathLocationStrategy
         string GetDirLocation();
 
         /// <summary>
-        /// Get nlog filename string for general logging purposes.
+        /// Get NLog filename string for general logging purposes.
         /// </summary>
-        /// <returns>Nlog filename.</returns>
+        /// <returns>NLog filename.</returns>
         string GetNLogLoggerFilename();
     }
 }

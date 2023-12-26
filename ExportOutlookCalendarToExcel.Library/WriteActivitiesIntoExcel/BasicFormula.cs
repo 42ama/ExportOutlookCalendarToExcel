@@ -10,13 +10,13 @@ namespace ExportOutlookCalendarToExcel.Library.WriteActivitiesIntoExcel
     /// </summary>
     internal class BasicFormula
     {
-        public int RangeStart { get; set; }
-        public int RangeEnd { get; set; }
+        internal int RangeStart { get; set; }
+        internal int RangeEnd { get; set; }
 
         /// <summary>
         /// Буква колонки.
         /// </summary>
-        public char Letter { get; set; }
+        internal char Letter { get; set; }
 
         /// <summary>
         /// Операция формулы.
@@ -26,7 +26,7 @@ namespace ExportOutlookCalendarToExcel.Library.WriteActivitiesIntoExcel
         /// <summary>
         /// Операция формулы.
         /// </summary>
-        public string FormulaOperation
+        internal string FormulaOperation
         {
             get { return _formulaOperation; }
             set
@@ -42,7 +42,7 @@ namespace ExportOutlookCalendarToExcel.Library.WriteActivitiesIntoExcel
         /// Получить адрес диапазона формулы.
         /// </summary>
         /// <returns>Адрес диапазона формулы.</returns>
-        public string GetAddress()
+        internal string GetAddress()
         {
             return $"{Letter}{RangeStart}:{Letter}{RangeEnd}";
         }
@@ -51,7 +51,7 @@ namespace ExportOutlookCalendarToExcel.Library.WriteActivitiesIntoExcel
         /// Получить значение формулы.
         /// </summary>
         /// <returns>Формула.</returns>
-        public string GetFormula()
+        internal string GetFormula()
         {
             var address = GetAddress();
             return $"={FormulaOperation}({address})";

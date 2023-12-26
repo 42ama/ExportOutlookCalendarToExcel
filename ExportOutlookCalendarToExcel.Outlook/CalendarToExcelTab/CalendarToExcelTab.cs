@@ -25,10 +25,9 @@ namespace ExportOutlookCalendarToExcel.Outlook
         {
             var filepathLocationStrategy = new AppDataLocalFilePathLocationStrategy();
 
-            InitializeLibrary.Initialize(filepathLocationStrategy);
             var preapareResultsDirCommand  = new PreapareResultsDirCommand(filepathLocationStrategy);
 
-            _exportAndConvertCalendarProcess = new ExportAndConvertCalendarProcess(preapareResultsDirCommand.ResultsDirectoryInfo);
+            _exportAndConvertCalendarProcess = new ExportAndConvertCalendarProcess(filepathLocationStrategy, preapareResultsDirCommand.ResultsDirectoryInfo);
         }
 
         public void OnChooseDateRangeButtonClick(Office.IRibbonControl control)
