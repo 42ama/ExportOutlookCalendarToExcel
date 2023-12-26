@@ -1,5 +1,4 @@
-﻿using ExportOutlookCalendarToExcel.Model;
-using Ical.Net;
+﻿using Ical.Net;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,10 +6,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ExportOutlookCalendarToExcel.Library.Common;
 using Ical.Net.CalendarComponents;
 
-namespace ExportOutlookCalendarToExcel.Logic.CalendarReader
+namespace ExportOutlookCalendarToExcel.Library.ProcessExportIntoActivities.ICSExport
 {
     public class CalendarICSReader : ICalendarReader
     {

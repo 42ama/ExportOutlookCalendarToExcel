@@ -1,14 +1,17 @@
 using System;
 
-public class ChooseDateStrategy_Today : IChooseDateStrategy
+namespace ExportOutlookCalendarToExcel.Library.PromptUserAboutPeriod.ChooseDateStrategy
 {
-    public DateTime From { get; private set; }
-    public DateTime To { get; private set; }
-
-    public ChooseDateStrategy_Today()
+    public class ChooseDateStrategy_Today : IChooseDateStrategy
     {
-        From = DateTime.Now.Date;
-        To = DateTime.Now.Date;
-    }
+        public DateTime From { get; private set; }
+        public DateTime To { get; private set; }
 
+        public ChooseDateStrategy_Today()
+        {
+            From = DateTime.Now.Date;
+            To = DateTime.Now.Date;
+        }
+
+    }
 }

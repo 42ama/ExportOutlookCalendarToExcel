@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExportOutlookCalendarToExcel.Model
+namespace ExportOutlookCalendarToExcel.Library.ProcessExportIntoActivities.ICSExport
 {
     public class ICSActivityFromRecurrence : AbstractActivity
     {

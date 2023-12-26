@@ -1,7 +1,10 @@
 using System;
 
-public interface IChooseDateStrategy
+namespace ExportOutlookCalendarToExcel.Library.PromptUserAboutPeriod.ChooseDateStrategy
 {
-    DateTime From { get; }
-    DateTime To { get; }
+    public interface IChooseDateStrategy
+    {
+        DateTime From { get; }
+        DateTime To { get; }
+    }
 }

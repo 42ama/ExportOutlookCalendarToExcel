@@ -1,9 +1,9 @@
-﻿using System;
+﻿using ExportOutlookCalendarToExcel._Common;
+using System;
 using System.Collections.Generic;
 using System.Text;
-using ExportOutlookCalendarToExcel.Common;
 
-namespace ExportOutlookCalendarToExcel.Model
+namespace ExportOutlookCalendarToExcel.Library.WriteActivitiesIntoExcel
 {
     /// <summary>
     /// Базовая формула работающая с одной колонкой.

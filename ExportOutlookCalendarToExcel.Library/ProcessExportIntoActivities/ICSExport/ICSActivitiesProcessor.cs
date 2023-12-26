@@ -1,8 +1,4 @@
-﻿using ExportOutlookCalendarToExcel.Common;
-using ExportOutlookCalendarToExcel.Library.Logic.FilepathLocationStrategy;
-using ExportOutlookCalendarToExcel.Library.ProcessExportIntoActivities;
-using ExportOutlookCalendarToExcel.Logic.CalendarReader;
-using ExportOutlookCalendarToExcel.Model;
+﻿using ExportOutlookCalendarToExcel.Library.ProcessExportIntoActivities;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -11,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExportOutlookCalendarToExcel.Logic.ResultBuilder
+namespace ExportOutlookCalendarToExcel.Library.ProcessExportIntoActivities.ICSExport
 {
     public class ICSActivitiesProcessor : AbstractActivitiesProcessor
     {

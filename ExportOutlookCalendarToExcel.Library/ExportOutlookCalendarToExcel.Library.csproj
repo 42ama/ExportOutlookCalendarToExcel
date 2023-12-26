@@ -56,6 +56,9 @@
     <Reference Include="Microsoft.IO.RecyclableMemoryStream, Version=1.4.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.IO.RecyclableMemoryStream.1.4.1\lib\net46\Microsoft.IO.RecyclableMemoryStream.dll</HintPath>
     </Reference>
+    <Reference Include="NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.5.2.7\lib\net46\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="NodaTime, Version=3.0.0.0, Culture=neutral, PublicKeyToken=4226afe0d9b296d1, processorArchitecture=MSIL">
       <HintPath>..\packages\NodaTime.3.0.0\lib\netstandard2.0\NodaTime.dll</HintPath>
     </Reference>
@@ -73,6 +76,7 @@
       <HintPath>..\packages\System.Configuration.ConfigurationManager.8.0.0\lib\net462\System.Configuration.ConfigurationManager.dll</HintPath>
     </Reference>
     <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression" />
     <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
     </Reference>
@@ -100,13 +104,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ProcessExportIntoActivities\AbstractActivitiesProcessor.cs" />
+    <Compile Include="InitializeLibrary.cs" />
     <Compile Include="_Common\Argument.cs" />
     <Compile Include="_Common\Constants.cs" />
     <Compile Include="_Common\DateTimeWeekBoundariesExtension.cs" />
     <Compile Include="_Common\DateTimePeriodProcesser.cs" />
     <Compile Include="_Common\StartOfWeek.cs" />
     <Compile Include="WriteActivitiesIntoExcel\WorkSheetExtension.cs" />
-    <Compile Include="ProcessExportIntoActivities\CSVExport\CalendarCSVReader.cs" />
     <Compile Include="ProcessExportIntoActivities\ICSExport\CalendarICSReader.cs" />
     <Compile Include="ProcessExportIntoActivities\ICalendarReader.cs" />
     <Compile Include="PromptUserAboutPeriod\ChooseDateStrategy\ChooseDateStrategy_Month.cs" />
@@ -115,25 +119,21 @@
     <Compile Include="PromptUserAboutPeriod\ChooseDateStrategy\ChooseDateStrategy_Week.cs" />
     <Compile Include="PromptUserAboutPeriod\ChooseDateStrategy\ChooseDateStrategy_WeekToToday.cs" />
     <Compile Include="PromptUserAboutPeriod\ChooseDateStrategy\IChooseDateStrategy.cs" />
-    <Compile Include="CleanTempFolder\DeleteExcelFiles.cs" />
+    <Compile Include="CleanTempFolder\DeleteTempFiles.cs" />
     <Compile Include="WriteActivitiesIntoExcel\EPPlusExcelWriter.cs" />
     <Compile Include="ExportAndConvertCalendarProcess.cs" />
-    <Compile Include="BuildExcel\FilepathLocationStrategy\IFilepathLocationStrategy.cs" />
-    <Compile Include="BuildExcel\FilepathLocationStrategy\PersonalFilepathLocationStrategy.cs" />
+    <Compile Include="_Common\FilepathLocationStrategy\IFilePathLocationStrategy.cs" />
+    <Compile Include="_Common\FilepathLocationStrategy\AppDataLocalFilePathLocationStrategy.cs" />
     <Compile Include="ExportCalendarFromOutlook\ExportedData.cs" />
     <Compile Include="ExportCalendarFromOutlook\IResultsExporter.cs" />
     <Compile Include="BuildExcel\PreapareResultsDirCommand.cs" />
     <Compile Include="BuildExcel\ExcelBuilder.cs" />
-    <Compile Include="ProcessExportIntoActivities\CSVExport\CSVActivitiesProcessor.cs" />
     <Compile Include="ProcessExportIntoActivities\ICSExport\ICSActivitiesProcessor.cs" />
     <Compile Include="ProcessExportIntoActivities\AbstractActivity.cs" />
     <Compile Include="ProcessExportIntoActivities\ActivitiesDateCollection.cs" />
     <Compile Include="ProcessExportIntoActivities\ActivitiesWithDate.cs" />
     <Compile Include="ProcessExportIntoActivities\Activity.cs" />
     <Compile Include="WriteActivitiesIntoExcel\BasicFormula.cs" />
-    <Compile Include="ProcessExportIntoActivities\CSVExport\CalendarCSV.cs" />
-    <Compile Include="ProcessExportIntoActivities\CSVExport\CalendarCSVClassMap.cs" />
-    <Compile Include="ProcessExportIntoActivities\CSVExport\FileWithEncoding.cs" />
     <Compile Include="ProcessExportIntoActivities\ICSExport\ICSActivityFromRecurrence.cs" />
     <Compile Include="ProcessExportIntoActivities\ICSExport\ICSActivity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

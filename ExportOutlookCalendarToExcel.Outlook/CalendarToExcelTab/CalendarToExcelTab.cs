@@ -7,28 +7,10 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using Office = Microsoft.Office.Core;
-using ExportOutlookCalendarToExcel.Logic.ResultBuilder;
-using ExportOutlookCalendarToExcel.Library.Logic;
-using ExportOutlookCalendarToExcel.Common;
-
-// TODO:  Follow these steps to enable the Ribbon (XML) item:
-
-// 1: Copy the following code block into the ThisAddin, ThisWorkbook, or ThisDocument class.
-
-//  protected override Microsoft.Office.Core.IRibbonExtensibility CreateRibbonExtensibilityObject()
-//  {
-//      return new AmaTab();
-//  }
-
-// 2. Create callback methods in the "Ribbon Callbacks" region of this class to handle user
-//    actions, such as clicking a button. Note: if you have exported this Ribbon from the Ribbon designer,
-//    move your code from the event handlers to the callback methods and modify the code to work with the
-//    Ribbon extensibility (RibbonX) programming model.
-
-// 3. Assign attributes to the control tags in the Ribbon XML file to identify the appropriate callback methods in your code.  
-
-// For more information, see the Ribbon XML documentation in the Visual Studio Tools for Office Help.
-
+using ExportOutlookCalendarToExcel.Library;
+using ExportOutlookCalendarToExcel.Library._Common.FilePathLocationStrategy;
+using ExportOutlookCalendarToExcel.Library.BuildExcel;
+using ExportOutlookCalendarToExcel.Library.PromptUserAboutPeriod.ChooseDateStrategy;
 
 namespace ExportOutlookCalendarToExcel.Outlook
 {
@@ -41,7 +23,11 @@ namespace ExportOutlookCalendarToExcel.Outlook
 
         public CalendarToExcelTab()
         {
-            var preapareResultsDirCommand  = new PreapareResultsDirCommand();
+            var filepathLocationStrategy = new AppDataLocalFilePathLocationStrategy();
+
+            InitializeLibrary.Initialize(filepathLocationStrategy);
+            var preapareResultsDirCommand  = new PreapareResultsDirCommand(filepathLocationStrategy);
+
             _exportAndConvertCalendarProcess = new ExportAndConvertCalendarProcess(preapareResultsDirCommand.ResultsDirectoryInfo);
         }
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ExportOutlookCalendarToExcel.Model
+namespace ExportOutlookCalendarToExcel.Library.ProcessExportIntoActivities
 {
     /// <summary>
     /// Активности и даты.

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExportOutlookCalendarToExcel.Library.Logic
+namespace ExportOutlookCalendarToExcel.Library.ExportCalendarFromOutlook
 {
     public interface IResultsExporter
     {

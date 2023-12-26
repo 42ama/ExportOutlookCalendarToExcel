@@ -1,10 +1,10 @@
-﻿using ExportOutlookCalendarToExcel.Common;
+﻿using ExportOutlookCalendarToExcel._Common;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace ExportOutlookCalendarToExcel.Model
+namespace ExportOutlookCalendarToExcel.Library.ProcessExportIntoActivities
 {
     /// <summary>
     /// Активность
@@ -38,19 +38,6 @@ namespace ExportOutlookCalendarToExcel.Model
             SetSubjectAndProject(isMeeting, subject ?? Constants.ActivitySettings.SubjectFallback);
         }
 
-        /// <summary>
-        /// Конструктор.
-        /// </summary>
-        /// <param name="calendar">Календарь.</param>
-        public Activity(CalendarCSV calendar)
-        {
-            Argument.NotNull(calendar, nameof(calendar));
-
-            Duration = CalculateDuration(calendar.EndTime - calendar.StartTime);
-            SetDate(calendar);
-            SetSubjectAndProject(calendar.IsMeeting, calendar.Subject ?? Constants.ActivitySettings.SubjectFallback);
-        }
-
         public override Activity AsActivity()
         {
             return this;
@@ -75,23 +62,6 @@ namespace ExportOutlookCalendarToExcel.Model
             var durationCalculated = durationTimeInBrackets * HOUR_BRACKET;
 
             return durationCalculated;
-        }
-
-        /// <summary>
-        /// Установить дату.
-        /// </summary>
-        /// <param name="calendar">Календарь</param>
-        private void SetDate(CalendarCSV calendar)
-        {
-            // Заметил, что для повторяющихся событий calendar.StartDate иногда ставится датой начала серии событий, что ведёт к ошибкам при выгрузке. А вот calendar.NotificationDate хранит корректную дату. Поэтому если эти даты не равны, то лучше использовать calendar.NotificationDate
-
-            var isStardDateIncorrect = calendar.NotificationDate != default
-                                        && calendar.StartDate != calendar.NotificationDate;
-            var dateStringToSet = isStardDateIncorrect
-                ? calendar.NotificationDate
-                : calendar.StartDate;
-
-            Date = DateTime.Parse(dateStringToSet);
         }
 
         /// <summary>

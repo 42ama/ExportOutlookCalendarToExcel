@@ -1,14 +1,13 @@
-﻿using ExportOutlookCalendarToExcel.Model;
+﻿using ExportOutlookCalendarToExcel._Common;
+using ExportOutlookCalendarToExcel.Library.ProcessExportIntoActivities;
 using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using ExportOutlookCalendarToExcel.Common;
-using ExportOutlookCalendarToExcel.Extension;
 
-namespace ExportOutlookCalendarToExcel.Logic
+namespace ExportOutlookCalendarToExcel.Library.WriteActivitiesIntoExcel
 {
     /// <summary>
     /// Запись в Excel файл, библиотекка EPPlus.

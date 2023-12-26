@@ -1,15 +1,23 @@
-﻿using ExportOutlookCalendarToExcel.Model;
-using Ical.Net.CalendarComponents;
+﻿using Ical.Net.CalendarComponents;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExportOutlookCalendarToExcel.Library.Common
+namespace ExportOutlookCalendarToExcel.Library._Common
 {
+    /// <summary>
+    /// Helps process dates in period.
+    /// </summary>
     internal class DateTimePeriodProcesser
     {
+        /// <summary>
+        /// Group days by <c>DayOfWeek</c>. 
+        /// </summary>
+        /// <param name="start">Left boundary of the period.</param>
+        /// <param name="end">Right boundary of the period.</param>
+        /// <returns>Dictionary with <c>DayOfWeek</c> as key and collection of specific dates as value.</returns>
         public Dictionary<DayOfWeek, List<DateTime>> CountDays(DateTime start, DateTime end)
         {
             var allEventsTimespan = end - start;
@@ -21,7 +29,7 @@ namespace ExportOutlookCalendarToExcel.Library.Common
                             .ToDictionary(i => i.Key, k => k.ToList());
         }
 
-        // Пример работы
+        // Expample of RRULE processing
 //        var periodProcesser = new DateTimePeriodProcesser();
 //        var daysInPeriod = periodProcesser.CountDays(sortedEvents.First().Start.Value, sortedEvents.Last().Start.Value);
 

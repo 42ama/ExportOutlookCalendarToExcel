@@ -1,10 +1,10 @@
-﻿using ExportOutlookCalendarToExcel.Common;
+﻿using ExportOutlookCalendarToExcel._Common;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using OfficeOpenXml;
 
-namespace ExportOutlookCalendarToExcel.Extension
+namespace ExportOutlookCalendarToExcel.Library.WriteActivitiesIntoExcel
 {
     /// <summary>
     /// Extensions for worksheet

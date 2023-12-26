@@ -1,18 +1,18 @@
-﻿using System;
+﻿using ExportOutlookCalendarToExcel.Library._Common.FilePathLocationStrategy;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExportOutlookCalendarToExcel.Library.Logic
+namespace ExportOutlookCalendarToExcel.Library.BuildExcel
 {
     public class PreapareResultsDirCommand
     {
-        public PreapareResultsDirCommand()
+        public PreapareResultsDirCommand(IFilePathLocationStrategy filepathLocationStrategy)
         {
-            var personalFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-            var resultsFolderPath = personalFolderPath + @"\outlook-export";
+            var resultsFolderPath = filepathLocationStrategy.GetDirLocation();
             var resultsDirectoryInfo = new DirectoryInfo(resultsFolderPath);
             if (!resultsDirectoryInfo.Exists)
             {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ExportOutlookCalendarToExcel.Common
+namespace ExportOutlookCalendarToExcel._Common
 {
 	/// <summary>
 	/// Argument validation methods.

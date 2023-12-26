@@ -1,12 +1,11 @@
-﻿using ExportOutlookCalendarToExcel.Extension;
+﻿using ExportOutlookCalendarToExcel._Common;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using ExportOutlookCalendarToExcel.Common;
 
-namespace ExportOutlookCalendarToExcel.Model
+namespace ExportOutlookCalendarToExcel.Library.ProcessExportIntoActivities
 {
     /// <summary>
     /// Коллекция активностей и дат.

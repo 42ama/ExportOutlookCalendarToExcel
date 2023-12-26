@@ -1,17 +1,21 @@
 using System;
 
-/// <summary>
-/// Reperesnts day which counts as a start of a week.
-/// </summary>
-public class StartOfWeek
+namespace ExportOutlookCalendarToExcel.Library._Common
 {
-    /// <summary>
-    /// Day which counts as a start of a week.
-    /// </summary>
-    public DayOfWeek Day { get; set; }
 
-    public StartOfWeek()
+    /// <summary>
+    /// Represents day which counts as a start of a week.
+    /// </summary>
+    public class StartOfWeek
     {
-        Day = DayOfWeek.Monday;
+        /// <summary>
+        /// Day which counts as a start of a week.
+        /// </summary>
+        public DayOfWeek Day { get; set; }
+
+        public StartOfWeek()
+        {
+            Day = DayOfWeek.Monday;
+        }
     }
 }

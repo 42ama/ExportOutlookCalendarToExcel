@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExportOutlookCalendarToExcel.Library.Logic
+namespace ExportOutlookCalendarToExcel.Library.ExportCalendarFromOutlook
 {
     public class ExportedData
     {
@@ -12,18 +12,10 @@ namespace ExportOutlookCalendarToExcel.Library.Logic
 
         public string ParentDirectoryFilePath { get; }
 
-        public bool IsSuccsess { get; }
-
         public ExportedData(string filePath)
         {
-            IsSuccsess = true;
             FilePath = filePath;
             ParentDirectoryFilePath = filePath.Substring(0, filePath.LastIndexOf('\\'));
-        }
-
-        public ExportedData()
-        {
-            IsSuccsess = false;
         }
     }
 }

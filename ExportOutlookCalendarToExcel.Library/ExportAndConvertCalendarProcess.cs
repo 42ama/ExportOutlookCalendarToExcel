@@ -1,4 +1,8 @@
-﻿using ExportOutlookCalendarToExcel.Logic.ResultBuilder;
+﻿using ExportOutlookCalendarToExcel.Library.BuildExcel;
+using ExportOutlookCalendarToExcel.Library.CleanTempFolder;
+using ExportOutlookCalendarToExcel.Library.ExportCalendarFromOutlook;
+using ExportOutlookCalendarToExcel.Library.ProcessExportIntoActivities.ICSExport;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -6,33 +10,39 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExportOutlookCalendarToExcel.Library.Logic
+namespace ExportOutlookCalendarToExcel.Library
 {
     public class ExportAndConvertCalendarProcess
     {
         private readonly DirectoryInfo _resultsDirectoryInfo;
+        private readonly ILogger _logger;
 
         public ExportAndConvertCalendarProcess(DirectoryInfo resultsDirectoryInfo)
         {
             _resultsDirectoryInfo = resultsDirectoryInfo;
+            _logger = LogManager.GetCurrentClassLogger();
         }
 
         public void Process(IResultsExporter exporter, DateTime from, DateTime to)
         {
             try
             {
-                var deleteExcelFiles = new DeleteExcelFiles(_resultsDirectoryInfo);
-                deleteExcelFiles.Delete();
+                var deleteTempFiles = new DeleteTempFiles(_resultsDirectoryInfo);
+                deleteTempFiles.Delete();
             }
             catch (IOException ex)
             {
-                // Can't delete file because one of them is open.
+                _logger.Warn($"Can't delete temp files because one of them is open. Path: {_resultsDirectoryInfo}");
             }
 
-
-            var exported = exporter.Export(_resultsDirectoryInfo, from, to);
-            if (!exported.IsSuccsess)
+            ExportedData exported;
+            try
             {
+                exported = exporter.Export(_resultsDirectoryInfo, from, to);
+            }
+            catch (Exception ex)
+            {
+                _logger.Warn(ex, $"Export was unsuccessful.");
                 return;
             }
 

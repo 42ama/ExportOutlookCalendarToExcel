@@ -1,12 +1,11 @@
-﻿using ExportOutlookCalendarToExcel.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExportOutlookCalendarToExcel.Logic.CalendarReader
+namespace ExportOutlookCalendarToExcel.Library.ProcessExportIntoActivities
 {
     internal interface ICalendarReader
     {

@@ -1,15 +1,19 @@
+using ExportOutlookCalendarToExcel.Library._Common;
 using System;
 
-public class ChooseDateStrategy_WeekToToday : IChooseDateStrategy
+namespace ExportOutlookCalendarToExcel.Library.PromptUserAboutPeriod.ChooseDateStrategy
 {
-    public DateTime From { get; private set; }
-    public DateTime To { get; private set; }
-
-    public ChooseDateStrategy_WeekToToday()
+    public class ChooseDateStrategy_WeekToToday : IChooseDateStrategy
     {
-        var startOfWeek = new StartOfWeek();
-        From = DateTime.Now.StartOfWeek(startOfWeek.Day).Date;
-        To = DateTime.Now.Date;
-    }
+        public DateTime From { get; private set; }
+        public DateTime To { get; private set; }
 
+        public ChooseDateStrategy_WeekToToday()
+        {
+            var startOfWeek = new StartOfWeek();
+            From = DateTime.Now.StartOfWeek(startOfWeek.Day).Date;
+            To = DateTime.Now.Date;
+        }
+
+    }
 }

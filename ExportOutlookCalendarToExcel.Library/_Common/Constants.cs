@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Text;
 
-namespace ExportOutlookCalendarToExcel.Common
+namespace ExportOutlookCalendarToExcel._Common
 {
     public static class Constants
     {
