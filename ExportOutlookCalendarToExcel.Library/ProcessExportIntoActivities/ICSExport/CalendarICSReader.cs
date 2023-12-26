@@ -17,7 +17,7 @@ namespace ExportOutlookCalendarToExcel.Library.ProcessExportIntoActivities.ICSEx
             var calendar = Calendar.Load(reader);
             if (calendar.Events.Count == 0)
             {
-                throw new Exception("Calendar should have events!");
+                throw new InvalidDataException("Calendar should have events!");
             }
 
             var activities = new List<Activity>();
