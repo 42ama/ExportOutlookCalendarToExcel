@@ -6,7 +6,7 @@ This VSTO Outlook plugin enhances the functionality of Outlook by allowing users
 - **Month** - data from the start to the end of the current month.
 - **Month to today** - data from the start of the current month to today.
 
-Users also have the option to select the *Choose date range option* and manually specify the period of dates to be exported.
+Users also have the option to select the **Choose date range** option and manually specify the period of dates to be exported.
 
 
 ## Licensed Libraries Used in This Project
