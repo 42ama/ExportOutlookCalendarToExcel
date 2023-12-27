@@ -105,6 +105,7 @@
   <ItemGroup>
     <Compile Include="ProcessExportIntoActivities\AbstractActivitiesProcessor.cs" />
     <Compile Include="InitializeLibrary.cs" />
+    <Compile Include="ProcessExportIntoActivities\ICSExport\UnpackICSRecurrenceEvents\UnpackICSExtension.cs" />
     <Compile Include="_Common\Argument.cs" />
     <Compile Include="_Common\Constants.cs" />
     <Compile Include="_Common\DateTimeWeekBoundariesExtension.cs" />

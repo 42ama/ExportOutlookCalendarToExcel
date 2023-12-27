@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 namespace ExportOutlookCalendarToExcel.Tests
 {
     [TestClass]
-    internal class Activity_DurationTests
+    public class Activity_DurationTests
     {
         [TestMethod]
         [DataRow(60, 1)]
         [DataRow(30, 0.5)]
         [DataRow(15, 0.25)]
         [DataRow(25, 0.5)]
-        internal void Duration_ParsedAsHours(int minutes, double hours)
+        public void Duration_ParsedAsHours(int minutes, double hours)
         {
             var from = DateTime.Now.AddMinutes(-minutes);
             var to = DateTime.Now;

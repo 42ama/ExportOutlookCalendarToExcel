@@ -6,10 +6,10 @@ using ExportOutlookCalendarToExcel.Library.ProcessExportIntoActivities.ICSExport
 namespace ExportOutlookCalendarToExcel.Tests
 {
     [TestClass]
-    internal class _ManualTests
+    public class _ManualTests
     {
         [TestMethod]
-        internal void ReaderCalendarFromPersonalAndConvert()
+        public void ReaderCalendarFromPersonalAndConvert()
         {
             var readFromPath = @"C:\Users\Maxim.Alonov\AppData\Local\ExportOutlookCalendarToExcel\outlook-export.ics";
 
