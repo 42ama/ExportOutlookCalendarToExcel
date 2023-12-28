@@ -23,7 +23,7 @@ namespace ExportOutlookCalendarToExcel.Tests
             var calendar = new Calendar();
             AddPlainEvents(calendar, eventsDepth);
 
-            var actualEvents = calendar.Events.UnpackRecurringEvents();
+            var actualEvents = calendar.Events.UnpackEvents();
 
             for (int i = 0; i < calendar.Events.Count; i++)
             {
@@ -55,7 +55,7 @@ namespace ExportOutlookCalendarToExcel.Tests
             var recurringInstancesCount = endRecurrenceAfterDays;
 
 
-            var actualEvents = calendar.Events.UnpackRecurringEvents();
+            var actualEvents = calendar.Events.UnpackEvents();
 
 
             Assert.AreEqual(recurringInstancesCount, actualEvents.Count);
@@ -89,7 +89,7 @@ namespace ExportOutlookCalendarToExcel.Tests
             var plainEventsCount = eventsDepth * ADD_PLAIN_EVENTS_FACTOR;
 
 
-            var actualEvents = calendar.Events.UnpackRecurringEvents();
+            var actualEvents = calendar.Events.UnpackEvents();
 
 
             Assert.AreEqual(recurringInstancesCount + plainEventsCount, actualEvents.Count);
@@ -113,7 +113,7 @@ namespace ExportOutlookCalendarToExcel.Tests
                 RecurrenceRules = new List<RecurrencePattern> {
                     new RecurrencePattern(FrequencyType.Daily, 1)
                     {
-                        Until = DateTime.Now.AddDays(endRecurrenceAfterDays)
+                        Until = DateTime.Now.AddHours(1).AddDays(endRecurrenceAfterDays)
                     }
                 }
             });
@@ -124,14 +124,14 @@ namespace ExportOutlookCalendarToExcel.Tests
                 RecurrenceRules = new List<RecurrencePattern> {
                     new RecurrencePattern(FrequencyType.Daily, 1)
                     {
-                        Until = DateTime.Now.AddDays(endRecurrenceAfterDays)
+                        Until = DateTime.Now.AddHours(1).AddDays(endRecurrenceAfterDays)
                     }
                 }
             });
             var recurringInstancesCount = endRecurrenceAfterDays * 2;
 
 
-            var actualEvents = calendar.Events.UnpackRecurringEvents();
+            var actualEvents = calendar.Events.UnpackEvents();
 
 
             Assert.AreEqual(recurringInstancesCount, actualEvents.Count);
@@ -181,7 +181,7 @@ namespace ExportOutlookCalendarToExcel.Tests
             var recurringInstancesCount = endRecurrenceAfterDays;
 
 
-            var actualEvents = calendar.Events.UnpackRecurringEvents();
+            var actualEvents = calendar.Events.UnpackEvents();
 
 
             Assert.AreEqual(recurringInstancesCount, actualEvents.Count);

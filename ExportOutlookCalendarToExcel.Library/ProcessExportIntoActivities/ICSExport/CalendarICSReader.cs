@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Ical.Net.CalendarComponents;
+using ExportOutlookCalendarToExcel.Library.ProcessExportIntoActivities.ICSExport.UnpackICSRecurrenceEvents;
 
 namespace ExportOutlookCalendarToExcel.Library.ProcessExportIntoActivities.ICSExport
 {
@@ -21,40 +22,13 @@ namespace ExportOutlookCalendarToExcel.Library.ProcessExportIntoActivities.ICSEx
             }
 
             var activities = new List<Activity>();
+            var unpackedEvents = calendar.Events.UnpackEvents();
 
-            // Events without recurrences.
-            var plainEvents = calendar.Events.Where(i => !i.RecurrenceRules.Any() && i.RecurrenceId == null);
-            foreach (var calendarEvent in plainEvents)
+            foreach (var unpackedEvent in unpackedEvents)
             {
-                var icsActivity = new ICSActivity(calendarEvent); // !!! Можем через DI вытаскиывать, но из-за того что много экземпляров создаём в моменте может медленно быть. 
+                var icsActivity = new ICSActivity(unpackedEvent);
                 var activity = icsActivity.AsActivity();
                 activities.Add(activity);
-            }
-
-            var recurranceParentEvents = calendar.Events.Where(i => i.RecurrenceRules.Any());
-            var recurranceInstanceEventsByUid = calendar.Events.Where(i => i.RecurrenceId != null)
-                                                          .GroupBy(i => i.Uid)
-                                                          .ToDictionary(k => k.Key, v => v.ToList());
-
-            foreach (var recurranceParent in recurranceParentEvents)
-            {
-                // In this branch system processes instances of recurring events.
-                if (recurranceInstanceEventsByUid.TryGetValue(recurranceParent.Uid, out var recurranceInstanceEvents))
-                {
-                    
-                    foreach (var recurranceInstance in recurranceInstanceEvents)
-                    {
-                        var icsActivity = new ICSActivityFromRecurrence(recurranceParent, recurranceInstance);
-                        var activity = icsActivity.AsActivity();
-                        activities.Add(activity);
-                    }
-                }
-                else // In this branch system processes parents records of recurring events.
-                {
-                    var icsActivity = new ICSActivity(recurranceParent);
-                    var activity = icsActivity.AsActivity();
-                    activities.Add(activity);
-                }
             }
 
             var activityCollection = new ActivitiesDateCollection(activities);

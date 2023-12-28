@@ -105,11 +105,12 @@
   <ItemGroup>
     <Compile Include="ProcessExportIntoActivities\AbstractActivitiesProcessor.cs" />
     <Compile Include="InitializeLibrary.cs" />
+    <Compile Include="ProcessExportIntoActivities\ICSExport\UnpackICSRecurrenceEvents\CalendarEventDeepCopyExtension.cs" />
     <Compile Include="ProcessExportIntoActivities\ICSExport\UnpackICSRecurrenceEvents\UnpackICSExtension.cs" />
     <Compile Include="_Common\Argument.cs" />
     <Compile Include="_Common\Constants.cs" />
     <Compile Include="_Common\DateTimeWeekBoundariesExtension.cs" />
-    <Compile Include="_Common\DateTimePeriodProcesser.cs" />
+    <Compile Include="ProcessExportIntoActivities\ICSExport\UnpackICSRecurrenceEvents\DateTimePeriodProcesser.cs" />
     <Compile Include="_Common\StartOfWeek.cs" />
     <Compile Include="WriteActivitiesIntoExcel\WorkSheetExtension.cs" />
     <Compile Include="ProcessExportIntoActivities\ICSExport\CalendarICSReader.cs" />
