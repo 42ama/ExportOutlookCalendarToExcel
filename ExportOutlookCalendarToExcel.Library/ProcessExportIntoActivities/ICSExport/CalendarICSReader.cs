@@ -8,13 +8,25 @@ using System.Text;
 using System.Threading.Tasks;
 using Ical.Net.CalendarComponents;
 using ExportOutlookCalendarToExcel.Library.ProcessExportIntoActivities.ICSExport.UnpackICSRecurrenceEvents;
+using ExportOutlookCalendarToExcel._Common;
 
 namespace ExportOutlookCalendarToExcel.Library.ProcessExportIntoActivities.ICSExport
 {
+    /// <summary>
+    /// Reader activities from iCalendar file.
+    /// </summary>
     public class CalendarICSReader : ICalendarReader
     {
+        /// <summary>
+        /// Read activities from iCalendar file.
+        /// </summary>
+        /// <param name="reader">Reader in which iCalendar file is opened.</param>
+        /// <returns>Read activities</returns>
+        /// <exception cref="InvalidDataException"></exception>
         public ActivitiesGroupedByDateCollection ReadActivities(TextReader reader)
         {
+            Argument.NotNull(reader, nameof(reader));
+
             var calendar = Calendar.Load(reader);
             if (calendar.Events.Count == 0)
             {

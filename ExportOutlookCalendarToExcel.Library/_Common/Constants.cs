@@ -8,23 +8,15 @@ namespace ExportOutlookCalendarToExcel._Common
     {
         internal static class FileInfo
         {
-            internal static class CSV
+            internal static class Excel
             {
-                /// <summary>
-                /// Extension.
-                /// </summary>
-                internal static string CsvExtension { get; } = ".csv";
+                internal readonly static string FileExtenstion = ".xlsx";
+            }
 
-                /// <summary>
-                /// Suffix for encoded temp file.
-                /// </summary>
-                internal static string TempFileSuffix { get; } = "_temp_encoded";
-
-                /// <summary>
-                /// Target encoding for CSVReader.
-                /// </summary>
-                internal static Encoding TargetEncoding { get; } = Encoding.UTF8;
-            }            
+            internal static class ICalendar
+            {
+                internal readonly static string FileExtenstion = ".ics";
+            }
         }
         
 

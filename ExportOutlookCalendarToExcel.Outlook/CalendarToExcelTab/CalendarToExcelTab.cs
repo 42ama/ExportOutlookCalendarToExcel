@@ -25,7 +25,7 @@ namespace ExportOutlookCalendarToExcel.Outlook
         {
             var filepathLocationStrategy = new AppDataLocalFilePathLocationStrategy();
 
-            var preapareResultsDirCommand  = new PreapareResultsDirCommand(filepathLocationStrategy);
+            var preapareResultsDirCommand  = new PrepareResultsDirCommand(filepathLocationStrategy);
 
             _exportAndConvertCalendarProcess = new ExportAndConvertCalendarProcess(filepathLocationStrategy, preapareResultsDirCommand.ResultsDirectoryInfo);
         }

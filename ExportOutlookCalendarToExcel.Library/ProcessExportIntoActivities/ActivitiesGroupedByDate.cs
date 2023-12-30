@@ -5,17 +5,17 @@ using System.Text;
 namespace ExportOutlookCalendarToExcel.Library.ProcessExportIntoActivities
 {
     /// <summary>
-    /// Активности и даты.
+    /// Activities grouped by date.
     /// </summary>
     public class ActivitiesGroupedByDate
     {
         /// <summary>
-        /// Активности.
+        /// Activities.
         /// </summary>
         internal IEnumerable<Activity> Activities { get; set; }
 
         /// <summary>
-        /// Дата.
+        /// Date.
         /// </summary>
         internal DateTime Date { get; set; }
     }

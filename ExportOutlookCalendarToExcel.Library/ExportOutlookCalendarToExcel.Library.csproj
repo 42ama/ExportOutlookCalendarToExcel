@@ -126,7 +126,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ActivitySubjectsToIgnoreProviderRes.resx</DependentUpon>
     </Compile>
-    <Compile Include="ProcessExportIntoActivities\ICSExport\UnpackICSRecurrenceEvents\CalendarEventDeepCopyExtension.cs" />
+    <Compile Include="ProcessExportIntoActivities\ICSExport\UnpackICSRecurrenceEvents\CalendarEventCopyExtension.cs" />
     <Compile Include="ProcessExportIntoActivities\ICSExport\UnpackICSRecurrenceEvents\UnpackICSExtension.cs" />
     <Compile Include="_Common\Argument.cs" />
     <Compile Include="_Common\Constants.cs" />
@@ -148,7 +148,7 @@
     <Compile Include="_Common\FilepathLocationStrategy\AppDataLocalFilePathLocationStrategy.cs" />
     <Compile Include="ExportCalendarFromOutlook\ExportedData.cs" />
     <Compile Include="ExportCalendarFromOutlook\IResultsExporter.cs" />
-    <Compile Include="BuildExcel\PreapareResultsDirCommand.cs" />
+    <Compile Include="BuildExcel\PrepareResultsDirCommand.cs" />
     <Compile Include="BuildExcel\ExcelBuilder.cs" />
     <Compile Include="ProcessExportIntoActivities\ICSExport\ICSActivitiesProcessor.cs" />
     <Compile Include="ProcessExportIntoActivities\AbstractActivity.cs" />
@@ -156,7 +156,6 @@
     <Compile Include="ProcessExportIntoActivities\ActivitiesGroupedByDate.cs" />
     <Compile Include="ProcessExportIntoActivities\Activity.cs" />
     <Compile Include="WriteActivitiesIntoExcel\BasicFormula.cs" />
-    <Compile Include="ProcessExportIntoActivities\ICSExport\ICSActivityFromRecurrence.cs" />
     <Compile Include="ProcessExportIntoActivities\ICSExport\ICSActivity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

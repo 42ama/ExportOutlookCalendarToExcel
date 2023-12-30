@@ -6,25 +6,32 @@ using System.Text;
 namespace ExportOutlookCalendarToExcel.Library.WriteActivitiesIntoExcel
 {
     /// <summary>
-    /// Базовая формула работающая с одной колонкой.
+    /// Base formula which works with single column.
     /// </summary>
     internal class BasicFormula
     {
+        /// <summary>
+        /// Number of first row in formula.
+        /// </summary>
         internal int RangeStart { get; set; }
+
+        /// <summary>
+        /// Number of last row in formula.
+        /// </summary>
         internal int RangeEnd { get; set; }
 
         /// <summary>
-        /// Буква колонки.
+        /// Column letter.
         /// </summary>
         internal char Letter { get; set; }
 
         /// <summary>
-        /// Операция формулы.
+        /// Operation in formula.
         /// </summary>
         private string _formulaOperation;
 
         /// <summary>
-        /// Операция формулы.
+        /// Operation in formula.
         /// </summary>
         internal string FormulaOperation
         {
@@ -32,25 +39,25 @@ namespace ExportOutlookCalendarToExcel.Library.WriteActivitiesIntoExcel
             set
             {
                 Argument.Require(Constants.FormulaOperations.IsAvailable(value),
-                    $"Значение операции должно быть указано в {nameof(Constants.FormulaOperations)}");
+                    $"Operation value should set in {nameof(Constants.FormulaOperations)}");
 
                 _formulaOperation = value;                
             }
         }
 
         /// <summary>
-        /// Получить адрес диапазона формулы.
+        /// Get formula range address.
         /// </summary>
-        /// <returns>Адрес диапазона формулы.</returns>
+        /// <returns>Formula range address.</returns>
         internal string GetAddress()
         {
             return $"{Letter}{RangeStart}:{Letter}{RangeEnd}";
         }
 
         /// <summary>
-        /// Получить значение формулы.
+        /// Get formula value.
         /// </summary>
-        /// <returns>Формула.</returns>
+        /// <returns>Formula value.</returns>
         internal string GetFormula()
         {
             var address = GetAddress();

@@ -10,16 +10,16 @@ using System.Text;
 namespace ExportOutlookCalendarToExcel.Library.WriteActivitiesIntoExcel
 {
     /// <summary>
-    /// Запись в Excel файл, библиотекка EPPlus.
+    /// Write activities data to Excel file. Uses EPPlus library.
     /// </summary>
     internal static class EPPlusExcelWriter
     {
         /// <summary>
-        /// Выполнить запись коллекции Активностей в Файл
+        /// Write activities data to Excel file.
         /// </summary>
-        /// <param name="activitiesDateCollection">Актинвости сгруппированные по дате.</param>
-        /// <param name="resultDirPath">Папка для конечного местоположения.</param>
-        /// <returns>Путь до файла.</returns>
+        /// <param name="activitiesDateCollection">Activities grouped by date.</param>
+        /// <param name="resultDirPath">File path of directory in which Excel will be stored.</param>
+        /// <returns>Path to excel file.</returns>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="ArgumentException"></exception>
         internal static string WriteToFile(ActivitiesGroupedByDateCollection activitiesDateCollection, string resultDirPath)
@@ -45,7 +45,7 @@ namespace ExportOutlookCalendarToExcel.Library.WriteActivitiesIntoExcel
                     SetHeaderColumns(currentDateSheet);
                     var lastRowIndex = ProcessActivities(currentDateSheet, activitiesWithDate.Activities);
                     SetColumnStyles(currentDateSheet);
-                    AddAggregationColumns(currentDateSheet, lastRowIndex);
+                    AddDurationSumFormula(currentDateSheet, lastRowIndex);
                 }
 
                 package.Save();
@@ -55,11 +55,11 @@ namespace ExportOutlookCalendarToExcel.Library.WriteActivitiesIntoExcel
         }
 
         /// <summary>
-        /// Создает путь до файла.
+        /// Create path to the file.
         /// </summary>
-        /// <param name="activitiesDateCollection">Коллекция активностей и дат</param>
-        /// <param name="resultDirPath">Путь до папки с новым файлом</param>
-        /// <returns>Путь до файла</returns>
+        /// <param name="sortedDates">Dates by which activities is grouped by.</param>
+        /// <param name="resultDirPath">Path to the directory in which excel file will be stored.</param>
+        /// <returns>Path to the excel file.</returns>
         private static string CreateFileDestination(IOrderedEnumerable<DateTime> sortedDates, string resultDirPath)
         {
             Argument.NotNull(sortedDates, nameof(sortedDates));
@@ -68,7 +68,7 @@ namespace ExportOutlookCalendarToExcel.Library.WriteActivitiesIntoExcel
             var firstDate = sortedDates.First().ToShortDateString();
             var lastDate = sortedDates.Last().ToShortDateString();
 
-            var fileName = $"{firstDate}_{lastDate}.xlsx";
+            var fileName = $"{firstDate}_{lastDate}.{Constants.FileInfo.Excel.FileExtenstion}";
 
             var filePath = Path.Combine(resultDirPath, fileName);
 
@@ -76,13 +76,13 @@ namespace ExportOutlookCalendarToExcel.Library.WriteActivitiesIntoExcel
         }
 
         /// <summary>
-        /// Установить колонки-заголовки.
+        /// Set header column values.
         /// </summary>
-        /// <param name="sheet">Лист excel.</param>
+        /// <param name="sheet">Excel sheets.</param>
         private static void SetHeaderColumns(ExcelWorksheet sheet)
         {
             Argument.NotNull(sheet, nameof(sheet));
-
+            
             sheet.SetCellValue(Constants.Excel.Group.Letter,
                                 Constants.Excel.Header.RowNumber,
                                 Constants.Excel.Group.Name);
@@ -97,9 +97,9 @@ namespace ExportOutlookCalendarToExcel.Library.WriteActivitiesIntoExcel
         }
 
         /// <summary>
-        /// Установить стили колонок.
+        /// Set column styles
         /// </summary>
-        /// <param name="sheet">Лист excel.</param>
+        /// <param name="sheet">Excel sheet.</param>
         private static void SetColumnStyles(ExcelWorksheet sheet)
         {
             Argument.NotNull(sheet, nameof(sheet));
@@ -109,13 +109,14 @@ namespace ExportOutlookCalendarToExcel.Library.WriteActivitiesIntoExcel
         }
 
         /// <summary>
-        /// Добавить агрегирующую колонку с суммой по длительности.
+        /// Add duration sum column after all columns.
         /// </summary>
-        /// <param name="sheet">Лист excel.</param>
-        private static void AddAggregationColumns(ExcelWorksheet sheet, int lastRowIndex)
+        /// <param name="sheet">Excel sheet.</param>
+        /// <param name="lastRowIndex">Index of last row, after which sum formula will be added.</param>
+        private static void AddDurationSumFormula(ExcelWorksheet sheet, int lastRowIndex)
         {
             Argument.NotNull(sheet, nameof(sheet));
-            Argument.Require(lastRowIndex > 0, $"Для индекса {nameof(lastRowIndex)} ожидается значение больше 0.");
+            Argument.Require(lastRowIndex > 0, $"Row index should ({nameof(lastRowIndex)}) should be greater than 0.");
 
             var sumDurationFormula = new BasicFormula
             {
@@ -130,11 +131,11 @@ namespace ExportOutlookCalendarToExcel.Library.WriteActivitiesIntoExcel
         }
 
         /// <summary>
-        /// Записать активности в лист excel.
+        /// Write activities into excel sheet.
         /// </summary>
-        /// <param name="sheet">Лист excel.</param>
-        /// <param name="activities">Коллекция активностей</param>
-        /// <returns>Номер крайней использованной строчки.</returns>
+        /// <param name="sheet">Excel sheet.</param>
+        /// <param name="activities">Activities.</param>
+        /// <returns>Index of last used row.</returns>
         private static int ProcessActivities(ExcelWorksheet sheet, IEnumerable<Activity> activities)
         {
             Argument.NotNull(sheet, nameof(sheet));

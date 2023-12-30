@@ -2,6 +2,7 @@
 using Ical.Net.CalendarComponents;
 using Ical.Net.DataTypes;
 using Ical.Net.Proxies;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -155,8 +156,15 @@ namespace ExportOutlookCalendarToExcel.Library.ProcessExportIntoActivities.ICSEx
             return copy;
         }
 
+        /// <summary>
+        /// Generate series of instances of recurring event.
+        /// </summary>
+        /// <param name="recurringEvent">Recurring event from which recurrence rules and event information will be taken.</param>
+        /// <returns>Events stored in values, keys here just for quick access to event replacing.</returns>
         private static Dictionary<IDateTime, CalendarEvent> GenerateSeries(CalendarEvent recurringEvent)
         {
+            if (recurringEvent == null) { throw new ArgumentNullException(nameof(recurringEvent)); }
+
             var eventData = new EventData
             {
                 Start = recurringEvent.Start,
@@ -181,7 +189,9 @@ namespace ExportOutlookCalendarToExcel.Library.ProcessExportIntoActivities.ICSEx
                         ruleEventDateTimeStartSeries = GenerateSeries_Weekly(eventData, rule);
                         break;
                     default:
-                        throw new NotImplementedException();
+                        var logger = LogManager.GetCurrentClassLogger();
+                        logger.Error($"Generating series of events with {rule.Frequency} is not implemented. Current recurrence rule processing will be abandoned.");
+                        break;
                 }
 
                 // Enrich events.
@@ -195,6 +205,12 @@ namespace ExportOutlookCalendarToExcel.Library.ProcessExportIntoActivities.ICSEx
             return resultSeries;
         }
 
+        /// <summary>
+        /// Generate list of dates in which recurring events should occur. Works only for events with daily rule.
+        /// </summary>
+        /// <param name="eventData">Information about parent event.</param>
+        /// <param name="recurrencePattern">Recurrence parent which describes series.</param>
+        /// <returns>List of dates in which recurring events should occur.</returns>
         private static List<IDateTime> GenerateSeries_Daily(EventData eventData, RecurrencePattern recurrencePattern)
         {
             var eventDateTimeStartSeries = new List<IDateTime>();
@@ -246,6 +262,12 @@ namespace ExportOutlookCalendarToExcel.Library.ProcessExportIntoActivities.ICSEx
             return eventDateTimeStartSeries;
         }
 
+        /// <summary>
+        /// Generate list of dates in which recurring events should occur. Works only for events with weekly rule.
+        /// </summary>
+        /// <param name="eventData">Information about parent event.</param>
+        /// <param name="recurrencePattern">Recurrence parent which describes series.</param>
+        /// <returns>List of dates in which recurring events should occur.</returns>
         private static List<IDateTime> GenerateSeries_Weekly(EventData eventData, RecurrencePattern recurrencePattern)
         {
             var eventDateTimeStartSeries = new List<IDateTime>();
@@ -331,10 +353,24 @@ namespace ExportOutlookCalendarToExcel.Library.ProcessExportIntoActivities.ICSEx
         }
     }
 
+    /// <summary>
+    /// Information about event.
+    /// </summary>
     internal class EventData
     {
+        /// <summary>
+        /// DateTime at which event starts.
+        /// </summary>
         public IDateTime Start { get; set; }
+
+        /// <summary>
+        /// Duration of event.
+        /// </summary>
         public TimeSpan Duration { get; set; }
+
+        /// <summary>
+        /// Period in which event should not occur.
+        /// </summary>
         public IList<PeriodList> ExceptionDates { get; set; }
     }
         

@@ -8,6 +8,11 @@ namespace ExportOutlookCalendarToExcel.Library.ProcessExportIntoActivities
 {
     public abstract class AbstractActivity
     {
+
+        /// <summary>
+        /// View current activity as <c>Activity</c>.
+        /// </summary>
+        /// <returns>Activity.</returns>
         public abstract Activity AsActivity();
     }
 }

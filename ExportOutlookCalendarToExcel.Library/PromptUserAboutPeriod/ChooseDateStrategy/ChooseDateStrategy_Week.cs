@@ -3,9 +3,15 @@ using System;
 
 namespace ExportOutlookCalendarToExcel.Library.PromptUserAboutPeriod.ChooseDateStrategy
 {
+    /// <summary>
+    /// Choose date in range from start of the current week to the end of the current week.
+    /// </summary>
     public class ChooseDateStrategy_Week : IChooseDateStrategy
     {
+        /// <inheritdoc/>
         public DateTime From { get; private set; }
+
+        /// <inheritdoc/>
         public DateTime To { get; private set; }
 
         public ChooseDateStrategy_Week()

@@ -9,10 +9,13 @@ using System.Threading.Tasks;
 
 namespace ExportOutlookCalendarToExcel.Library.ProcessExportIntoActivities.ICSExport.UnpackICSRecurrenceEvents
 {
-    internal static class CalendarEventDeepCopyExtension
+    /// <summary>
+    /// Extension to <c>CalendarEvent</c> which describes custom way of copying events.
+    /// </summary>
+    internal static class CalendarEventCopyExtension
     {
         /// <summary>
-        /// Creates representing copy of a event. With minimal set of fields.
+        /// Creates representing copy of a event. Copy contains minimal set of fields.
         /// </summary>
         /// <param name="calendarEvent">Copy to</param>
         /// <param name="other">Copy from</param>

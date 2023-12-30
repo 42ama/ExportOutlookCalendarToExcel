@@ -12,31 +12,31 @@ namespace ExportOutlookCalendarToExcel.Library.WriteActivitiesIntoExcel
     internal static class WorkSheetExtension
     {
         /// <summary>
-        /// Установить значение в ячейку
+        /// Set value into cell.
         /// </summary>
-        /// <param name="sheet">Данный лист.</param>
-        /// <param name="letter">Буква ячейки</param>
-        /// <param name="index">Номер ячейки</param>
-        /// <param name="value">Новое значение</param>
+        /// <param name="sheet">Excel sheet.</param>
+        /// <param name="letter">Cell letter.</param>
+        /// <param name="index">Cell index.</param>
+        /// <param name="value">Cell value.</param>
         internal static void SetCellValue(this ExcelWorksheet sheet, char letter, int index, object value)
         {
-            Argument.Require(Char.IsLetter(letter), $"Для переменной {nameof(letter)} ожидается буква.");
-            Argument.Require(index > 0, $"Для индекса {nameof(index)} ожидается значение больше 0.");
+            Argument.Require(Char.IsLetter(letter), $"Character in argument {nameof(letter)} should be letter.");
+            Argument.Require(index > 0, $"Index in argument {nameof(index)} should be greater then 0.");
 
             sheet.SetValue($"{letter}{index}", value);
         }
 
         /// <summary>
-        /// Установить формулу в ячейку
+        /// Set value into cell.
         /// </summary>
-        /// <param name="sheet">Данный лист.</param>
-        /// <param name="letter">Буква ячейки</param>
-        /// <param name="index">Номер ячейки</param>
-        /// <param name="formula">Формула</param>
+        /// <param name="sheet">Excel sheet.</param>
+        /// <param name="letter">Cell letter.</param>
+        /// <param name="index">Cell index.</param>
+        /// <param name="formula">Formula.</param>
         internal static void SetFormula(this ExcelWorksheet sheet, char letter, int index, string formula)
         {
-            Argument.Require(Char.IsLetter(letter), $"Для переменной {nameof(letter)} ожидается буква.");
-            Argument.Require(index > 0, $"Для переменной {nameof(index)} ожидается значение больше 0.");
+            Argument.Require(Char.IsLetter(letter), $"Character in argument {nameof(letter)} should be letter.");
+            Argument.Require(index > 0, $"Index in argument {nameof(index)} should be greater then 0.");
             Argument.NotNullOrEmpty(formula, nameof(formula));
 
             sheet.Cells[$"{letter}{index}"].Formula = formula;

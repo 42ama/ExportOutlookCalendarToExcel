@@ -9,10 +9,18 @@ using System.Threading.Tasks;
 
 namespace ExportOutlookCalendarToExcel.Library.ProcessExportIntoActivities.ICSExport
 {
+    /// <summary>
+    /// Read iCalendar file and return as <c>ActivitiesGroupedByDateCollection</c>.
+    /// </summary>
     internal class ICSActivitiesProcessor : AbstractActivitiesProcessor
     {
+        /// <param name="filePath">Path to iCalendar tile</param>
         internal ICSActivitiesProcessor(string filePath) : base(filePath) { }
 
+        /// <summary>
+        /// Read activities from iCalendar file.
+        /// </summary>
+        /// <returns>Activities.</returns>
         internal override ActivitiesGroupedByDateCollection ReadActivities()
         {
             var readFromPath = GetFilePathToReadFrom();

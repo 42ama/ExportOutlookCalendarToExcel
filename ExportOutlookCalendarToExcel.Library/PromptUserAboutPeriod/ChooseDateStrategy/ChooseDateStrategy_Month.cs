@@ -2,9 +2,15 @@ using System;
 
 namespace ExportOutlookCalendarToExcel.Library.PromptUserAboutPeriod.ChooseDateStrategy
 {
+    /// <summary>
+    /// Choose date in range from start of the current month to the end of the current month.
+    /// </summary>
     public class ChooseDateStrategy_Month : IChooseDateStrategy
     {
+        /// <inheritdoc/>
         public DateTime From { get; private set; }
+
+        /// <inheritdoc/>
         public DateTime To { get; private set; }
 
         public ChooseDateStrategy_Month()
