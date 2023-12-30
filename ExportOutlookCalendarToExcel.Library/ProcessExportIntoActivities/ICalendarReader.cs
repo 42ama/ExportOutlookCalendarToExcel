@@ -9,6 +9,6 @@ namespace ExportOutlookCalendarToExcel.Library.ProcessExportIntoActivities
 {
     public interface ICalendarReader
     {
-        ActivitiesDateCollection ReadActivities(TextReader reader);
+        ActivitiesGroupedByDateCollection ReadActivities(TextReader reader);
     }
 }

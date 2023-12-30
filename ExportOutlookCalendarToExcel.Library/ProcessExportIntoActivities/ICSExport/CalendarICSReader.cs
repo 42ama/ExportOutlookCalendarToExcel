@@ -13,7 +13,7 @@ namespace ExportOutlookCalendarToExcel.Library.ProcessExportIntoActivities.ICSEx
 {
     public class CalendarICSReader : ICalendarReader
     {
-        public ActivitiesDateCollection ReadActivities(TextReader reader)
+        public ActivitiesGroupedByDateCollection ReadActivities(TextReader reader)
         {
             var calendar = Calendar.Load(reader);
             if (calendar.Events.Count == 0)
@@ -31,7 +31,7 @@ namespace ExportOutlookCalendarToExcel.Library.ProcessExportIntoActivities.ICSEx
                 activities.Add(activity);
             }
 
-            var activityCollection = new ActivitiesDateCollection(activities);
+            var activityCollection = new ActivitiesGroupedByDateCollection(activities);
 
             return activityCollection;
         }

@@ -27,7 +27,7 @@ namespace ExportOutlookCalendarToExcel.Library.BuildExcel
             _directoryPath = directoryPath;
         }
 
-        internal void Build(ActivitiesDateCollection activities)
+        internal void Build(ActivitiesGroupedByDateCollection activities)
         {
             Init();
 
@@ -41,7 +41,7 @@ namespace ExportOutlookCalendarToExcel.Library.BuildExcel
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
         }
 
-        private string CreateExcel(ActivitiesDateCollection activities, string resultFileDirPath)
+        private string CreateExcel(ActivitiesGroupedByDateCollection activities, string resultFileDirPath)
         {
             var fileName = EPPlusExcelWriter.WriteToFile(activities, resultFileDirPath);
             Console.WriteLine($"Готово! Создан файл: {fileName}");

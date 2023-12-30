@@ -152,8 +152,8 @@
     <Compile Include="BuildExcel\ExcelBuilder.cs" />
     <Compile Include="ProcessExportIntoActivities\ICSExport\ICSActivitiesProcessor.cs" />
     <Compile Include="ProcessExportIntoActivities\AbstractActivity.cs" />
-    <Compile Include="ProcessExportIntoActivities\ActivitiesDateCollection.cs" />
-    <Compile Include="ProcessExportIntoActivities\ActivitiesWithDate.cs" />
+    <Compile Include="ProcessExportIntoActivities\ActivitiesGroupedByDateCollection.cs" />
+    <Compile Include="ProcessExportIntoActivities\ActivitiesGroupedByDate.cs" />
     <Compile Include="ProcessExportIntoActivities\Activity.cs" />
     <Compile Include="WriteActivitiesIntoExcel\BasicFormula.cs" />
     <Compile Include="ProcessExportIntoActivities\ICSExport\ICSActivityFromRecurrence.cs" />

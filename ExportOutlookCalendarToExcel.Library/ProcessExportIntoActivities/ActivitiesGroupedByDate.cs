@@ -7,7 +7,7 @@ namespace ExportOutlookCalendarToExcel.Library.ProcessExportIntoActivities
     /// <summary>
     /// Активности и даты.
     /// </summary>
-    public class ActivitiesWithDate
+    public class ActivitiesGroupedByDate
     {
         /// <summary>
         /// Активности.

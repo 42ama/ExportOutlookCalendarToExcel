@@ -32,6 +32,6 @@ namespace ExportOutlookCalendarToExcel.Library.ProcessExportIntoActivities
             return new StreamReader(readFromPath);
         }
 
-        internal abstract ActivitiesDateCollection ReadActivities();
+        internal abstract ActivitiesGroupedByDateCollection ReadActivities();
     }
 }

@@ -13,7 +13,7 @@ namespace ExportOutlookCalendarToExcel.Library.ProcessExportIntoActivities.ICSEx
     {
         internal ICSActivitiesProcessor(string filePath) : base(filePath) { }
 
-        internal override ActivitiesDateCollection ReadActivities()
+        internal override ActivitiesGroupedByDateCollection ReadActivities()
         {
             var readFromPath = GetFilePathToReadFrom();
 

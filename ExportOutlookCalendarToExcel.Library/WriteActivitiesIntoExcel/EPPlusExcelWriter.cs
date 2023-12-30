@@ -22,7 +22,7 @@ namespace ExportOutlookCalendarToExcel.Library.WriteActivitiesIntoExcel
         /// <returns>Путь до файла.</returns>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="ArgumentException"></exception>
-        internal static string WriteToFile(ActivitiesDateCollection activitiesDateCollection, string resultDirPath)
+        internal static string WriteToFile(ActivitiesGroupedByDateCollection activitiesDateCollection, string resultDirPath)
          {
             Argument.NotNull(activitiesDateCollection, nameof(activitiesDateCollection));
             Argument.NotNullOrEmpty(resultDirPath, nameof(resultDirPath));
