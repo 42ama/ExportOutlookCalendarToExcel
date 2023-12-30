@@ -18,7 +18,7 @@ namespace ExportOutlookCalendarToExcel.Tests.UnpackICSTests
         [DataRow(2)]
         [DataRow(10)]
         [TestCategory("NotImplemented")]
-        public void SingleRecurringEvent_DailyRecurrence_TwoRRULE_UnpackedCorrectly(int endRecurrenceAfterDays)
+        public void ComplexRecurringEvent_DailyRecurrence_TwoRRULE_UnpackedCorrectly(int endRecurrenceAfterDays)
         {
             var calendar = new Calendar();
 

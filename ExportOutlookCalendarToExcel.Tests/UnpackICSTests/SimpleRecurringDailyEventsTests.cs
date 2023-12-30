@@ -43,6 +43,53 @@ namespace ExportOutlookCalendarToExcel.Tests.UnpackICSTests
         }
 
         [TestMethod]
+        [DataRow(3)]
+        [DataRow(4)]
+        [DataRow(5)]
+        public void SingleRecurringEvent_DailyRecurrence_ExceptionDates_UnpackedCorrectly(int endRecurrenceAfterDays)
+        {
+            var calendar = new Calendar();
+
+            // Adding recurring event.
+            calendar.AddChild(new CalendarEvent
+            {
+                Start = new CalDateTime(DateTime.Now),
+                End = new CalDateTime(DateTime.Now.AddMinutes(30)),
+                RecurrenceRules = new List<RecurrencePattern> {
+                    new RecurrencePattern(FrequencyType.Daily, 1)
+                    {
+                        Until = DateTime.Now.AddDays(endRecurrenceAfterDays)
+                    }
+                },
+                ExceptionDates = new List<PeriodList>
+                {
+                    new PeriodList
+                    {
+                        new Period(
+                            new CalDateTime(DateTime.Now.AddDays(1).AddMinutes(-30)),
+                            new CalDateTime(DateTime.Now.AddDays(1).AddMinutes(60))
+                            )
+                    },
+                    new PeriodList
+                    {
+                        new Period(
+                            new CalDateTime(DateTime.Now.AddDays(2).AddMinutes(-30)),
+                            new CalDateTime(DateTime.Now.AddDays(2).AddMinutes(60))
+                            )
+                    },
+                }
+            });
+            // Decrease by number of exception days.
+            var recurringInstancesCount = endRecurrenceAfterDays - 2;
+
+
+            var actualEvents = calendar.Events.UnpackEvents();
+
+
+            Assert.AreEqual(recurringInstancesCount, actualEvents.Count);
+        }
+
+        [TestMethod]
         [DataRow(0)]
         [DataRow(1)]
         [DataRow(2)]

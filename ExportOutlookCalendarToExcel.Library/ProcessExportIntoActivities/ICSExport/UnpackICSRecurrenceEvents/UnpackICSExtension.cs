@@ -218,7 +218,21 @@ namespace ExportOutlookCalendarToExcel.Library.ProcessExportIntoActivities.ICSEx
                 }
 
                 var dayAsPeriod = new Period(new CalDateTime(dayOnProbe), eventData.Duration);
-                var dayIsException = eventData.ExceptionDates.Any(excpetionDatePeriod => excpetionDatePeriod.Contains(dayAsPeriod));
+
+                var dayIsException = false;
+                foreach (var exceptionDatesPeriodList in eventData.ExceptionDates)
+                {
+                    foreach (var exceptionPeriod in exceptionDatesPeriodList)
+                    {
+                        var collidesWithPeriod = exceptionPeriod.CollidesWith(dayAsPeriod);
+                        if (collidesWithPeriod)
+                        {
+                            dayIsException = true;
+                            break;
+                        }
+
+                    }
+                }
 
                 // Check is day will be found in exception dates.
                 if (dayIsException)
