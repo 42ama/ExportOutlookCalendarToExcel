@@ -90,11 +90,61 @@ namespace ExportOutlookCalendarToExcel.Tests.UnpackICSTests
         }
 
         [TestMethod]
+        [DataRow(3)]
+        [DataRow(4)]
+        [DataRow(5)]
+        public void SingleRecurringEvent_DailyRecurrence_PlainEvents_UnpackedCorrectly(int eventsDepth)
+        {
+            var calendar = new Calendar();
+
+            // Adding recurring event.
+            calendar.AddChild(new CalendarEvent
+            {
+                Start = new CalDateTime(DateTime.Now),
+                End = new CalDateTime(DateTime.Now.AddMinutes(30)),
+                RecurrenceRules = new List<RecurrencePattern> {
+                    new RecurrencePattern(FrequencyType.Daily, 1)
+                    {
+                        Until = DateTime.Now.AddDays(eventsDepth)
+                    }
+                },
+                ExceptionDates = new List<PeriodList>
+                {
+                    new PeriodList
+                    {
+                        new Period(
+                            new CalDateTime(DateTime.Now.AddDays(1).AddMinutes(-30)),
+                            new CalDateTime(DateTime.Now.AddDays(1).AddMinutes(60))
+                            )
+                    },
+                    new PeriodList
+                    {
+                        new Period(
+                            new CalDateTime(DateTime.Now.AddDays(2).AddMinutes(-30)),
+                            new CalDateTime(DateTime.Now.AddDays(2).AddMinutes(60))
+                            )
+                    },
+                }
+            });
+            var recurringInstancesCount = eventsDepth;
+
+            // Adding plain events.
+            PlainEventsTestHelper.AddPlainEvents(calendar, eventsDepth);
+            var plainEventsCount = eventsDepth * PlainEventsTestHelper.ADD_PLAIN_EVENTS_FACTOR - 2;
+
+
+            var actualEvents = calendar.Events.UnpackEvents();
+
+
+            Assert.AreEqual(recurringInstancesCount + plainEventsCount, actualEvents.Count);
+        }
+
+        [TestMethod]
         [DataRow(0)]
         [DataRow(1)]
         [DataRow(2)]
         [DataRow(10)]
-        public void SingleRecurringEvent_DailyRecurrence_PlainEvents_UnpackedCorrectly(int eventsDepth)
+        public void SingleRecurringEvent_DailyRecurrence_PlainEvents_ExceptionDates_UnpackedCorrectly(int eventsDepth)
         {
             var calendar = new Calendar();
 
