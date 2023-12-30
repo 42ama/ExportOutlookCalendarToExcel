@@ -83,9 +83,9 @@ namespace ExportOutlookCalendarToExcel.Library.WriteActivitiesIntoExcel
         {
             Argument.NotNull(sheet, nameof(sheet));
 
-            sheet.SetCellValue(Constants.Excel.Project.Letter,
+            sheet.SetCellValue(Constants.Excel.Group.Letter,
                                 Constants.Excel.Header.RowNumber,
-                                Constants.Excel.Project.Name);
+                                Constants.Excel.Group.Name);
 
             sheet.SetCellValue(Constants.Excel.Subject.Letter,
                                 Constants.Excel.Header.RowNumber,
@@ -146,9 +146,9 @@ namespace ExportOutlookCalendarToExcel.Library.WriteActivitiesIntoExcel
             {
                 indexToRecord++;
                 
-                sheet.SetCellValue(Constants.Excel.Project.Letter,
+                sheet.SetCellValue(Constants.Excel.Group.Letter,
                                 indexToRecord,
-                                activity.Project);
+                                activity.Group);
                 sheet.SetCellValue(Constants.Excel.Subject.Letter,
                                 indexToRecord,
                                 activity.Subject);

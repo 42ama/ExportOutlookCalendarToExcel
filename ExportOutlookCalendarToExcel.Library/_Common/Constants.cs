@@ -33,10 +33,6 @@ namespace ExportOutlookCalendarToExcel._Common
         /// </summary>
         internal static class ActivitySettings
         {
-            /// <summary>
-            /// Префикс для Темы Встречи.
-            /// </summary>
-            internal static string MeetingPrefix { get; } = "Встреча. ";
 
             /// <summary>
             /// Длина поиска разделителя в строке.
@@ -77,7 +73,7 @@ namespace ExportOutlookCalendarToExcel._Common
                 /// <summary>
                 /// Паттерн для поиска проекта в Теме.
                 /// </summary>
-                internal static string ProjectSearchPattern { get; } = "ProjectSearchPattern";
+                internal static string GroupSearchPattern { get; } = "GroupSearchPattern";
             }
         }
 
@@ -119,9 +115,9 @@ namespace ExportOutlookCalendarToExcel._Common
             }
 
             /// <summary>
-            /// Настройки колонки Проект.
+            /// Настройки колонки Группа.
             /// </summary>
-            internal static class Project
+            internal static class Group
             {
                 /// <summary>
                 /// Буква колонки.
@@ -131,7 +127,7 @@ namespace ExportOutlookCalendarToExcel._Common
                 /// <summary>
                 /// Название колонки.
                 /// </summary>
-                internal static string Name { get; } = "Проект";
+                internal static string Name { get; } = "Группа";
             }
 
             /// <summary>

@@ -105,6 +105,27 @@
   <ItemGroup>
     <Compile Include="ProcessExportIntoActivities\AbstractActivitiesProcessor.cs" />
     <Compile Include="InitializeLibrary.cs" />
+    <Compile Include="ProcessExportIntoActivities\ActivityRes.ru.Designer.cs">
+      <DependentUpon>ActivityRes.ru.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="ProcessExportIntoActivities\ActivityRes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ActivityRes.resx</DependentUpon>
+    </Compile>
+    <Compile Include="ProcessExportIntoActivities\ActivitySubjectsToIgnoreProvider.cs" />
+    <Compile Include="ProcessExportIntoActivities\ActivitySubjectsToIgnoreProviderRes.ru.Designer.cs">
+      <DependentUpon>ActivitySubjectsToIgnoreProviderRes.ru.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="ProcessExportIntoActivities\ActivitySubjectsToIgnoreProviderRes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ActivitySubjectsToIgnoreProviderRes.resx</DependentUpon>
+    </Compile>
     <Compile Include="ProcessExportIntoActivities\ICSExport\UnpackICSRecurrenceEvents\CalendarEventDeepCopyExtension.cs" />
     <Compile Include="ProcessExportIntoActivities\ICSExport\UnpackICSRecurrenceEvents\UnpackICSExtension.cs" />
     <Compile Include="_Common\Argument.cs" />
@@ -144,6 +165,23 @@
     <None Include="Logic.puml" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="ProcessExportIntoActivities\ActivityRes.ru.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ActivityRes.ru.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProcessExportIntoActivities\ActivityRes.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ActivityRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProcessExportIntoActivities\ActivitySubjectsToIgnoreProviderRes.ru.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ActivitySubjectsToIgnoreProviderRes.ru.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProcessExportIntoActivities\ActivitySubjectsToIgnoreProviderRes.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ActivitySubjectsToIgnoreProviderRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

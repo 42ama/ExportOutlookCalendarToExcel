@@ -48,27 +48,27 @@ namespace ExportOutlookCalendarToExcel.Library.ProcessExportIntoActivities
         }
 
         /// <summary>
-        /// Заполняет пустой проект найденным в текстовой строке.
+        /// Заполняет пустую группу найденным в текстовой строке.
         /// </summary>
-        internal void TryFillEmptyProject()
+        internal void TryFillEmptyGroup()
         {
-            var allProjects = _activities
+            var allGroups = _activities
                     .SelectMany(activityWithDate => activityWithDate.Activities)
-                    .Where(activity => !string.IsNullOrEmpty(activity.Project))
-                    .GroupBy(activity => activity.Project)
+                    .Where(activity => !string.IsNullOrEmpty(activity.Group))
+                    .GroupBy(activity => activity.Group)
                     .Select(activityGroup => activityGroup.Key);
 
             foreach (var activityWithDate in _activities)
             {
                 foreach (var activity in activityWithDate.Activities)
                 {
-                    if (!string.IsNullOrEmpty(activity.Project))
+                    if (!string.IsNullOrEmpty(activity.Group))
                     {
                         continue;
                     }
 
-                    var newProject = allProjects.FirstOrDefault(project => activity.Subject.Contains(project)); // !!! Тут в Contains Должен быть StringComparison.OrdinalIgnoreCase
-                    activity.Project = newProject;
+                    var newGroup = allGroups.FirstOrDefault(group => activity.Subject.Contains(group)); // !!! Тут в Contains Должен быть StringComparison.OrdinalIgnoreCase
+                    activity.Group = newGroup;
                 }
             }
         }
@@ -80,13 +80,13 @@ namespace ExportOutlookCalendarToExcel.Library.ProcessExportIntoActivities
         /// <returns>Отфильтрованная коллекция Активностей.</returns>
         private IEnumerable<Activity> FilterActivtities(IEnumerable<Activity> activities)
         {
-            var subjectsToIgnore = new string[] { "Обед", "Встреча", "Блок", "Встреча. Блок", "Перерыв" };// !!! AppConfigProvider.GetStringArray(Constants.AppConfig.KeyNames.SubjectToIgnore);
-
+            var subjectsToIgnoreProvider = new ActivitySubjectsToIgnoreProvider();
+            var subjectsToIgnore = subjectsToIgnoreProvider.GetSubjects();
 
             return activities
                 .Where(activity => !subjectsToIgnore.Contains(activity.Subject))
                 .Where(activity => activity.Duration > 0)
-                .OrderByDescending(activity => activity.Project)
+                .OrderByDescending(activity => activity.Group)
                 .ThenByDescending(activity => activity.Subject);
         }
 

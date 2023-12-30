@@ -14,7 +14,7 @@ namespace ExportOutlookCalendarToExcel.Library.ProcessExportIntoActivities
         /// <summary>
         /// Проект.
         /// </summary>
-        public string Project { get; set; } = string.Empty;
+        public string Group { get; set; } = string.Empty;
 
         /// <summary>
         /// Тема.
@@ -35,7 +35,7 @@ namespace ExportOutlookCalendarToExcel.Library.ProcessExportIntoActivities
         {
             Duration = CalculateDuration(to - from);
             Date = from.Date;
-            SetSubjectAndProject(isMeeting, subject ?? Constants.ActivitySettings.SubjectFallback);
+            SetSubjectAndGroup(isMeeting, subject ?? Constants.ActivitySettings.SubjectFallback);
         }
 
         public override Activity AsActivity()
@@ -65,36 +65,36 @@ namespace ExportOutlookCalendarToExcel.Library.ProcessExportIntoActivities
         }
 
         /// <summary>
-        /// Заполнить Тему и Проект.
+        /// Заполнить Тему и Группу.
         /// </summary>
         /// <param name="calendar">Календарь.</param>
-        private void SetSubjectAndProject(bool isMeeting, string subject)
+        private void SetSubjectAndGroup(bool isMeeting, string subject)
         {
-            SetDefaultSubjectAndProject(isMeeting, subject);
+            SetDefaultSubjectAndGroup(isMeeting, subject);
 
-            var searchPattern = "%(.*?)%(.*)";// !!! AppConfigProvider.Get(Constants.AppConfig.KeyNames.ProjectSearchPattern);
+            var searchPattern = "%(.*?)%(.*)";// !!! AppConfigProvider.Get(Constants.AppConfig.KeyNames.GroupSearchPattern);
             var regex = new Regex(searchPattern);
             var regexMatch = regex.Match(subject);
 
             if (regexMatch.Success && regexMatch.Groups.Count > 0)
             {
-                Project = regexMatch.Groups[1].Value;
+                Group = regexMatch.Groups[1].Value;
                 AddSubject(isMeeting, regexMatch.Groups[2].Value);
             }
         }
 
         /// <summary>
-        /// Заполнить Тему и Проект стандартными значениями
+        /// Заполнить Тему и Группу стандартными значениями
         /// </summary>
         /// <param name="calendar">Календарь.</param>
-        private void SetDefaultSubjectAndProject(bool isMeeting, string subject)
+        private void SetDefaultSubjectAndGroup(bool isMeeting, string subject)
         {
-            Project = "";
+            Group = "";
             AddSubject(isMeeting, subject);
         }
 
         /// <summary>
-        /// Заполнить Тему и Проект стандартными значениями
+        /// Заполнить Тему и Группу стандартными значениями
         /// </summary>
         /// <param name="calendar">Календарь.</param>
         private void AddSubject(bool isMeeting, string subject)
@@ -102,7 +102,7 @@ namespace ExportOutlookCalendarToExcel.Library.ProcessExportIntoActivities
             Argument.NotNullOrEmpty(subject, nameof(subject));
 
             Subject = (isMeeting
-                ? Constants.ActivitySettings.MeetingPrefix
+                ? ActivityRes.MeetingPrefix
                 : string.Empty) + subject.Trim();
         }
     }
