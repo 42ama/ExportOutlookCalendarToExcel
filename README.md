@@ -8,6 +8,9 @@ This VSTO Outlook plugin enhances the functionality of Outlook by allowing users
 
 Users also have the option to select the **Choose date range** option and manually specify the period of dates to be exported.
 
+## Unsupported (features for future releases)
+- Export for recurring events other then daily and weekly.
+- Export for events with several recurrance rules. 
 
 ## Licensed Libraries Used in This Project
 - EPPlus (under https://polyformproject.org/licenses/noncommercial/1.0.0/)

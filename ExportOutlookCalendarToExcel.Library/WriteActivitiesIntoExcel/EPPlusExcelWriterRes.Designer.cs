@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ExportOutlookCalendarToExcel.Library.ProcessExportIntoActivities {
+namespace ExportOutlookCalendarToExcel.Library.WriteActivitiesIntoExcel {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace ExportOutlookCalendarToExcel.Library.ProcessExportIntoActivities {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class ActivityRes {
+    internal class EPPlusExcelWriterRes {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal ActivityRes() {
+        internal EPPlusExcelWriterRes() {
         }
         
         /// <summary>
@@ -39,7 +39,8 @@ namespace ExportOutlookCalendarToExcel.Library.ProcessExportIntoActivities {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ExportOutlookCalendarToExcel.Library.ProcessExportIntoActivities.ActivityRes", typeof(ActivityRes).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ExportOutlookCalendarToExcel.Library.WriteActivitiesIntoExcel.EPPlusExcelWriterRe" +
+                            "s", typeof(EPPlusExcelWriterRes).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,20 +62,29 @@ namespace ExportOutlookCalendarToExcel.Library.ProcessExportIntoActivities {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Meeting. .
+        ///   Looks up a localized string similar to Duration.
         /// </summary>
-        internal static string MeetingPrefix {
+        internal static string DurationColumnName {
             get {
-                return ResourceManager.GetString("MeetingPrefix", resourceCulture);
+                return ResourceManager.GetString("DurationColumnName", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;empty subject&gt;.
+        ///   Looks up a localized string similar to Group.
         /// </summary>
-        internal static string SubjectFallback {
+        internal static string GroupColumnName {
             get {
-                return ResourceManager.GetString("SubjectFallback", resourceCulture);
+                return ResourceManager.GetString("GroupColumnName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Subject.
+        /// </summary>
+        internal static string SubjectColumnName {
+            get {
+                return ResourceManager.GetString("SubjectColumnName", resourceCulture);
             }
         }
     }

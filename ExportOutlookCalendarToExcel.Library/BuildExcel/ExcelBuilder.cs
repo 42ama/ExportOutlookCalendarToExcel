@@ -85,10 +85,10 @@ namespace ExportOutlookCalendarToExcel.Library.BuildExcel
 
             var isFilePathEndsWithExcelExtension = resultFilePath
                                 .TrimEnd(new char[] { '\\', '/' })
-                                .EndsWith(Constants.FileInfo.Excel.FileExtenstion);
+                                .EndsWith(CommonConstants.FileInfo.Excel.FileExtenstion);
             if (!isFilePathEndsWithExcelExtension)
             {
-                throw new ArgumentException($"Excepting excel file path to end with {Constants.FileInfo.Excel.FileExtenstion}. But to argument was passed {resultFilePath}", nameof(resultFilePath));
+                throw new ArgumentException($"Excepting excel file path to end with {CommonConstants.FileInfo.Excel.FileExtenstion}. But to argument was passed {resultFilePath}", nameof(resultFilePath));
             }
 
             new Process

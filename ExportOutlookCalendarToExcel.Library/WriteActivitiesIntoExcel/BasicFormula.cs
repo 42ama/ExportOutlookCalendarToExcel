@@ -1,4 +1,5 @@
 ﻿using ExportOutlookCalendarToExcel._Common;
+using ExportOutlookCalendarToExcel.Library.ProcessExportIntoActivities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -38,8 +39,8 @@ namespace ExportOutlookCalendarToExcel.Library.WriteActivitiesIntoExcel
             get { return _formulaOperation; }
             set
             {
-                Argument.Require(Constants.FormulaOperations.IsAvailable(value),
-                    $"Operation value should set in {nameof(Constants.FormulaOperations)}");
+                Argument.Require(FormulaOperations.IsAvailable(value),
+                    $"Operation value should set in {nameof(FormulaOperations)}");
 
                 _formulaOperation = value;                
             }

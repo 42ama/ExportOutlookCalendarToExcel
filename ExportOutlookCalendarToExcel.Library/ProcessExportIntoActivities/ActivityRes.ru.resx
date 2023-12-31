@@ -120,4 +120,7 @@
   <data name="MeetingPrefix" xml:space="preserve">
     <value>Встреча. </value>
   </data>
+  <data name="SubjectFallback" xml:space="preserve">
+    <value>&lt;пустая тема&gt;</value>
+  </data>
 </root>

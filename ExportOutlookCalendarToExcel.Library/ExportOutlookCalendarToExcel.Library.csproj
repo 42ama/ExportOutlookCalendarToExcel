@@ -76,6 +76,7 @@
       <HintPath>..\packages\System.Configuration.ConfigurationManager.8.0.0\lib\net462\System.Configuration.ConfigurationManager.dll</HintPath>
     </Reference>
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
@@ -126,10 +127,22 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ActivitySubjectsToIgnoreProviderRes.resx</DependentUpon>
     </Compile>
+    <Compile Include="ProcessExportIntoActivities\FormulaOperations.cs" />
     <Compile Include="ProcessExportIntoActivities\ICSExport\UnpackICSRecurrenceEvents\CalendarEventCopyExtension.cs" />
     <Compile Include="ProcessExportIntoActivities\ICSExport\UnpackICSRecurrenceEvents\UnpackICSExtension.cs" />
+    <Compile Include="WriteActivitiesIntoExcel\EPPlusExcelWriterRes.ru.Designer.cs">
+      <DependentUpon>EPPlusExcelWriterRes.ru.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="WriteActivitiesIntoExcel\EPPlusExcelWriterRes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EPPlusExcelWriterRes.resx</DependentUpon>
+    </Compile>
+    <Compile Include="WriteActivitiesIntoExcel\ExcelConstants.cs" />
     <Compile Include="_Common\Argument.cs" />
-    <Compile Include="_Common\Constants.cs" />
+    <Compile Include="_Common\CommonConstants.cs" />
     <Compile Include="_Common\DateTimeWeekBoundariesExtension.cs" />
     <Compile Include="_Common\StartOfWeek.cs" />
     <Compile Include="WriteActivitiesIntoExcel\WorkSheetExtension.cs" />
@@ -180,6 +193,14 @@
     <EmbeddedResource Include="ProcessExportIntoActivities\ActivitySubjectsToIgnoreProviderRes.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ActivitySubjectsToIgnoreProviderRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WriteActivitiesIntoExcel\EPPlusExcelWriterRes.ru.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>EPPlusExcelWriterRes.ru.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WriteActivitiesIntoExcel\EPPlusExcelWriterRes.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>EPPlusExcelWriterRes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

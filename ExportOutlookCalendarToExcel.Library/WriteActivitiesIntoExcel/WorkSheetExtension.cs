@@ -11,6 +11,21 @@ namespace ExportOutlookCalendarToExcel.Library.WriteActivitiesIntoExcel
     /// </summary>
     internal static class WorkSheetExtension
     {
+
+        /// <summary>
+        /// Get cell.
+        /// </summary>
+        /// <param name="sheet">Excel sheet.</param>
+        /// <param name="letter">Cell letter.</param>
+        /// <param name="index">Cell index.</param>
+        internal static ExcelRange GetCell(this ExcelWorksheet sheet, char letter, int index)
+        {
+            Argument.Require(Char.IsLetter(letter), $"Character in argument {nameof(letter)} should be letter.");
+            Argument.Require(index > 0, $"Index in argument {nameof(index)} should be greater then 0.");
+
+            return sheet.Cells[$"{letter}{index}"];
+        }
+
         /// <summary>
         /// Set value into cell.
         /// </summary>

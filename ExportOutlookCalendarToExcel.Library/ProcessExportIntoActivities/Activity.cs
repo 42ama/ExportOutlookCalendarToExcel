@@ -45,7 +45,7 @@ namespace ExportOutlookCalendarToExcel.Library.ProcessExportIntoActivities
             Duration = CalculateDuration(to - from);
             Date = from.Date;
             IsMeeting = isMeeting;
-            SetSubjectAndGroup(subject ?? Constants.ActivitySettings.SubjectFallback);
+            SetSubjectAndGroup(subject ?? ActivityRes.SubjectFallback);
         }
 
         /// <inheritdoc/>
@@ -90,7 +90,7 @@ namespace ExportOutlookCalendarToExcel.Library.ProcessExportIntoActivities
 
             SetDefaultSubjectAndGroup(subject);
 
-            var searchPattern = "%(.*?)%(.*)";// !!! AppConfigProvider.Get(Constants.AppConfig.KeyNames.GroupSearchPattern);
+            var searchPattern = "%(.*?)%(.*)";
             var regex = new Regex(searchPattern);
             var regexMatch = regex.Match(subject);
 

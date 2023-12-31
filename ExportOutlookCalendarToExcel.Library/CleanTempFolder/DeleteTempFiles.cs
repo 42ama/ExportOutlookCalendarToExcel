@@ -44,8 +44,8 @@ namespace ExportOutlookCalendarToExcel.Library.CleanTempFolder
             for (int i = 0; i < files.Length; i++)
             {
                 var filePath = files[i].FullName;
-                if (filePath.EndsWith(Constants.FileInfo.Excel.FileExtenstion)
-                    || filePath.EndsWith(Constants.FileInfo.ICalendar.FileExtenstion))
+                if (filePath.EndsWith(CommonConstants.FileInfo.Excel.FileExtenstion)
+                    || filePath.EndsWith(CommonConstants.FileInfo.ICalendar.FileExtenstion))
                 {
                     File.Delete(filePath);
                 }

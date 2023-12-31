@@ -117,10 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="MeetingPrefix" xml:space="preserve">
-    <value>Meeting. </value>
+  <data name="DurationColumnName" xml:space="preserve">
+    <value>Длительность</value>
   </data>
-  <data name="SubjectFallback" xml:space="preserve">
-    <value>&lt;empty subject&gt;</value>
+  <data name="GroupColumnName" xml:space="preserve">
+    <value>Группа</value>
+  </data>
+  <data name="SubjectColumnName" xml:space="preserve">
+    <value>Тема</value>
   </data>
 </root>

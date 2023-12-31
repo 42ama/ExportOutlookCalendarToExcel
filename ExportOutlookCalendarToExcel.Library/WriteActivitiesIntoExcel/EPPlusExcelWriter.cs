@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace ExportOutlookCalendarToExcel.Library.WriteActivitiesIntoExcel
@@ -68,7 +69,7 @@ namespace ExportOutlookCalendarToExcel.Library.WriteActivitiesIntoExcel
             var firstDate = sortedDates.First().ToShortDateString();
             var lastDate = sortedDates.Last().ToShortDateString();
 
-            var fileName = $"{firstDate}_{lastDate}.{Constants.FileInfo.Excel.FileExtenstion}";
+            var fileName = $"{firstDate}_{lastDate}.{CommonConstants.FileInfo.Excel.FileExtenstion}";
 
             var filePath = Path.Combine(resultDirPath, fileName);
 
@@ -76,24 +77,33 @@ namespace ExportOutlookCalendarToExcel.Library.WriteActivitiesIntoExcel
         }
 
         /// <summary>
-        /// Set header column values.
+        /// Set header column style and values.
         /// </summary>
         /// <param name="sheet">Excel sheets.</param>
         private static void SetHeaderColumns(ExcelWorksheet sheet)
         {
             Argument.NotNull(sheet, nameof(sheet));
-            
-            sheet.SetCellValue(Constants.Excel.Group.Letter,
-                                Constants.Excel.Header.RowNumber,
-                                Constants.Excel.Group.Name);
 
-            sheet.SetCellValue(Constants.Excel.Subject.Letter,
-                                Constants.Excel.Header.RowNumber,
-                                Constants.Excel.Subject.Name);
+            SetHeaderCellStyle(sheet,
+                               ExcelConstants.Group.Letter,
+                               ExcelConstants.Header.RowIndex);
+            sheet.SetCellValue(ExcelConstants.Group.Letter,
+                               ExcelConstants.Header.RowIndex,
+                               EPPlusExcelWriterRes.GroupColumnName);
 
-            sheet.SetCellValue(Constants.Excel.Duration.Letter,
-                                Constants.Excel.Header.RowNumber,
-                                Constants.Excel.Duration.Name);
+            SetHeaderCellStyle(sheet,
+                               ExcelConstants.Subject.Letter,
+                               ExcelConstants.Header.RowIndex);
+            sheet.SetCellValue(ExcelConstants.Subject.Letter,
+                               ExcelConstants.Header.RowIndex,
+                               EPPlusExcelWriterRes.SubjectColumnName);
+
+            SetHeaderCellStyle(sheet,
+                               ExcelConstants.Duration.Letter,
+                               ExcelConstants.Header.RowIndex);
+            sheet.SetCellValue(ExcelConstants.Duration.Letter,
+                               ExcelConstants.Header.RowIndex,
+                               EPPlusExcelWriterRes.DurationColumnName);
         }
 
         /// <summary>
@@ -104,8 +114,21 @@ namespace ExportOutlookCalendarToExcel.Library.WriteActivitiesIntoExcel
         {
             Argument.NotNull(sheet, nameof(sheet));
 
-            sheet.Columns[Constants.Excel.Subject.ColumnNumber].Width = Constants.Excel.Subject.ColumnLength;
-            sheet.Columns[Constants.Excel.Subject.ColumnNumber].Style.WrapText = true;
+            sheet.Columns[ExcelConstants.Subject.ColumnIndex].Width = ExcelConstants.Subject.ColumnLength;
+            sheet.Columns[ExcelConstants.Subject.ColumnIndex].Style.WrapText = true;
+        }
+
+        /// <summary>
+        /// Set header column style (bold font and background)
+        /// </summary>
+        /// <param name="sheet">Excel sheet.</param>
+        /// <param name="letter">Cell letter.</param>
+        /// <param name="index">Cell index.</param>
+        private static void SetHeaderCellStyle(ExcelWorksheet sheet, char letter, int index)
+        {
+            var headerCell = sheet.GetCell(letter, index);
+            headerCell.Style.Font.Bold = true;
+            headerCell.Style.Fill.SetBackground(System.Drawing.Color.LightSlateGray);
         }
 
         /// <summary>
@@ -120,14 +143,14 @@ namespace ExportOutlookCalendarToExcel.Library.WriteActivitiesIntoExcel
 
             var sumDurationFormula = new BasicFormula
             {
-                RangeStart = Constants.Excel.FirstValueRowNumber,
+                RangeStart = ExcelConstants.FirstValueRowIndex,
                 RangeEnd = lastRowIndex,
-                Letter = Constants.Excel.Duration.Letter,
-                FormulaOperation = Constants.FormulaOperations.Sum
+                Letter = ExcelConstants.Duration.Letter,
+                FormulaOperation = FormulaOperations.Sum
             };
             var formula = sumDurationFormula.GetFormula();
 
-            sheet.SetFormula(Constants.Excel.Duration.Letter, lastRowIndex + 1, formula);
+            sheet.SetFormula(ExcelConstants.Duration.Letter, lastRowIndex + 1, formula);
         }
 
         /// <summary>
@@ -141,19 +164,19 @@ namespace ExportOutlookCalendarToExcel.Library.WriteActivitiesIntoExcel
             Argument.NotNull(sheet, nameof(sheet));
             Argument.NotNull(activities, nameof(activities));
 
-            var indexToRecord = Constants.Excel.Header.RowNumber;
+            var indexToRecord = ExcelConstants.Header.RowIndex;
 
             foreach (var activity in activities)
             {
                 indexToRecord++;
                 
-                sheet.SetCellValue(Constants.Excel.Group.Letter,
+                sheet.SetCellValue(ExcelConstants.Group.Letter,
                                 indexToRecord,
                                 activity.Group);
-                sheet.SetCellValue(Constants.Excel.Subject.Letter,
+                sheet.SetCellValue(ExcelConstants.Subject.Letter,
                                 indexToRecord,
                                 activity.Subject);
-                sheet.SetCellValue(Constants.Excel.Duration.Letter,
+                sheet.SetCellValue(ExcelConstants.Duration.Letter,
                                 indexToRecord,
                                 activity.Duration);
             }
