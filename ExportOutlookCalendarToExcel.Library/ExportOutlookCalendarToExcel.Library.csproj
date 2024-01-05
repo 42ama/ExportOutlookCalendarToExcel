@@ -47,6 +47,9 @@
     <Reference Include="Ical.Net, Version=1.0.0.0, Culture=neutral, PublicKeyToken=65c0446cd019ea53, processorArchitecture=MSIL">
       <HintPath>..\packages\Ical.Net.4.2.0\lib\netstandard2.0\Ical.Net.dll</HintPath>
     </Reference>
+    <Reference Include="Ical.Net.UnpackEvents, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ical.Net.UnpackEvents.2.0.0\lib\netstandard2.0\Ical.Net.UnpackEvents.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.1.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
@@ -128,8 +131,6 @@
       <DependentUpon>ActivitySubjectsToIgnoreProviderRes.resx</DependentUpon>
     </Compile>
     <Compile Include="ProcessExportIntoActivities\FormulaOperations.cs" />
-    <Compile Include="ProcessExportIntoActivities\ICSExport\UnpackICSRecurrenceEvents\CalendarEventCopyExtension.cs" />
-    <Compile Include="ProcessExportIntoActivities\ICSExport\UnpackICSRecurrenceEvents\UnpackICSExtension.cs" />
     <Compile Include="WriteActivitiesIntoExcel\EPPlusExcelWriterRes.ru.Designer.cs">
       <DependentUpon>EPPlusExcelWriterRes.ru.resx</DependentUpon>
       <AutoGen>True</AutoGen>

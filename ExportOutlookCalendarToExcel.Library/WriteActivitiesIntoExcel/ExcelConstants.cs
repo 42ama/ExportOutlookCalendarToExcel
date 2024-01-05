@@ -17,7 +17,7 @@ namespace ExportOutlookCalendarToExcel.Library.WriteActivitiesIntoExcel
         internal static int FirstValueRowIndex { get; } = 2;
 
         /// <summary>
-        /// Header column settings..
+        /// Header column settings.
         /// </summary>
         internal static class Header
         {
@@ -36,6 +36,17 @@ namespace ExportOutlookCalendarToExcel.Library.WriteActivitiesIntoExcel
             /// Duration column letter.
             /// </summary>
             internal static char Letter { get; } = 'C';
+
+
+            /// <summary>
+            /// Duration column index.
+            /// </summary>
+            internal static int ColumnIndex { get; } = 3;
+
+            /// <summary>
+            /// Duration column length.
+            /// </summary>
+            internal static int ColumnLength { get; } = 22;
         }
 
         /// <summary>

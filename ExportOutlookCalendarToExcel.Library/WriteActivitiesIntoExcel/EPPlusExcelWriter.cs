@@ -116,6 +116,9 @@ namespace ExportOutlookCalendarToExcel.Library.WriteActivitiesIntoExcel
 
             sheet.Columns[ExcelConstants.Subject.ColumnIndex].Width = ExcelConstants.Subject.ColumnLength;
             sheet.Columns[ExcelConstants.Subject.ColumnIndex].Style.WrapText = true;
+
+
+            sheet.Columns[ExcelConstants.Duration.ColumnIndex].Width = ExcelConstants.Duration.ColumnLength;
         }
 
         /// <summary>

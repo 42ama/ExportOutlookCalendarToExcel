@@ -119,7 +119,7 @@
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="ToDatePicker.Location" type="System.Drawing.Point, System.Drawing">
-    <value>31, 32</value>
+    <value>42, 32</value>
   </data>
   <data name="ToDatePicker.Size" type="System.Drawing.Size, System.Drawing">
     <value>137, 20</value>
@@ -141,7 +141,7 @@
     <value>3</value>
   </data>
   <data name="FromDatePicker.Location" type="System.Drawing.Point, System.Drawing">
-    <value>31, 6</value>
+    <value>42, 6</value>
   </data>
   <data name="FromDatePicker.Size" type="System.Drawing.Size, System.Drawing">
     <value>137, 20</value>
@@ -168,13 +168,13 @@
     <value>5, 38</value>
   </data>
   <data name="ToLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>22, 13</value>
+    <value>20, 13</value>
   </data>
   <data name="ToLabel.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
   <data name="ToLabel.Text" xml:space="preserve">
-    <value>До</value>
+    <value>To</value>
   </data>
   <data name="&gt;&gt;ToLabel.Name" xml:space="preserve">
     <value>ToLabel</value>
@@ -195,13 +195,13 @@
     <value>5, 12</value>
   </data>
   <data name="FromLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>20, 13</value>
+    <value>30, 13</value>
   </data>
   <data name="FromLabel.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
   <data name="FromLabel.Text" xml:space="preserve">
-    <value>От</value>
+    <value>From</value>
   </data>
   <data name="&gt;&gt;FromLabel.Name" xml:space="preserve">
     <value>FromLabel</value>
@@ -219,13 +219,13 @@
     <value>8, 58</value>
   </data>
   <data name="ContinueButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>80, 23</value>
+    <value>91, 23</value>
   </data>
   <data name="ContinueButton.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
   </data>
   <data name="ContinueButton.Text" xml:space="preserve">
-    <value>Продолжить</value>
+    <value>Continue</value>
   </data>
   <data name="&gt;&gt;ContinueButton.Name" xml:space="preserve">
     <value>ContinueButton</value>
@@ -240,7 +240,7 @@
     <value>1</value>
   </data>
   <data name="CancelButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>94, 58</value>
+    <value>105, 58</value>
   </data>
   <data name="CancelButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>74, 23</value>
@@ -249,7 +249,7 @@
     <value>6</value>
   </data>
   <data name="CancelButton.Text" xml:space="preserve">
-    <value>Отменить</value>
+    <value>Cancel</value>
   </data>
   <data name="&gt;&gt;CancelButton.Name" xml:space="preserve">
     <value>CancelButton</value>
@@ -267,7 +267,7 @@
     <value>True</value>
   </metadata>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>174, 91</value>
+    <value>191, 91</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>ChooseDateDialog</value>

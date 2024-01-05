@@ -7,9 +7,11 @@ using ExportOutlookCalendarToExcel.Library.ProcessExportIntoActivities.ICSExport
 using NLog;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ExportOutlookCalendarToExcel.Library
@@ -55,7 +57,7 @@ namespace ExportOutlookCalendarToExcel.Library
                 var deleteTempFiles = new DeleteTempFiles(_resultsDirectoryInfo);
                 deleteTempFiles.Delete();
             }
-            catch (IOException ex)
+            catch (IOException)
             {
                 _logger.Warn($"Can't delete temp files because one of them is open. Path: {_resultsDirectoryInfo}");
             }
