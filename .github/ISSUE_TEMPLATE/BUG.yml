@@ -1,0 +1,35 @@
+name: Bug Report
+description: Report an issue that you are experiencing with the plugin
+labels: ["bug"]
+body:
+    - type: markdown
+      attributes:
+          value: |
+              Thank you for taking the time to fill out this bug report!
+    - type: textarea
+      id: description
+      attributes:
+          label: Describe the bug
+          description: What happened? Give a brief 1-2 sentence description
+      validations:
+          required: true
+    - type: textarea
+      id: steps-to-reproduce
+      attributes:
+          label: Steps to reproduce
+          description: What are the steps to reproduce the behavior?
+      validations:
+          required: true
+    - type: textarea
+      id: expected-behavior
+      attributes:
+          label: Expected behavior
+          description: What did you expect to happen?
+      validations:
+          required: true
+    - type: textarea
+      id: logs
+      attributes:
+          label: Relevant logs
+          description: Please copy and paste any relevant log messages or attach log files. They are located in "AppData\Local\ExportOutlookCalendarToExcel\Logs\"
+          render: shell
