@@ -32,4 +32,3 @@ body:
       attributes:
           label: Relevant logs
           description: Please copy and paste any relevant log messages or attach log files. They are located in "AppData\Local\ExportOutlookCalendarToExcel\Logs\"
-          render: shell
