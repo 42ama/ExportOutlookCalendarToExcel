@@ -75,6 +75,11 @@ namespace ExportOutlookCalendarToExcel.Library
 
             var icsActivitiesProcessor = new ICSActivitiesProcessor(exported.FilePath);
             var activities = icsActivitiesProcessor.ReadActivities();
+            if (activities.Count == 0)
+            {
+                _logger.Warn("Gathered 0 activities from range,  was unsuccessful interrupt processing before export to excel.");
+                return;
+            }
 
             var excelBuilder = new ExcelBuilder(exported.ParentDirectoryFilePath);
             excelBuilder.Build(activities);

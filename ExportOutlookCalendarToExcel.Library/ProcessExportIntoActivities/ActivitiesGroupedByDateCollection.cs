@@ -12,6 +12,14 @@ namespace ExportOutlookCalendarToExcel.Library.ProcessExportIntoActivities
     /// </summary>
     public class ActivitiesGroupedByDateCollection : IEnumerable<ActivitiesGroupedByDate>
     {
+        public int Count
+        {
+            get
+            {
+                return _activities.Count;
+            }
+        }
+
         /// <summary>
         /// Inner main collection of activities with dates.
         /// </summary>
