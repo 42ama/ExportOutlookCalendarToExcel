@@ -90,13 +90,13 @@ namespace ExportOutlookCalendarToExcel.Library.ProcessExportIntoActivities
 
             SetDefaultSubjectAndGroup(subject);
 
-            var searchPattern = "%(.*?)%(.*)";
+            var searchPattern = "(.*?);(.*)";
             var regex = new Regex(searchPattern);
             var regexMatch = regex.Match(subject);
 
             if (regexMatch.Success && regexMatch.Groups.Count > 0)
             {
-                Group = regexMatch.Groups[1].Value;
+                Group = regexMatch.Groups[1].Value.Trim();
                 AddSubject(regexMatch.Groups[2].Value);
             }
         }

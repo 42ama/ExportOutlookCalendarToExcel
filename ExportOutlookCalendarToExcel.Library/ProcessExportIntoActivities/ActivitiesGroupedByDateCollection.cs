@@ -25,6 +25,11 @@ namespace ExportOutlookCalendarToExcel.Library.ProcessExportIntoActivities
         /// </summary>
         private readonly IList<ActivitiesGroupedByDate> _activities;
 
+        internal ActivitiesGroupedByDateCollection()
+        {
+            _activities = new List<ActivitiesGroupedByDate>();
+        }
+
         internal ActivitiesGroupedByDateCollection(IEnumerable<Activity> activities)
         {
             Argument.NotNull(activities, nameof(activities));

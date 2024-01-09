@@ -8,6 +8,10 @@ This VSTO Outlook plugin enhances the functionality of Outlook by allowing users
 
 Users also have the option to select the **Choose date range** option and manually specify the period of dates to be exported.
 
+### Groups
+
+Events can be processed and grouped separately. To select an event within a group, its subject must contain two distinct parts, separated by a semicolon `;`. For example, the subject could be `Cool project; Meeting with friends`.
+
 ## Unsupported (features for future releases)
 - Export for recurring events other then daily and weekly.
 - Export for events with several recurrance rules. 
